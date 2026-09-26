@@ -61,7 +61,7 @@
 
   function matches(c, ignore) {
     if (ignore !== "region" && state.region && c.region !== state.region) return false;
-    if (ignore !== "school" && state.school && c.school !== state.school) return false;
+    if (ignore !== "school" && state.school && c.school_key !== state.school) return false;
     if (ignore !== "placement" && state.placement) {
       if (state.placement === "known" && !c.placement) return false;
       if (state.placement === "unknown" && c.placement) return false;
@@ -100,7 +100,7 @@
 
   function renderStats(list) {
     const all = cycleCandidates();
-    const schools = new Set(list.map((c) => c.school));
+    const schools = new Set(list.map((c) => c.school_key));
     const placed = list.filter((c) => c.placement);
     const n = (t) => placed.filter((c) => c.placement_type === t).length;
     const pct = placed.length ? Math.round(100 * n("Faculty") / placed.length) : 0;
@@ -122,11 +122,11 @@
     }).join("");
     // school: keep source order (US by rank, then non-US)
     const seen = new Map();
-    for (const s of cycleSchools()) if (!seen.has(s.name)) seen.set(s.name, s);
+    for (const s of cycleSchools()) if (!seen.has(s.key)) seen.set(s.key, s);
     const opts = [...seen.values()].filter((s) => !state.region || s.region === state.region).map((s) => {
-      const n = cycleCandidates().filter((c) => c.school === s.name && matches(c, "school")).length;
+      const n = cycleCandidates().filter((c) => c.school_key === s.key && matches(c, "school")).length;
       const rank = s.rank ? `#${s.rank} ` : "";
-      return `<option value="${esc(s.name)}" ${state.school === s.name ? "selected" : ""}>${rank}${esc(s.name)}${s.name_zh ? "（" + esc(s.name_zh) + "）" : ""} (${n})</option>`;
+      return `<option value="${esc(s.key)}" ${state.school === s.key ? "selected" : ""}>${rank}${esc(s.name)}${s.name_zh ? "（" + esc(s.name_zh) + "）" : ""} (${n})</option>`;
     });
     el.school.innerHTML = `<option value="">全部院校</option>` + opts.join("");
     el.placement.value = state.placement;
@@ -182,14 +182,14 @@
       const schoolsInOrder = cycleSchools().filter((s) => !state.region || s.region === state.region);
       const byKey = new Map();
       for (const c of list) {
-        const k = c.cycle + "|" + c.school;
+        const k = c.cycle + "|" + c.school_key;
         if (!byKey.has(k)) byKey.set(k, []);
         byKey.get(k).push(c);
       }
       const orderedKeys = new Set();
-      for (const s of schoolsInOrder) orderedKeys.add(s.cycle + "|" + s.name);
+      for (const s of schoolsInOrder) orderedKeys.add(s.cycle + "|" + s.key);
       for (const s of schoolsInOrder) {
-        const k = s.cycle + "|" + s.name;
+        const k = s.cycle + "|" + s.key;
         const cands = byKey.get(k) || [];
         if (!cands.length && !showEmptySchools) continue;
         const note = s.notes && s.notes.length ? `<span class="note">${esc(s.notes.join(" "))}</span>` : (cands.length ? "" : `<span class="note">暂无记录</span>`);

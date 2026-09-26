@@ -108,10 +108,11 @@ def classify_placement(text: str | None) -> str | None:
     if not text:
         return None
     t = text.lower()
-    if re.search(r"postdoc|post-doc|博士后|博后|research fellow|research associate|visiting scholar", t):
-        return "Postdoc"
+    # faculty first: "Postdoc @ X, then AP @ Y" is ultimately a faculty placement
     if re.search(r"professor|\bap\b|lecturer|讲师|助理教授|副教授|教授|faculty|tenure", t):
         return "Faculty"
+    if re.search(r"postdoc|post-doc|博士后|博后|research fellow|research associate|visiting scholar", t):
+        return "Postdoc"
     return "Industry & Other"
 
 
@@ -153,6 +154,8 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], warnings: list[str]
                 "rank": rank,
                 "name": m.group("name").strip(),
                 "name_zh": (m.group("zh") or "").strip() or None,
+                # region + name disambiguates e.g. SMU (Southern Methodist) vs SMU (Singapore Management)
+                "key": f"{region or '未分区'}|{m.group('name').strip()}",
                 "notes": [],
                 "n": 0,
             }
@@ -193,7 +196,7 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], warnings: list[str]
                 warn(f"line {lineno}: candidate before any school header: {line[:40]}")
                 school = {
                     "cycle": cycle, "region": region or "未分区", "order": school_order,
-                    "rank": None, "name": "未知院校", "name_zh": None, "notes": [], "n": 0,
+                    "rank": None, "name": "未知院校", "name_zh": None, "key": f"{region or '未分区'}|未知院校", "notes": [], "n": 0,
                 }
                 schools.append(school)
             name_en, name_zh = split_name(m.group("name"))
@@ -203,6 +206,7 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], warnings: list[str]
                 "region": school["region"],
                 "school": school["name"],
                 "school_zh": school["name_zh"],
+                "school_key": school["key"],
                 "rank": school["rank"],
                 "school_order": school["order"],
                 "name": name_en,
