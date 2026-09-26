@@ -20,14 +20,14 @@ python -m http.server 8000 -d site
 
 ## 二、发布到 GitHub Pages（只需做一次）
 
-1. 在 GitHub 新建一个仓库（例如 `chinese-econ-jmc`，公开或私有均可；私有仓库的 Pages 需要 GitHub Pro/Team）。
+1. 在 GitHub 新建一个仓库（本项目使用组织 `chinese-econ-jmc` 下的仓库 `chinese-econ-jmc.github.io`，这样网址就是组织名根域）。
 2. 在本地推送：
    ```bash
-   git remote add origin https://github.com/<你的账号>/chinese-econ-jmc.git
+   git remote add origin https://github.com/chinese-econ-jmc/chinese-econ-jmc.github.io.git
    git push -u origin main
    ```
 3. 仓库 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**。
-4. 等 Actions 跑完（约 1 分钟），网站地址是 `https://<你的账号>.github.io/chinese-econ-jmc/`。
+4. 等 Actions 跑完（约 1 分钟），网站地址是 `https://chinese-econ-jmc.github.io/`。
 5. 把 `site/app.js` 顶部 `CONFIG.repoUrl` 改成你的仓库地址，页脚的"补充 / 纠错"链接和条目里的"编辑此条目"链接就会指向仓库。
 
 之后每次 `data/` 有改动并推送到 `main`，网站会自动重新构建。
