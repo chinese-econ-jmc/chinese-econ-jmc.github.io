@@ -4,7 +4,7 @@
 
   const CONFIG = {
     // Change this to your repository URL after creating it on GitHub.
-    repoUrl: "https://github.com/YOUR_GITHUB_ID/chinese-econ-jmc",
+    repoUrl: "https://github.com/zhirenhu/chinese-econ-jmc",
   };
 
   const D = window.JMC_DATA;
