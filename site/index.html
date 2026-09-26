@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chinese Econ Job Market Candidates · 中国经济学博士求职者名录</title>
+<meta name="description" content="A yearly, community-maintained directory of economics PhD job market candidates from mainland China.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Chinese Econ <span>JMC</span></h1>
+      <p class="tagline">中国经济学博士 Job Market Candidates 名录 · 按年度更新，社区维护</p>
+    </div>
+    <nav class="cycles" id="cycle-tabs" aria-label="Job market cycle"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="stats" id="stats" aria-live="polite"></section>
+
+  <section class="controls">
+    <div class="row">
+      <input id="q" type="search" placeholder="搜索姓名 / 院校 / JMP 题目 / 简介 …" autocomplete="off">
+      <select id="region"><option value="">全部地区</option></select>
+      <select id="school"><option value="">全部院校</option></select>
+      <select id="placement">
+        <option value="">全部去向</option>
+        <option value="known">已有去向</option>
+        <option value="Faculty">教职 Faculty</option>
+        <option value="Postdoc">博后 Postdoc</option>
+        <option value="Industry & Other">业界及其他</option>
+        <option value="unknown">去向未知</option>
+      </select>
+      <select id="sort">
+        <option value="rank">按院校排名</option>
+        <option value="name">按姓名</option>
+        <option value="school">按院校名称</option>
+      </select>
+      <label class="toggle"><input type="checkbox" id="group" checked> 按院校分组</label>
+      <button id="reset" class="btn-ghost" type="button">清除筛选</button>
+    </div>
+    <div class="row chips" id="field-chips" aria-label="Research fields"></div>
+  </section>
+
+  <p class="result-count" id="count"></p>
+
+  <section class="table-wrap">
+    <table id="table">
+      <thead>
+        <tr>
+          <th class="col-name">姓名</th>
+          <th class="col-school">院校</th>
+          <th class="col-fields">研究领域</th>
+          <th class="col-jmp">Job Market Paper</th>
+          <th class="col-links">主页</th>
+          <th class="col-place">去向 Placement</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>没有符合条件的候选人。</p>
+  </section>
+
+</main>
+
+<footer class="wrap footer">
+  <p>
+    数据更新于 <span id="generated"></span> ·
+    <a id="repo-link" href="#" target="_blank" rel="noopener">在 GitHub 上补充 / 纠错</a> ·
+    信息来自公开个人主页与院系页面，如需修改或删除自己的信息请通过 GitHub 提交 issue。
+  </p>
+  <p class="muted">Inspired by <a href="https://econ.now/jmc/2025" target="_blank" rel="noopener">econ.now/jmc</a>. Static site, no tracking.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
