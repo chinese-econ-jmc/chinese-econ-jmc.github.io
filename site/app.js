@@ -111,31 +111,9 @@
       <div class="stat"><div class="n">${schools.size}</div><div class="l">院校</div></div>
       <div class="stat"><div class="n">${placed.length}</div><div class="l">已知去向</div>
         <div class="sub">教职 ${n("Faculty")} · 博后 ${n("Postdoc")} · 业界/其他 ${n("Industry & Other")}${deferred ? ` · 延期 ${deferred}` : ""}</div></div>
-      <div class="stat"><div class="n">${placed.length ? pct + "%" : "–"}</div><div class="l">已知去向中为教职</div></div>
-      ${renderFacultyRegions(list)}`;
+      <div class="stat"><div class="n">${placed.length ? pct + "%" : "–"}</div><div class="l">已知去向中为教职</div></div>`;
   }
 
-  // horizontal bars: faculty placements by region of the final destination
-  function renderFacultyRegions(list) {
-    const fac = list.filter((c) => c.placement_type === "Faculty");
-    if (!fac.length) return "";
-    const order = D.placement_regions || [];
-    const counts = new Map();
-    for (const c of fac) {
-      const r = c.placement_region || "未归类";
-      counts.set(r, (counts.get(r) || 0) + 1);
-    }
-    const rows = [...counts].sort((a, b) => b[1] - a[1] || order.indexOf(a[0]) - order.indexOf(b[0]));
-    const max = rows[0][1];
-    const bars = rows.map(([r, k]) => {
-      const p = Math.round(100 * k / fac.length);
-      return `<div class="rrow" title="${esc(r)}：${k} 人，占教职 ${p}%">
-        <span class="rl">${esc(r)}</span>
-        <span class="rt"><span class="rb" style="width:${(100 * k / max).toFixed(1)}%"></span></span>
-        <span class="rv">${k} · ${p}%</span></div>`;
-    }).join("");
-    return `<div class="stat regions"><div class="l">教职去向地区（共 ${fac.length} 人，按最终任职地计）</div><div class="rbars">${bars}</div></div>`;
-  }
 
   function renderSelects() {
     // region

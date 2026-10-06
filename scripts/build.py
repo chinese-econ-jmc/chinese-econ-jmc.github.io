@@ -29,6 +29,7 @@ DATA_DIR = ROOT / "data"
 SITE_DIR = ROOT / "site"
 FIELD_MAP_FILE = DATA_DIR / "fields.json"
 REGION_MAP_FILE = DATA_DIR / "regions.json"
+INSTITUTION_MAP_FILE = DATA_DIR / "institutions.json"
 
 # ---------------------------------------------------------------- regexes ---
 RE_REGION = re.compile(r"^#{1,6}\s*(.+?)\s*$")
@@ -66,25 +67,28 @@ def load_field_map() -> list[tuple[str, str]]:
     return pairs
 
 
-def load_region_map() -> list[tuple[str, list[re.Pattern]]]:
-    """Return ordered list of (region, keyword patterns); the first matching region wins."""
-    raw = json.loads(REGION_MAP_FILE.read_text(encoding="utf-8"))
+KeywordMap = list[tuple[str, list[re.Pattern]]]
+
+
+def load_keyword_map(path: Path, key: str) -> KeywordMap:
+    """Return ordered list of (label, keyword patterns) from regions.json / institutions.json."""
+    raw = json.loads(path.read_text(encoding="utf-8"))
     return [
-        (region, [re.compile(r"(?<![a-z])" + re.escape(kw.lower()) + r"(?![a-z])") for kw in keywords])
-        for region, keywords in raw["regions"].items()
+        (label, [re.compile(r"(?<![a-z])" + re.escape(kw.lower()) + r"(?![a-z])") for kw in keywords])
+        for label, keywords in raw[key].items()
     ]
 
 
-def classify_region(text: str | None, region_map: list[tuple[str, list[re.Pattern]]]) -> str | None:
-    """Region of the final destination in a placement text."""
+def match_destination(text: str | None, kmap: KeywordMap) -> str | None:
+    """First label whose keywords match the final destination in a placement text."""
     if not text:
         return None
     t = text.lower()
     t = re.split(r"\bthen\b", t)[-1]          # "Postdoc @ X, then AP @ Y" -> Y
     t = re.sub(r"\(\s*after\b[^)]*\)", "", t)  # "AP @ Y (after Postdoc @ X)" -> Y
-    for region, patterns in region_map:
+    for label, patterns in kmap:
         if any(p.search(t) for p in patterns):
-            return region
+            return label
     return None
 
 
@@ -142,7 +146,7 @@ def classify_placement(text: str | None) -> str | None:
     return "Industry & Other"
 
 
-def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: list, warnings: list[str]) -> dict:
+def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: KeywordMap, inst_map: KeywordMap, warnings: list[str]) -> dict:
     cycle = path.stem
     lines = path.read_text(encoding="utf-8").splitlines()
 
@@ -273,7 +277,9 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: list, w
 
         c["fields_raw"], c["fields"] = parse_fields(bio, field_map)
         c["placement_type"] = classify_placement(c["placement"])
-        c["placement_region"] = classify_region(c["placement"], region_map) if c["placement_type"] == "Faculty" else None
+        is_faculty = c["placement_type"] == "Faculty"
+        c["placement_region"] = match_destination(c["placement"], region_map) if is_faculty else None
+        c["placement_inst"] = match_destination(c["placement"], inst_map) if is_faculty else None
 
         slug = re.sub(r"[^a-z0-9]+", "-", c["name"].lower()).strip("-") or "x"
         c["id"] = f"{cycle}/{slug}"
@@ -285,7 +291,8 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: list, w
 def main() -> int:
     check_only = "--check" in sys.argv
     field_map = load_field_map()
-    region_map = load_region_map()
+    region_map = load_keyword_map(REGION_MAP_FILE, "regions")
+    inst_map = load_keyword_map(INSTITUTION_MAP_FILE, "institutions")
     warnings: list[str] = []
 
     files = sorted(DATA_DIR.glob("*.md"))
@@ -298,7 +305,7 @@ def main() -> int:
     all_candidates = []
     all_schools = []
     for f in files:
-        parsed = parse_file(f, field_map, region_map, warnings)
+        parsed = parse_file(f, field_map, region_map, inst_map, warnings)
         cycles.append(parsed["cycle"])
         all_candidates.extend(parsed["candidates"])
         all_schools.extend(parsed["schools"])
@@ -321,6 +328,11 @@ def main() -> int:
     if no_region:
         print(f"\n{len(no_region)} faculty placements had no region match (add keywords to data/regions.json):")
         for c in no_region:
+            print(f"   {c['cycle']}  {c['placement']}")
+    no_inst = [c for c in all_candidates if c["placement_type"] == "Faculty" and not c["placement_inst"]]
+    if no_inst:
+        print(f"\n{len(no_inst)} faculty placements had no institution match (add keywords to data/institutions.json):")
+        for c in no_inst:
             print(f"   {c['cycle']}  {c['placement']}")
 
     if warnings:
