@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JMC Placement Stats · 中国经济学博士求职去向统计</title>
-<meta name="description" content="Placement statistics for economics PhD job market candidates from mainland China: placement mix by year, faculty destinations by region and institution, by PhD school tier and research field.">
+<meta name="description" content="Where do economics PhD job market candidates from mainland China end up? Placement mix by year, faculty destinations, who gets faculty jobs, top hiring institutions, undergraduate and PhD origins.">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="stats.css">
 </head>
@@ -17,49 +17,65 @@
         <h1>Chinese Econ <span>JMC</span></h1>
         <nav class="pages" aria-label="Pages"><a href="./">名录</a><a href="stats.html" class="active" aria-current="page">统计</a></nav>
       </div>
-      <p class="tagline">中国经济学博士 Job Market Candidates 去向统计 · 数据与名录同步</p>
+      <p class="tagline">中国经济学博士毕业后去了哪里 · 数据与名录同步</p>
     </div>
   </div>
 </header>
 
 <main class="wrap viz">
 
-  <section class="panel">
-    <h2>历年去向结构</h2>
-    <p class="note">每位候选人按 Placement 归为一类；"未知"表示名录里尚无去向信息，不代表没有去向。尚无任何去向信息的年度（仍在求职中）不列出。</p>
-    <div id="mix"></div>
-  </section>
-
-  <section class="panel">
-    <h2>教职去向地区 · 历年对比</h2>
-    <p class="note">按最终任职地计（"Postdoc 之后 AP"计 AP 所在地）；港科广、港中深、上纽大、昆山杜克计入中国大陆。条长为该地区占当年教职的比例。</p>
-    <div id="regions"></div>
-  </section>
-
   <div class="section-head">
-    <h2>细分</h2>
+    <p class="lede" id="lede"></p>
     <div class="seg" id="cycle-seg" role="tablist" aria-label="年度"></div>
   </div>
 
-  <section class="kpis" id="kpis" aria-live="polite"></section>
+  <section class="hero" id="hero" aria-live="polite"></section>
 
   <section class="panel">
-    <h2>博士院校档次 × 去向</h2>
-    <p class="note">院校档次按名录中的美国院校排名划分；颜色深浅为该档内的占比，格内为人数与占比。</p>
-    <div id="tiers" class="scroll-x"></div>
+    <h2 id="mix-title"></h2>
+    <p class="note">每年候选人的去向构成。"未知"指名录中还没有去向信息，不代表没有工作。</p>
+    <div id="mix"></div>
   </section>
 
   <div class="two-col">
     <section class="panel">
-      <h2>研究领域 × 去向</h2>
-      <p class="note">只计已有去向（教职 / 博后 / 业界及其他）的候选人，按教职比例排序；研究领域可多选，一人可计入多个领域。</p>
+      <h2 id="regions-title"></h2>
+      <p class="note">教职所在地区占当年教职的比例，按最终任职地计（先博后再 AP 的计 AP 所在地）。</p>
+      <div id="regions"></div>
+    </section>
+
+    <section class="panel">
+      <h2 id="who-title"></h2>
+      <p class="note">各组在已有最终去向（教职 / 博后 / 业界及其他）的人中拿到教职的比例；虚线为全体平均。只反映相关性。</p>
+      <div id="who"></div>
+    </section>
+  </div>
+
+  <div class="two-col">
+    <section class="panel">
+      <h2 id="fields-title"></h2>
+      <p class="note">各研究领域的教职率，虚线为全体平均。一人可属于多个领域；少于 10 人的领域不列出。</p>
       <div id="fields"></div>
     </section>
 
     <section class="panel">
-      <h2>主要教职去向机构</h2>
-      <p class="note">同一机构的不同学院合并计算。</p>
+      <h2 id="insts-title"></h2>
+      <p class="note">招收教职最多的机构，同一机构的不同学院合并计算。</p>
       <div id="insts"></div>
+    </section>
+  </div>
+
+  <div class="two-col">
+    <section class="panel">
+      <h2 id="ug-title"></h2>
+      <p class="note">候选人的本科院校（人数）。</p>
+      <div id="ug"></div>
+    </section>
+
+    <section class="panel">
+      <h2 id="phd-title"></h2>
+      <p class="note">候选人的博士项目（人数）。</p>
+      <div id="phd"></div>
     </section>
   </div>
 
@@ -68,8 +84,8 @@
 <footer class="wrap footer">
   <p>
     数据更新于 <span id="generated"></span> ·
-    <a id="repo-link" href="https://github.com/chinese-econ-jmc/chinese-econ-jmc.github.io" target="_blank" rel="noopener">在 GitHub 上补充 / 纠错</a> ·
-    统计口径：地区与机构归类见仓库中 data/regions.json、data/institutions.json。
+    <a href="https://github.com/chinese-econ-jmc/chinese-econ-jmc.github.io" target="_blank" rel="noopener">在 GitHub 上补充 / 纠错</a> ·
+    统计口径：地区与机构归类见仓库中 data/regions.json、data/institutions.json；"发表/返修"按简介文字判断。
   </p>
 </footer>
 
