@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
 SITE_DIR = ROOT / "site"
 FIELD_MAP_FILE = DATA_DIR / "fields.json"
+REGION_MAP_FILE = DATA_DIR / "regions.json"
 
 # ---------------------------------------------------------------- regexes ---
 RE_REGION = re.compile(r"^#{1,6}\s*(.+?)\s*$")
@@ -63,6 +64,28 @@ def load_field_map() -> list[tuple[str, str]]:
     # longer keywords first so "国际贸易" wins over "贸易" etc.
     pairs.sort(key=lambda p: -len(p[0]))
     return pairs
+
+
+def load_region_map() -> list[tuple[str, list[re.Pattern]]]:
+    """Return ordered list of (region, keyword patterns); the first matching region wins."""
+    raw = json.loads(REGION_MAP_FILE.read_text(encoding="utf-8"))
+    return [
+        (region, [re.compile(r"(?<![a-z])" + re.escape(kw.lower()) + r"(?![a-z])") for kw in keywords])
+        for region, keywords in raw["regions"].items()
+    ]
+
+
+def classify_region(text: str | None, region_map: list[tuple[str, list[re.Pattern]]]) -> str | None:
+    """Region of the final destination in a placement text."""
+    if not text:
+        return None
+    t = text.lower()
+    t = re.split(r"\bthen\b", t)[-1]          # "Postdoc @ X, then AP @ Y" -> Y
+    t = re.sub(r"\(\s*after\b[^)]*\)", "", t)  # "AP @ Y (after Postdoc @ X)" -> Y
+    for region, patterns in region_map:
+        if any(p.search(t) for p in patterns):
+            return region
+    return None
 
 
 def split_name(name: str) -> tuple[str, str | None]:
@@ -119,7 +142,7 @@ def classify_placement(text: str | None) -> str | None:
     return "Industry & Other"
 
 
-def parse_file(path: Path, field_map: list[tuple[str, str]], warnings: list[str]) -> dict:
+def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: list, warnings: list[str]) -> dict:
     cycle = path.stem
     lines = path.read_text(encoding="utf-8").splitlines()
 
@@ -250,6 +273,7 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], warnings: list[str]
 
         c["fields_raw"], c["fields"] = parse_fields(bio, field_map)
         c["placement_type"] = classify_placement(c["placement"])
+        c["placement_region"] = classify_region(c["placement"], region_map) if c["placement_type"] == "Faculty" else None
 
         slug = re.sub(r"[^a-z0-9]+", "-", c["name"].lower()).strip("-") or "x"
         c["id"] = f"{cycle}/{slug}"
@@ -261,6 +285,7 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], warnings: list[str]
 def main() -> int:
     check_only = "--check" in sys.argv
     field_map = load_field_map()
+    region_map = load_region_map()
     warnings: list[str] = []
 
     files = sorted(DATA_DIR.glob("*.md"))
@@ -273,7 +298,7 @@ def main() -> int:
     all_candidates = []
     all_schools = []
     for f in files:
-        parsed = parse_file(f, field_map, warnings)
+        parsed = parse_file(f, field_map, region_map, warnings)
         cycles.append(parsed["cycle"])
         all_candidates.extend(parsed["candidates"])
         all_schools.extend(parsed["schools"])
@@ -291,6 +316,13 @@ def main() -> int:
         for k, v in sorted(unmapped.items(), key=lambda kv: -kv[1])[:30]:
             print(f"   {v:3d}  {k}")
 
+    # faculty placements whose institution is not in regions.json
+    no_region = [c for c in all_candidates if c["placement_type"] == "Faculty" and not c["placement_region"]]
+    if no_region:
+        print(f"\n{len(no_region)} faculty placements had no region match (add keywords to data/regions.json):")
+        for c in no_region:
+            print(f"   {c['cycle']}  {c['placement']}")
+
     if warnings:
         print(f"\n{len(warnings)} warnings:")
         for w in warnings:
@@ -303,6 +335,7 @@ def main() -> int:
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "cycles": sorted(cycles, reverse=True),
         "field_categories": list(json.loads(FIELD_MAP_FILE.read_text(encoding="utf-8"))["categories"].keys()),
+        "placement_regions": [region for region, _ in region_map],
         "schools": all_schools,
         "candidates": all_candidates,
     }

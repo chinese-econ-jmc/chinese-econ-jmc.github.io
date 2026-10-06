@@ -1,0 +1,55 @@
+{
+  "_comment": "Institution keyword -> region mapping for faculty placements, used by scripts/build.py. Only the final destination counts: '(after Postdoc @ X)' and anything before 'then' are ignored. Keywords are matched case-insensitively as whole words; regions are tried in this order and the first match wins, so put specific campuses (e.g. CUHK (SZ), NYU Shanghai, Temple University Japan) in an earlier region than their parent institution. Add keywords here when build.py reports an unmatched faculty placement.",
+  "regions": {
+    "中国大陆": [
+      "(sz)", "(gz)", "shenzhen", "guangzhou", "nyu shanghai", "duke kunshan", "kunshan",
+      "peking", "tsinghua", "fudan", "renmin", "ruc", "shanghai", "jiao tong", "xiamen", "nankai",
+      "zhejiang", "wuhan", "jinan", "huazhong", "sun yat-sen", "nanjing",
+      "southwestern university of finance", "central university of finance",
+      "university of international business and economics", "capital university of economics", "hainan",
+      "北京大学", "清华", "复旦", "人民大学", "上海", "厦门大学", "南开", "浙江大学", "武汉大学",
+      "中山大学", "暨南", "南京大学", "西南财经", "中央财经", "对外经济贸易"
+    ],
+    "港澳": [
+      "hong kong", "hkust", "hku", "cuhk", "cityu", "polyu", "lingnan", "macau", "香港", "澳门"
+    ],
+    "新加坡": [
+      "singapore", "nus", "ntu", "nanyang", "新加坡"
+    ],
+    "日本": [
+      "japan", "tokyo", "kyoto", "osaka", "hitotsubashi", "waseda", "keio", "日本"
+    ],
+    "澳新": [
+      "australia", "monash", "queensland", "melbourne", "sydney", "unsw", "anu", "auckland",
+      "new zealand", "wellington", "otago", "澳大利亚", "新西兰"
+    ],
+    "加拿大": [
+      "ubc", "british columbia", "toronto", "mcgill", "western ontario", "waterloo", "alberta",
+      "calgary", "simon fraser", "mcmaster", "montreal", "加拿大"
+    ],
+    "欧洲": [
+      "eth", "lbs", "london", "lse", "ucl", "oxford", "cambridge", "warwick", "manchester",
+      "edinburgh", "royal holloway", "essex", "nottingham", "bristol", "aalto", "zew", "mannheim",
+      "bonn", "frankfurt", "berlin", "lmu", "munich", "sciences po", "paris", "pse", "toulouse",
+      "insead", "trinity college dublin", "dublin", "stockholm", "uppsala", "copenhagen", "nhh",
+      "norwegian", "linz", "vienna", "bocconi", "tilburg", "amsterdam", "rotterdam", "erasmus",
+      "leuven", "zurich", "lausanne", "epfl", "geneva", "cemfi", "pompeu", "barcelona",
+      "new economic school", "欧洲"
+    ],
+    "其他": [
+      "sharjah", "abu dhabi", "dubai", "qatar", "korea", "seoul", "kaist", "india", "israel",
+      "tel aviv", "chile", "brazil", "mexico"
+    ],
+    "美国": [
+      "nyu", "usc", "ucla", "uc", "university of california", "california", "harvard", "stanford", "mit",
+      "princeton", "yale", "columbia", "berkeley", "cornell", "duke", "northwestern", "penn",
+      "wharton", "brown", "dartmouth", "chicago", "cmu", "carnegie", "notre dame", "suny",
+      "binghamton", "stony brook", "santa clara", "tennessee", "michigan", "bowdoin", "texas",
+      "rice", "emory", "vanderbilt", "purdue", "indiana", "illinois", "wisconsin", "minnesota",
+      "arizona", "colorado", "utah", "oregon", "florida", "virginia", "north carolina", "unc",
+      "pittsburgh", "rochester", "syracuse", "rutgers", "new york", "riverside", "nevada", "osu",
+      "ohio", "georgia", "maryland", "boston", "south dakota", "denison", "washington", "iowa",
+      "massachusetts", "umass", "美国"
+    ]
+  }
+}

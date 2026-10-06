@@ -47,6 +47,13 @@ a:hover { text-decoration: underline; }
 .stat .n { font-size: 26px; font-weight: 700; line-height: 1.1; }
 .stat .l { color: var(--muted); font-size: 13px; margin-top: 2px; }
 .stat .sub { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.stat.regions { grid-column: 1 / -1; }
+.rbars { display: grid; gap: 2px; margin-top: 8px; max-width: 640px; }
+.rrow { display: grid; grid-template-columns: 4.5em 1fr 6em; align-items: center; gap: 10px; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.rrow:hover { background: var(--tag); }
+.rt { height: 10px; }
+.rb { display: block; height: 100%; min-width: 2px; background: var(--faculty); border-radius: 0 4px 4px 0; }
+.rv { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
 
 /* controls */
 .controls { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px; }

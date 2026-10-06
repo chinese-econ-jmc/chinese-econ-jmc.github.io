@@ -77,6 +77,7 @@ No Chinese in 2025-2026 Cycle.                <- 院校下没有人时可写一�
 | 研究领域标签 | `研究兴趣包括/为/主要是 …` 之后的文字，按 `、和与及` 拆分，再按 `data/fields.json` 里的关键词映射到英文类别（Labor / Macro / IO …） |
 | JMP 题目 | `JMP题为“…”` |
 | 去向类别 | Placement 文字里含 Professor / AP / Lecturer → 教职；Postdoc → 博后；含"延期"→ 延期；其他 → 业界/其他 |
+| 教职地区 | 教职的最终任职机构按 `data/regions.json` 里的关键词归到地区（中国大陆 / 港澳 / 美国 / 欧洲 …），用于统计栏的"教职去向地区"图；出现新机构时 `build.py` 会提示补关键词 |
 
 **几点约定**（解析器对这些都能容错，但保持一致最省事）：
 
@@ -91,7 +92,7 @@ No Chinese in 2025-2026 Cycle.                <- 院校下没有人时可写一�
 ## 五、目录结构
 
 ```
-data/            每个周期一个 .md（数据源，协作者只需要改这里）+ fields.json（领域关键词）
+data/            每个周期一个 .md（数据源，协作者只需要改这里）+ fields.json（领域关键词）+ regions.json（教职机构 → 地区）
 scripts/build.py 解析脚本（Python 3.10+，无第三方依赖）
 site/            网站静态文件；data.js / data.json 由 build.py 生成，不入库
 .github/workflows/deploy.yml   push 到 main 时自动构建并发布到 GitHub Pages
