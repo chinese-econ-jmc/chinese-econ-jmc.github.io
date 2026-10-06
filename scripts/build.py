@@ -108,6 +108,9 @@ def classify_placement(text: str | None) -> str | None:
     if not text:
         return None
     t = text.lower()
+    # candidate went back on the market in a later cycle
+    if re.search(r"延期|deferred", t):
+        return "Deferred"
     # faculty first: "Postdoc @ X, then AP @ Y" is ultimately a faculty placement
     if re.search(r"professor|\bap\b|lecturer|讲师|助理教授|副教授|教授|faculty|tenure", t):
         return "Faculty"

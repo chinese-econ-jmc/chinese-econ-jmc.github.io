@@ -76,7 +76,7 @@ No Chinese in 2025-2026 Cycle.                <- 院校下没有人时可写一�
 | 博士毕业年份 | `预计将于YYYY年在XX取得…博士学位` |
 | 研究领域标签 | `研究兴趣包括/为/主要是 …` 之后的文字，按 `、和与及` 拆分，再按 `data/fields.json` 里的关键词映射到英文类别（Labor / Macro / IO …） |
 | JMP 题目 | `JMP题为“…”` |
-| 去向类别 | Placement 文字里含 Professor / AP / Lecturer → 教职；Postdoc → 博后；其他 → 业界/其他 |
+| 去向类别 | Placement 文字里含 Professor / AP / Lecturer → 教职；Postdoc → 博后；含"延期"→ 延期；其他 → 业界/其他 |
 
 **几点约定**（解析器对这些都能容错，但保持一致最省事）：
 

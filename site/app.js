@@ -20,7 +20,7 @@
   el.repo.href = CONFIG.repoUrl;
 
   const REGION_LABEL = { "美国区域": "美国", "非美国区域": "非美国" };
-  const PLACE_LABEL = { "Faculty": "教职", "Postdoc": "博后", "Industry & Other": "业界/其他" };
+  const PLACE_LABEL = { "Faculty": "教职", "Postdoc": "博后", "Industry & Other": "业界/其他", "Deferred": "延期" };
 
   // ------------------------------------------------------------ state ----
   const state = {
@@ -103,13 +103,14 @@
     const schools = new Set(list.map((c) => c.school_key));
     const placed = list.filter((c) => c.placement);
     const n = (t) => placed.filter((c) => c.placement_type === t).length;
+    const deferred = n("Deferred");
     const pct = placed.length ? Math.round(100 * n("Faculty") / placed.length) : 0;
     const filtered = list.length !== all.length;
     el.stats.innerHTML = `
       <div class="stat"><div class="n">${list.length}</div><div class="l">候选人${filtered ? `（共 ${all.length}）` : ""}</div></div>
       <div class="stat"><div class="n">${schools.size}</div><div class="l">院校</div></div>
       <div class="stat"><div class="n">${placed.length}</div><div class="l">已知去向</div>
-        <div class="sub">教职 ${n("Faculty")} · 博后 ${n("Postdoc")} · 业界/其他 ${n("Industry & Other")}</div></div>
+        <div class="sub">教职 ${n("Faculty")} · 博后 ${n("Postdoc")} · 业界/其他 ${n("Industry & Other")}${deferred ? ` · 延期 ${deferred}` : ""}</div></div>
       <div class="stat"><div class="n">${placed.length ? pct + "%" : "–"}</div><div class="l">已知去向中为教职</div></div>`;
   }
 
