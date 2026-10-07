@@ -24,8 +24,6 @@
   const isFinal = (c) => ["Faculty", "Postdoc", "Industry & Other"].includes(c.placement_type);
   const facRate = (list) => { const k = list.filter(isFinal); return { fac: count(k, isFac), n: k.length, p: pct(count(k, isFac), k.length) }; };
   const HOME = ["中国大陆", "港澳"];
-  const RE_PUB = /发表|返修|接收|forthcoming|R&R/i;
-  const hasPub = (c) => RE_PUB.test(c.bio || "");
   const undergrad = (c) => {
     const e = (c.education || []).find((x) => /学士/.test(x.degree));
     if (!e) return null;
@@ -102,13 +100,11 @@
     if (!r.n) { $("hero").innerHTML = empty(`${esc(selLabel())} 还没有去向信息（仍在求职中）。下面的本科来源与博士项目仍可参考。`); return; }
     const fac = list.filter(isFac);
     const home = count(fac, (c) => HOME.includes(c.placement_region)), us = count(fac, (c) => c.placement_region === "美国");
-    const pub = facRate(list.filter(hasPub)), nopub = facRate(list.filter((c) => !hasPub(c)));
     const insts = topInsts(fac).slice(0, 3);
     const top3 = insts.reduce((s, [, n]) => s + n, 0);
     $("hero").innerHTML = `
       <div class="fact"><div class="big">${r.p}%</div><div class="what">已有最终去向的人拿到教职</div><div class="how">${r.fac} / ${r.n} 人</div></div>
       <div class="fact"><div class="big">${pct(home, fac.length)}%</div><div class="what">的教职在中国大陆与港澳</div><div class="how">美国 ${pct(us, fac.length)}% · 其他海外 ${pct(fac.length - home - us, fac.length)}%</div></div>
-      <div class="fact"><div class="big">${pub.p}% <small>vs</small> ${nopub.p}%</div><div class="what">有 / 无发表或返修者的教职率</div><div class="how">n = ${pub.n} / ${nopub.n}</div></div>
       <div class="fact"><div class="big">${pct(top3, fac.length)}%</div><div class="what">的教职去了${insts.map(([k]) => esc(k)).join("、")}</div><div class="how">${top3} / ${fac.length} 人</div></div>`;
   }
 
@@ -190,15 +186,13 @@
       return r.n ? { label, v: r.p, text: `${r.p}%<em>n=${r.n}</em>`, cls: r.n < 15 ? "thin" : "",
         tip: `<b>${esc(label)}</b><br>教职 ${r.fac} / ${r.n} 人（${r.p}%）<br>其中美国教职 ${us} 人` } : null;
     };
-    const pub = facRate(list.filter(hasPub)), nopub = facRate(list.filter((c) => !hasPub(c)));
+    const pku = facRate(list.filter(isPkuThu)), other = facRate(list.filter((c) => !isPkuThu(c)));
     const rows = [
-      { group: "论文（按简介文字）" }, row("有发表 / 返修", list.filter(hasPub)), row("没有提到", list.filter((c) => !hasPub(c))),
       { group: "本科院校" }, row("北大 / 清华", list.filter(isPkuThu)), row("其他", list.filter((c) => !isPkuThu(c))),
       { group: "博士院校" }, ...TIERS.map((t) => row(t.label, list.filter(t.test))),
     ].filter(Boolean);
-    const ratio = nopub.p ? (pub.p / nopub.p).toFixed(1) : null;
-    $("who-title").textContent = ratio && pub.p > nopub.p
-      ? `有发表/返修者教职率 ${pub.p}%，是其他人的 ${ratio} 倍`
+    $("who-title").textContent = pku.n >= 10 && pku.p > other.p
+      ? `本科北大/清华的人教职率 ${pku.p}%，其他人 ${other.p}%`
       : `全体教职率 ${all.p}%`;
     $("who").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `平均 ${all.p}%` }) +
       `<p class="note small">浅色条表示该组少于 15 人，波动较大。</p>`;
