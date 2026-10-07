@@ -1,0 +1,46 @@
+{
+  "_comment": "Employer keyword -> (sector, employer) mapping for 'Industry & Other' placements, used by scripts/build.py for the industry chart on the stats page. Sectors are tried in order and employers in order within a sector; keywords are case-insensitive whole words and the first match wins. build.py lists industry placements with no match; add them here (or leave them as 其他).",
+  "sectors": {
+    "科技公司": {
+      "Amazon": ["amazon"],
+      "Google": ["google"],
+      "Meta": ["meta", "facebook"],
+      "Apple": ["apple"],
+      "TikTok / 字节跳动": ["tiktok", "bytedance", "字节跳动"],
+      "Uber": ["uber"],
+      "T-Mobile": ["t-mobile"],
+      "Instacart": ["instacart"],
+      "Microsoft": ["microsoft"],
+      "其他科技公司": ["auger", "unitarylab", "digonex", "agentic sciences"]
+    },
+    "金融机构": {
+      "JP Morgan": ["jp morgan", "jpmorgan"],
+      "Capital One": ["capital one"],
+      "Wells Fargo": ["wells fargo"],
+      "Citibank": ["citibank", "citi"],
+      "State Street": ["state street"],
+      "U.S. Bank": ["u.s. bank", "us bank"],
+      "First Citizens Bank": ["first citizens"],
+      "Point72": ["point72"],
+      "DRW": ["drw"]
+    },
+    "经济咨询": {
+      "Charles River Associates": ["charles river", "cra"],
+      "Analysis Group": ["analysis group"],
+      "Cornerstone Research": ["cornerstone"],
+      "NERA": ["nera"],
+      "Bates White": ["bates white"],
+      "Keystone": ["keystone"],
+      "Econic Partners": ["econic"],
+      "Analytic Partners": ["analytic partners"],
+      "PwC": ["pwc"]
+    },
+    "政府与国际组织": {
+      "IMF": ["imf", "international monetary fund"],
+      "亚洲开发银行": ["asian development bank"],
+      "世界银行": ["world bank"],
+      "美联储": ["federal reserve"],
+      "新西兰基础设施委员会": ["new zealand infrastructure commission"]
+    }
+  }
+}

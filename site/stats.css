@@ -26,6 +26,8 @@
 .k-ind { background: var(--s-ind); }
 .k-def { background: var(--s-def); }
 .k-unk { background: var(--s-unk); }
+/* neutral bars for head counts that are not a placement category */
+.k-neu { background: var(--muted); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
 .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
 
@@ -90,13 +92,15 @@
 .db-row.axis .db-track { height: 14px; }
 .tick { position: absolute; transform: translateX(-50%); font-size: 11px; color: var(--muted); }
 
+.split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 28px; }
+.sub-col h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 .two-col .panel { margin-bottom: 0; }
 
 .tip { position: fixed; left: 0; top: 0; z-index: 50; pointer-events: none; background: var(--text); color: var(--bg); font-size: 12.5px; line-height: 1.45; padding: 6px 9px; border-radius: 6px; max-width: 260px; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
 
 @media (max-width: 860px) {
-  .two-col { grid-template-columns: 1fr; }
+  .two-col, .split { grid-template-columns: 1fr; }
   .mix-row { grid-template-columns: 5.5em 1fr; }
   .b-row, .bars.wide .b-row { grid-template-columns: 9.5em 1fr 4.4em; }
   .panel { padding: 14px; }

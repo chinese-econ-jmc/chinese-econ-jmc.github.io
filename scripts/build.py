@@ -30,6 +30,7 @@ SITE_DIR = ROOT / "site"
 FIELD_MAP_FILE = DATA_DIR / "fields.json"
 REGION_MAP_FILE = DATA_DIR / "regions.json"
 INSTITUTION_MAP_FILE = DATA_DIR / "institutions.json"
+INDUSTRY_MAP_FILE = DATA_DIR / "industry.json"
 
 # ---------------------------------------------------------------- regexes ---
 RE_REGION = re.compile(r"^#{1,6}\s*(.+?)\s*$")
@@ -72,10 +73,20 @@ KeywordMap = list[tuple[str, list[re.Pattern]]]
 
 def load_keyword_map(path: Path, key: str) -> KeywordMap:
     """Return ordered list of (label, keyword patterns) from regions.json / institutions.json."""
-    raw = json.loads(path.read_text(encoding="utf-8"))
+    return load_keyword_map_from(json.loads(path.read_text(encoding="utf-8"))[key])
+
+
+def load_industry_map() -> KeywordMap:
+    """Return ordered list of ("sector|employer", keyword patterns) from industry.json."""
+    raw = json.loads(INDUSTRY_MAP_FILE.read_text(encoding="utf-8"))
+    flat = {f"{sector}|{employer}": kws for sector, employers in raw["sectors"].items() for employer, kws in employers.items()}
+    return load_keyword_map_from(flat)
+
+
+def load_keyword_map_from(mapping: dict[str, list[str]]) -> KeywordMap:
     return [
         (label, [re.compile(r"(?<![a-z])" + re.escape(kw.lower()) + r"(?![a-z])") for kw in keywords])
-        for label, keywords in raw[key].items()
+        for label, keywords in mapping.items()
     ]
 
 
@@ -146,7 +157,8 @@ def classify_placement(text: str | None) -> str | None:
     return "Industry & Other"
 
 
-def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: KeywordMap, inst_map: KeywordMap, warnings: list[str]) -> dict:
+def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: KeywordMap, inst_map: KeywordMap,
+               industry_map: KeywordMap, warnings: list[str]) -> dict:
     cycle = path.stem
     lines = path.read_text(encoding="utf-8").splitlines()
 
@@ -280,6 +292,9 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
         is_faculty = c["placement_type"] == "Faculty"
         c["placement_region"] = match_destination(c["placement"], region_map) if is_faculty else None
         c["placement_inst"] = match_destination(c["placement"], inst_map) if is_faculty else None
+        # industry placements: "sector|employer" -> sector, employer; unmatched ones count as 其他
+        hit = match_destination(c["placement"], industry_map) if c["placement_type"] == "Industry & Other" else None
+        c["placement_sector"], c["placement_employer"] = hit.split("|", 1) if hit else (None, None)
 
         slug = re.sub(r"[^a-z0-9]+", "-", c["name"].lower()).strip("-") or "x"
         c["id"] = f"{cycle}/{slug}"
@@ -293,6 +308,7 @@ def main() -> int:
     field_map = load_field_map()
     region_map = load_keyword_map(REGION_MAP_FILE, "regions")
     inst_map = load_keyword_map(INSTITUTION_MAP_FILE, "institutions")
+    industry_map = load_industry_map()
     warnings: list[str] = []
 
     files = sorted(DATA_DIR.glob("*.md"))
@@ -305,7 +321,7 @@ def main() -> int:
     all_candidates = []
     all_schools = []
     for f in files:
-        parsed = parse_file(f, field_map, region_map, inst_map, warnings)
+        parsed = parse_file(f, field_map, region_map, inst_map, industry_map, warnings)
         cycles.append(parsed["cycle"])
         all_candidates.extend(parsed["candidates"])
         all_schools.extend(parsed["schools"])
@@ -333,6 +349,12 @@ def main() -> int:
     if no_inst:
         print(f"\n{len(no_inst)} faculty placements had no institution match (add keywords to data/institutions.json):")
         for c in no_inst:
+            print(f"   {c['cycle']}  {c['placement']}")
+
+    no_sector = [c for c in all_candidates if c["placement_type"] == "Industry & Other" and not c["placement_sector"]]
+    if no_sector:
+        print(f"\n{len(no_sector)} industry placements counted as 其他 (add employers to data/industry.json if they fit a sector):")
+        for c in no_sector:
             print(f"   {c['cycle']}  {c['placement']}")
 
     if warnings:

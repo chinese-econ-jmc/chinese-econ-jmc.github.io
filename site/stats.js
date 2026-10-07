@@ -62,14 +62,14 @@
   const empty = (msg) => `<p class="empty-note">${msg}</p>`;
 
   // horizontal bar list; rows = [{label, sub?, v, text, tip, cls?} | {group}]; optional dashed reference line at `ref`
-  function barList(rows, { max, ref, refLabel, wide } = {}) {
+  function barList(rows, { max, ref, refLabel, wide, color = "fac" } = {}) {
     const m = max || Math.max(...rows.filter((r) => !r.group).map((r) => r.v), 1);
     const refX = ref != null ? (100 * ref / m).toFixed(1) : null;
     const body = rows.map((r) => r.group
       ? `<div class="b-group">${esc(r.group)}</div>`
       : `<div class="b-row ${r.cls || ""}" data-tip="${r.tip}">
           <span class="b-label">${esc(r.label)}${r.sub ? `<em>${esc(r.sub)}</em>` : ""}</span>
-          <span class="b-track">${refX != null ? `<i class="ref" style="left:${refX}%"></i>` : ""}<span class="fill k-fac" style="width:${(100 * r.v / m).toFixed(1)}%"></span></span>
+          <span class="b-track">${refX != null ? `<i class="ref" style="left:${refX}%"></i>` : ""}<span class="fill k-${color}" style="width:${(100 * r.v / m).toFixed(1)}%"></span></span>
           <span class="b-val">${r.text}</span>
         </div>`).join("");
     const key = refX != null
@@ -230,7 +230,32 @@
       (rest ? `<p class="note small">另有 ${rest} 家机构共 ${restN} 人。</p>` : "");
   }
 
-  // --------------------------------------- 6 & 7. undergrad / PhD origin ----
+  // ------------------------------------- 6. industry: sectors and employers ----
+  const SECTOR_OTHER = "其他";
+  function renderIndustry(list) {
+    const ind = list.filter((c) => c.placement_type === "Industry & Other");
+    if (!ind.length) { $("ind-title").textContent = "业界去向"; $("ind").innerHTML = empty("暂无业界去向数据。"); return; }
+    const tally = (key) => {
+      const m = new Map();
+      for (const c of ind) { const k = key(c); if (k) m.set(k, (m.get(k) || 0) + 1); }
+      return [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh"));
+    };
+    const sectors = tally((c) => c.placement_sector || SECTOR_OTHER);
+    sectors.sort((a, b) => (a[0] === SECTOR_OTHER) - (b[0] === SECTOR_OTHER) || b[1] - a[1]); // 其他 last
+    const sectorOf = new Map(ind.map((c) => [c.placement_employer, c.placement_sector]));
+    const employers = tally((c) => c.placement_employer).filter(([k, n]) => n >= 2 && !k.startsWith("其他"));
+    const [top] = sectors;
+    $("ind-title").textContent = `业界去向中 ${pct(top[1], ind.length)}% 是${top[0]}`;
+    const sectorRows = sectors.map(([k, n]) => ({ label: k, v: n, text: `${pct(n, ind.length)}%<em>${n} 人</em>`,
+      tip: `<b>${esc(k)}</b><br>${n} / ${ind.length} 人（${pct(n, ind.length)}%）` }));
+    const empRows = employers.slice(0, 10).map(([k, n]) => ({ label: k, sub: sectorOf.get(k) || "", v: n, text: `${n}`,
+      tip: `<b>${esc(k)}</b>（${esc(sectorOf.get(k) || "")}）<br>${n} 人，占业界去向 ${pct(n, ind.length)}%` }));
+    $("ind").innerHTML = `
+      <div class="sub-col"><h3>按类别</h3>${barList(sectorRows, { color: "ind" })}</div>
+      <div class="sub-col"><h3>主要雇主（2 人及以上）</h3>${empRows.length ? barList(empRows, { color: "ind", wide: true }) : empty("暂无。")}</div>`;
+  }
+
+  // --------------------------------------- 7 & 8. undergrad / PhD origin ----
   function originChart(list, keyFn, titleId, boxId, titleFn) {
     const m = new Map();
     for (const c of list) { const k = keyFn(c); if (k) m.set(k, (m.get(k) || 0) + 1); }
@@ -238,7 +263,7 @@
     const known = [...m.values()].reduce((s, n) => s + n, 0);
     if (!top.length) { $(titleId).textContent = titleFn(null); $(boxId).innerHTML = empty("暂无数据。"); return; }
     $(titleId).textContent = titleFn(top, known);
-    $(boxId).innerHTML = barList(top.map(([k, n]) => ({ label: k, v: n, text: `${n}`, tip: `<b>${esc(k)}</b><br>${n} 人，占 ${pct(n, known)}%` })), { wide: true });
+    $(boxId).innerHTML = barList(top.map(([k, n]) => ({ label: k, v: n, text: `${n}`, tip: `<b>${esc(k)}</b><br>${n} 人，占 ${pct(n, known)}%` })), { wide: true, color: "neu" });
   }
 
   function render() {
@@ -250,6 +275,7 @@
     renderWho(list);
     renderFields(list);
     renderInsts(list);
+    renderIndustry(list);
     originChart(list, undergrad, "ug-title", "ug", (top, n) => top
       ? `本科最多来自${top.slice(0, 3).map(([k]) => k).join("、")}（合计 ${pct(top.slice(0, 3).reduce((s, [, k]) => s + k, 0), n)}%）`
       : "本科来源");
