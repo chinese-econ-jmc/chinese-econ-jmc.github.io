@@ -100,7 +100,7 @@
 .b-group:first-child { border-top: none; margin-top: 0; padding-top: 0; }
 
 /* fig 2: dumbbell, one row per region, one dot per cycle */
-.db-row { display: grid; grid-template-columns: 4.5em 1fr 3em; gap: 12px; align-items: center; padding: 4px; border-radius: 3px; font-size: 13px; }
+.db-row { display: grid; grid-template-columns: 7.5em 1fr 3em; gap: 12px; align-items: center; padding: 4px; border-radius: 3px; font-size: 13px; }
 .db-row:not(.axis):hover { background: var(--tag); }
 .db-track { position: relative; height: 18px; }
 .db-track .grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line); }
@@ -251,3 +251,14 @@ table.roles .tot { color: var(--muted); font-weight: 600; }
 table.roles tr.tot td { height: 26px; color: var(--muted); font-weight: 600; border-top: 1px solid var(--line); }
 table.roles th.none { font-style: normal; }
 .fn-lead { stroke: var(--muted); stroke-width: .8; opacity: .55; }
+
+/* academia / industry toggle in figure headers */
+.fig-head h3 { flex: 1 1 auto; min-width: 0; }
+.fig-toggle { margin-left: 12px; align-self: flex-start; display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; flex: none; }
+.fig-toggle button { font: inherit; font-size: 12.5px; border: none; background: none; color: var(--muted); padding: 3px 12px; border-radius: 999px; cursor: pointer; }
+.fig-toggle button:hover { color: var(--text); }
+.fig-toggle button.active { color: #fff; font-weight: 600; }
+.fig-toggle button.active.acad { background: var(--s-fac); }
+.fig-toggle button.active.ind { background: var(--s-ind); }
+@media (prefers-color-scheme: dark) { .fig-toggle button.active.acad { color: #0b0b0b; } }
+.tone-ind .dot.now { background: var(--s-ind); }

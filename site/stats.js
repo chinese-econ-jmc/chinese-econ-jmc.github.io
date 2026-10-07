@@ -137,36 +137,59 @@
       </div>`).join("");
   }
 
-  // ------------------------- 2. faculty regions: dumbbell across cycles ----
-  function renderRegions() {
-    const cys = placedCycles.slice().reverse(); // oldest -> newest
-    const facBy = cys.map((cy) => D.candidates.filter((c) => c.cycle === cy && isFac(c)));
-    const regionOf = (c) => c.placement_region || "未归类";
-    const share = (i, r) => (facBy[i].length ? count(facBy[i], (c) => regionOf(c) === r) / facBy[i].length : 0);
-    const regions = [...new Set(facBy.flat().map(regionOf))];
-    if (!regions.length) { $("regions-title").textContent = "教职去向地区"; $("regions").innerHTML = empty("暂无教职数据。"); return; }
-    const L = cys.length - 1;
-    regions.sort((a, b) => share(L, b) - share(L, a) || share(0, b) - share(0, a));
-    const max = Math.min(1, Math.ceil(Math.max(...regions.flatMap((r) => cys.map((_, i) => share(i, r)))) * 10) / 10);
-    const x = (v) => (100 * v / max).toFixed(1);
-    // title: largest destination, plus the biggest mover if it moved >= 5 points
-    const top = regions[0];
-    let mover = null;
-    if (L > 0) {
-      for (const r of regions) {
-        const d = share(L, r) - share(L - 1, r);
-        if (r !== top && (!mover || Math.abs(d) > Math.abs(mover.d))) mover = { r, d };
-      }
+  // ---------------------------------------------- academia / industry toggle ----
+  const view = { dist: "acad", hire: "acad", funnel: "acad" };
+  const isInd = (c) => c.placement_type === "Industry & Other";
+  let lastList = [];
+  const RERENDER = { dist: () => renderDist(), hire: () => renderHire(lastList), funnel: () => renderFunnel(lastList) };
+  function drawToggles() {
+    for (const key of Object.keys(view)) {
+      const box = $(`${key}-toggle`); if (!box) continue;
+      box.innerHTML = [["acad", "学界"], ["ind", "业界"]].map(([v, label]) =>
+        `<button type="button" data-key="${key}" data-v="${v}" class="${view[key] === v ? `active ${v}` : ""}" aria-pressed="${view[key] === v}">${label}</button>`).join("");
     }
-    $("regions-title").textContent = `${top}占 ${Math.round(100 * share(L, top))}% 的教职` +
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest(".fig-toggle button[data-key]");
+    if (!b || view[b.dataset.key] === b.dataset.v) return;
+    view[b.dataset.key] = b.dataset.v;
+    drawToggles();
+    RERENDER[b.dataset.key]();
+  });
+
+  // --------- 3. distribution across cycles (dumbbell): faculty regions | industry sectors ----
+  function renderDist() {
+    const acad = view.dist === "acad";
+    const noun = acad ? "教职" : "业界去向";
+    const keyOf = acad ? (c) => c.placement_region || "未归类" : (c) => c.placement_sector || "其他";
+    const cys = placedCycles.slice().reverse(); // oldest -> newest
+    const byCy = cys.map((cy) => D.candidates.filter((c) => c.cycle === cy && (acad ? isFac(c) : isInd(c))));
+    const share = (i, r) => (byCy[i].length ? count(byCy[i], (c) => keyOf(c) === r) / byCy[i].length : 0);
+    const groups = [...new Set(byCy.flat().map(keyOf))];
+    $("dist").className = acad ? "tone-fac" : "tone-ind";
+    $("dist-note").textContent = acad
+      ? "注：各地区占当年教职的比例，按最终任职地计（先博后再任 AP 者计 AP 所在地）。不随上方年度选择变化。"
+      : "注：各行业占当年业界去向的比例。按雇主归为科技公司、金融机构、经济咨询、政府与国际组织，无法归类的计入“其他”。不随上方年度选择变化。";
+    if (!groups.length) { $("dist-title").textContent = acad ? "教职去向地区" : "业界去向行业"; $("dist").innerHTML = empty("暂无数据。"); return; }
+    const L = cys.length - 1;
+    groups.sort((a, b) => (a === "其他") - (b === "其他") || share(L, b) - share(L, a) || share(0, b) - share(0, a));
+    const max = Math.min(1, Math.ceil(Math.max(...groups.flatMap((r) => cys.map((_, i) => share(i, r)))) * 10) / 10);
+    const x = (v) => (100 * v / max).toFixed(1);
+    const top = groups[0];
+    let mover = null;
+    if (L > 0) for (const r of groups) {
+      const d = share(L, r) - share(L - 1, r);
+      if (r !== top && r !== "其他" && r !== "未归类" && (!mover || Math.abs(d) > Math.abs(mover.d))) mover = { r, d };
+    }
+    $("dist-title").textContent = `${top}占 ${Math.round(100 * share(L, top))}% 的${noun}` +
       (mover && Math.abs(mover.d) >= 0.05 ? `；${mover.r}从 ${Math.round(100 * share(L - 1, mover.r))}% ${mover.d > 0 ? "升" : "降"}到 ${Math.round(100 * share(L, mover.r))}%` : "");
     const step = max > 0.5 ? 0.25 : 0.1;
     const ticks = []; for (let t = 0; t <= max + 1e-9; t += step) ticks.push(t);
-    const legend = `<div class="legend">${cys.map((cy, i) => `<span><i class="dot ${i === L ? "now" : "then"}"></i>${cy}（${facBy[i].length} 人）</span>`).join("")}</div>`;
-    const rows = regions.map((r) => {
+    const legend = `<div class="legend">${cys.map((cy, i) => `<span><i class="dot ${i === L ? "now" : "then"}"></i>${cy}（${byCy[i].length} 人）</span>`).join("")}</div>`;
+    const rows = groups.map((r) => {
       const vals = cys.map((_, i) => share(i, r));
       const lo = Math.min(...vals), hi = Math.max(...vals);
-      const tipTxt = `<b>${esc(r)}</b><br>` + cys.map((cy, i) => `${cy}：${count(facBy[i], (c) => regionOf(c) === r)} 人（${Math.round(100 * vals[i])}%）`).join("<br>");
+      const tipTxt = `<b>${esc(r)}</b><br>` + cys.map((cy, i) => `${cy}：${count(byCy[i], (c) => keyOf(c) === r)} 人（${Math.round(100 * vals[i])}%）`).join("<br>");
       return `<div class="db-row" data-tip="${tipTxt}">
         <span class="b-label">${esc(r)}</span>
         <span class="db-track">${ticks.map((t) => `<i class="grid" style="left:${x(t)}%"></i>`).join("")}<i class="span" style="left:${x(lo)}%;width:${(x(hi) - x(lo)).toFixed(1)}%"></i>${vals.map((v, i) => `<i class="dot ${i === L ? "now" : "then"}" style="left:${x(v)}%"></i>`).join("")}</span>
@@ -174,27 +197,35 @@
       </div>`;
     }).join("");
     const axis = `<div class="db-row axis"><span></span><span class="db-track">${ticks.map((t) => `<span class="tick" style="left:${x(t)}%">${Math.round(100 * t)}%</span>`).join("")}</span><span></span></div>`;
-    $("regions").innerHTML = legend + rows + axis;
+    $("dist").innerHTML = legend + rows + axis;
   }
 
-  // ------------------------------------------- 5. top hiring institutions ----
+  // ------------------------- 4. top hirers: institutions | employers ----
   function topInsts(fac) {
     const m = new Map();
     for (const c of fac) { const k = c.placement_inst || "其他（未归类）"; m.set(k, (m.get(k) || 0) + 1); }
     return [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh"));
   }
-  function renderInsts(list) {
-    const fac = list.filter(isFac);
-    const all = topInsts(fac);
+  function renderHire(list) {
+    const acad = view.hire === "acad";
+    const pool = list.filter(acad ? isFac : isInd);
+    const keyOf = acad ? (c) => c.placement_inst || "其他（未归类）" : (c) => c.placement_employer;
+    const subOf = acad ? (c) => c.placement_region : (c) => c.placement_sector;
+    const noun = acad ? "教职" : "业界去向";
+    $("hire-note").textContent = acad ? "注：录用 2 人及以上的机构，同一机构的不同学院合并计算；括注为所在地区。"
+      : "注：录用 2 人及以上的雇主，同一雇主的不同团队合并计算；括注为所属行业。";
+    const m = new Map();
+    for (const c of pool) { const k = keyOf(c); if (k && !(!acad && k.startsWith("其他"))) m.set(k, (m.get(k) || 0) + 1); }
+    const all = [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh"));
     const top = all.filter(([, n]) => n >= 2).slice(0, 12);
-    if (!top.length) { $("insts-title").textContent = "主要教职去向机构"; $("insts").innerHTML = empty("暂无录用 2 人及以上的机构。"); return; }
-    const region = (name) => (fac.find((c) => c.placement_inst === name) || {}).placement_region || "";
+    if (!top.length) { $("hire-title").textContent = acad ? "主要教职去向机构" : "主要业界雇主"; $("hire").innerHTML = empty("暂无录用 2 人及以上的机构。"); return; }
+    const sub = (name) => subOf(pool.find((c) => keyOf(c) === name) || {}) || "";
     const t3 = top.slice(0, 3), t3n = t3.reduce((s, [, n]) => s + n, 0);
-    $("insts-title").textContent = `${t3.map(([k]) => k).join("、")} 合计招了 ${pct(t3n, fac.length)}% 的教职`;
-    const rest = all.length - top.length, restN = fac.length - top.reduce((s, [, n]) => s + n, 0);
-    $("insts").innerHTML = barList(top.map(([k, n]) => ({ label: k, sub: region(k), v: n, text: `${n}`,
-      tip: `<b>${esc(k)}</b>（${esc(region(k))}）<br>${n} 人，占教职 ${pct(n, fac.length)}%` })), { wide: true }) +
-      (rest ? `<p class="note small">另有 ${rest} 家机构共 ${restN} 人。</p>` : "");
+    $("hire-title").textContent = `${t3.map(([k]) => k).join("、")} 合计占 ${pct(t3n, pool.length)}% 的${noun}`;
+    const rest = pool.length - top.reduce((s, [, n]) => s + n, 0);
+    $("hire").innerHTML = barList(top.map(([k, n]) => ({ label: k, sub: sub(k), v: n, text: `${n}`,
+      tip: `<b>${esc(k)}</b>（${esc(sub(k))}）<br>${n} 人，占${noun} ${pct(n, pool.length)}%` })), { wide: true, color: acad ? "fac" : "ind" }) +
+      (rest ? `<p class="note small">其余 ${rest} 人分布在其他${acad ? "机构" : "雇主"}。</p>` : "");
   }
 
   // ---------------------------------------------------------- SVG helpers ----
@@ -327,10 +358,13 @@
       `<div class="scroll-x">${svg(W, H, yt + band + mean + xt + dots + labels, `funnel tone-${tone}`)}</div>`;
   }
 
-  const renderFunnel = (list) => funnelChart(list, { id: "funnel", test: isFac, noun: "教职", tone: "fac",
-    yTitle: "教职率（终身轨教职 / 已有最终去向）" });
-  const renderIndFunnel = (list) => funnelChart(list, { id: "indfunnel", test: (c) => c.placement_type === "Industry & Other", noun: "业界", tone: "ind",
-    yTitle: "业界比例（业界及其他 / 已有最终去向）" });
+  const renderFunnel = (list) => {
+    const acad = view.funnel === "acad";
+    funnelChart(list, acad
+      ? { id: "funnel", test: isFac, noun: "教职", tone: "fac", yTitle: "教职率（终身轨教职 / 已有最终去向）" }
+      : { id: "funnel", test: isInd, noun: "业界", tone: "ind", yTitle: "业界比例（业界及其他 / 已有最终去向）" });
+    $("funnel-note").textContent = `注：每个点是一个研究领域：横轴为该领域已有最终去向的人数，纵轴为其中${acad ? "拿到（终身轨）教职" : "进入业界（含其他非学术去向）"}的比例。虚线为全体平均，阴影为在该人数下随机波动的 95% 范围（二项分布的正态近似）；实心点落在范围之外，表示与全体平均的差异在 5% 水平上显著。一人可属于多个领域；少于 5 人的领域及 "Other" 不列出。`;
+  };
 
   // ------------------------------- industry: role x sector matrix ----
   const ROLE_NONE = "未注明职位";
@@ -420,31 +454,6 @@
         ${p2.length && s2.length > p2.length ? `<p class="note small">另有 ${s2.length - p2.length} 个组合各 1 人。</p>` : ""}</div>`;
   }
 
-  // ------------------------------------- 7. industry: sectors and employers ----
-  const SECTOR_OTHER = "其他";
-  function renderIndustry(list) {
-    const ind = list.filter((c) => c.placement_type === "Industry & Other");
-    if (!ind.length) { $("ind-title").textContent = "业界去向"; $("ind").innerHTML = empty("暂无业界去向数据。"); return; }
-    const tally = (key) => {
-      const m = new Map();
-      for (const c of ind) { const k = key(c); if (k) m.set(k, (m.get(k) || 0) + 1); }
-      return [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh"));
-    };
-    const sectors = tally((c) => c.placement_sector || SECTOR_OTHER);
-    sectors.sort((a, b) => (a[0] === SECTOR_OTHER) - (b[0] === SECTOR_OTHER) || b[1] - a[1]); // 其他 last
-    const sectorOf = new Map(ind.map((c) => [c.placement_employer, c.placement_sector]));
-    const employers = tally((c) => c.placement_employer).filter(([k, n]) => n >= 2 && !k.startsWith("其他"));
-    const [top] = sectors;
-    $("ind-title").textContent = `业界去向中 ${pct(top[1], ind.length)}% 是${top[0]}`;
-    const sectorRows = sectors.map(([k, n]) => ({ label: k, v: n, text: `${pct(n, ind.length)}%<em>${n} 人</em>`,
-      tip: `<b>${esc(k)}</b><br>${n} / ${ind.length} 人（${pct(n, ind.length)}%）` }));
-    const empRows = employers.slice(0, 10).map(([k, n]) => ({ label: k, sub: sectorOf.get(k) || "", v: n, text: `${n}`,
-      tip: `<b>${esc(k)}</b>（${esc(sectorOf.get(k) || "")}）<br>${n} 人，占业界去向 ${pct(n, ind.length)}%` }));
-    $("ind").innerHTML = `
-      <div class="sub-col"><h3>按类别</h3>${barList(sectorRows, { color: "ind" })}</div>
-      <div class="sub-col"><h3>主要雇主（2 人及以上）</h3>${empRows.length ? barList(empRows, { color: "ind", wide: true }) : empty("暂无。")}</div>`;
-  }
-
   // --------------------------------------- 7 & 8. undergrad / PhD origin ----
   function originChart(list, keyFn, titleId, boxId, titleFn) {
     const m = new Map();
@@ -462,14 +471,13 @@
     const list = selected();
     $("lede").innerHTML = `<b>${esc(selLabel())}</b> · ${list.length} 位候选人`;
     renderHero(list);
+    lastList = list;
     renderSankey(list);
-    renderInsts(list);
-    renderFunnel(list);
+    renderHire(list);
     renderRoles(list);
-    renderIndFunnel(list);
+    renderFunnel(list);
     renderCooc(list);
     renderNA(list);
-    renderIndustry(list);
     originChart(list, undergrad, "ug-title", "ug", (top, n) => top
       ? `本科最多来自${top.slice(0, 3).map(([k]) => k).join("、")}（合计 ${pct(top.slice(0, 3).reduce((s, [, k]) => s + k, 0), n)}%）`
       : "本科来源");
@@ -478,7 +486,8 @@
       : "博士项目");
   }
 
+  drawToggles();
   renderMix();
-  renderRegions();
+  renderDist();
   render();
 })();
