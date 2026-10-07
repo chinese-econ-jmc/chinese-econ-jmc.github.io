@@ -398,7 +398,7 @@
   }
 
   // ------------------------------- 6. field co-occurrence matrix ----
-  const SHORT = { "Macro": "Macro", "Labor": "Labor", "Finance": "Finance", "Development": "Dev", "Trade": "Trade", "Urban": "Urban",
+  const SHORT = { "Macro": "Macro", "Labor": "Labor", "Finance": "Finance", "Development": "Dev", "Trade & Spatial": "Trade", "Urban": "Urban",
     "IO": "IO", "Public": "Public", "Econometrics": "Metrics", "Theory": "Theory", "Behavioral & Experimental": "Behav",
     "Political Economy": "PolEcon", "Environment & Energy": "Env", "Health": "Health", "Education": "Educ",
     "Economic History": "History", "Business": "Business" };

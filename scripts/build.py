@@ -40,7 +40,7 @@ RE_SCHOOL = re.compile(
 # candidate line: optional bold name, then a full-width or ascii colon, then the bio
 RE_CANDIDATE = re.compile(r"^\*{0,2}\s*(?P<name>[^：:*]{1,80}?)\s*(?:\*\*)?\s*[：:]\s*(?:\*\*)?\s*(?P<bio>.*)$")
 RE_WEBSITE = re.compile(r"^\*{0,2}\s*个人主页\s*[：:]\s*(?P<url>\S*)\s*\*{0,2}\s*$")
-# manual field override for one candidate, e.g. "研究领域：Macro, Trade" (category names from fields.json)
+# manual field override for one candidate, e.g. "研究领域：Macro, Trade & Spatial" (category names from fields.json)
 RE_FIELDS_OVERRIDE = re.compile(r"^\*{0,2}\s*(?:研究领域|Fields?)\s*[：:]\s*(?P<f>.*?)\s*\*{0,2}\s*$", re.I)
 RE_PLACEMENT = re.compile(r"^\*{0,2}\s*(?:Placement|毕业去向)\s*[：:]\s*(?P<text>.*?)\s*\*{0,2}\s*$", re.I)
 RE_NOTE = re.compile(r"^(No (Chinese|Econ)\b.*|TB Published\.?|TBD\.?|待更新.*)$", re.I)
