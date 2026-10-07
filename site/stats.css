@@ -2,18 +2,19 @@
    Report style: numbered figures with notes underneath, serif titles and figures, hairline rules. */
 :root {
   /* placement categories: validated as a set (adjacent CVD and normal-vision separation, 3:1 vs surface) */
-  --s-fac: #008300;
-  --s-pd: #2a78d6;
-  --s-ind: #eb6834;
+  --s-fac: #31609a;   /* navy */
+  --s-pd: #c4892d;    /* ochre */
+  --s-ind: #b04a3a;   /* brick */
   --s-def: #a8a29e;
   --s-unk: #e7e5e4;
-  --on-series: #ffffff;
+  --on-fac: #ffffff; --on-pd: #1c1917; --on-ind: #ffffff;
   --rule: #d6d3d1;
   --serif: "Source Serif 4", "Source Serif Pro", Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --s-fac: #008300; --s-pd: #3987e5; --s-ind: #d95926; --s-def: #78716c; --s-unk: #3a332e;
+    --s-fac: #5b8ac4; --s-pd: #bb8a28; --s-ind: #b14735; --s-def: #78716c; --s-unk: #3a332e;
+    --on-fac: #0b0b0b; --on-pd: #0b0b0b; --on-ind: #ffffff;
     --rule: #4a423c;
   }
 }
@@ -66,7 +67,9 @@
 .stack { display: flex; gap: 2px; height: 26px; border-radius: 4px; overflow: hidden; }
 .stack > span { min-width: 2px; flex-basis: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; white-space: nowrap; font-size: 12px; }
 .stack > span b { font-weight: 600; padding: 0 4px; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
-.stack > .k-fac b, .stack > .k-pd b, .stack > .k-ind b { color: var(--on-series); }
+.stack > .k-fac b { color: var(--on-fac); }
+.stack > .k-pd b { color: var(--on-pd); }
+.stack > .k-ind b { color: var(--on-ind); }
 .stack > .k-def b, .stack > .k-unk b { color: var(--text); }
 .stack > span:hover { filter: brightness(1.08); }
 
@@ -109,7 +112,7 @@
 .db-row.axis .db-track { height: 14px; }
 .tick { position: absolute; transform: translateX(-50%); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
 
-.split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; }
+.split { display: grid; grid-template-columns: 1fr; gap: 18px; }
 .sub-col h3 { margin: 0 0 8px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
 .two-col .panel { margin-bottom: 0; display: flex; flex-direction: column; }

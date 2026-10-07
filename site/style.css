@@ -7,12 +7,12 @@
   --accent: #b45309;
   --accent-soft: #fff4e5;
   --tag: #f3f1ee;
-  --faculty: #166534;
-  --faculty-bg: #ecfdf3;
-  --postdoc: #1d4ed8;
-  --postdoc-bg: #eff6ff;
-  --industry: #b4461b;
-  --industry-bg: #fff1ea;
+  --faculty: #24497a;
+  --faculty-bg: #e9eff7;
+  --postdoc: #7a5410;
+  --postdoc-bg: #f8f0de;
+  --industry: #8f3628;
+  --industry-bg: #f9ebe8;
   --radius: 8px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Helvetica, Arial, sans-serif;
 }
@@ -20,8 +20,8 @@
   :root {
     --bg: #171412; --panel: #1f1b18; --text: #f5f2ef; --muted: #a8a099; --line: #3a332e;
     --accent: #f59e0b; --accent-soft: #3a2a12; --tag: #2a2521;
-    --faculty: #86efac; --faculty-bg: #14301f; --postdoc: #93c5fd; --postdoc-bg: #13223d;
-    --industry: #f4a27e; --industry-bg: #3a2116;
+    --faculty: #a9c3e8; --faculty-bg: #1b2738; --postdoc: #e2bd72; --postdoc-bg: #33280f;
+    --industry: #eba293; --industry-bg: #3a1e19;
   }
 }
 * { box-sizing: border-box; }

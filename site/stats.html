@@ -48,9 +48,9 @@
     </section>
 
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 3</span><h2 id="who-title"></h2></header>
-      <div id="who"></div>
-      <p class="fig-note">注：教职率 = 教职 /（教职 + 博后 + 业界及其他），不含延期与未知。院校档次依名录中的美国院校排名划分；浅色条表示该档少于 15 人。</p>
+      <header class="fig-head"><span class="fig-no">图 3</span><h2 id="insts-title"></h2></header>
+      <div id="insts"></div>
+      <p class="fig-note">注：录用 2 人及以上的机构，同一机构的不同学院合并计算。</p>
     </section>
   </div>
 
@@ -58,31 +58,25 @@
     <section class="panel">
       <header class="fig-head"><span class="fig-no">图 4</span><h2 id="fields-title"></h2></header>
       <div id="fields"></div>
-      <p class="fig-note">注：教职率定义同图 3。一人可属于多个研究领域；少于 10 人的领域及 "Other" 不列出。</p>
+      <p class="fig-note">注：教职率 = 教职 /（教职 + 博后 + 业界及其他），不含延期与未知。一人可属于多个研究领域；少于 10 人的领域及 "Other" 不列出。</p>
     </section>
 
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 5</span><h2 id="insts-title"></h2></header>
-      <div id="insts"></div>
-      <p class="fig-note">注：录用 2 人及以上的机构，同一机构的不同学院合并计算。</p>
+      <header class="fig-head"><span class="fig-no">图 5</span><h2 id="ind-title"></h2></header>
+      <div id="ind" class="split"></div>
+      <p class="fig-note">注："业界及其他"去向按雇主类型归类，同一雇主的不同团队合并计算；无法归类的计入"其他"。</p>
     </section>
   </div>
 
-  <section class="panel">
-    <header class="fig-head"><span class="fig-no">图 6</span><h2 id="ind-title"></h2></header>
-    <div id="ind" class="split"></div>
-    <p class="fig-note">注："业界及其他"去向按雇主类型归类，同一雇主的不同团队合并计算；无法归类的计入"其他"。</p>
-  </section>
-
   <div class="two-col">
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 7</span><h2 id="ug-title"></h2></header>
+      <header class="fig-head"><span class="fig-no">图 6</span><h2 id="ug-title"></h2></header>
       <div id="ug"></div>
       <p class="fig-note">注：候选人的本科院校，按人数排列。</p>
     </section>
 
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 8</span><h2 id="phd-title"></h2></header>
+      <header class="fig-head"><span class="fig-no">图 7</span><h2 id="phd-title"></h2></header>
       <div id="phd"></div>
       <p class="fig-note">注：候选人的博士项目，按人数排列。</p>
     </section>
@@ -92,15 +86,13 @@
     <h2 id="method-h">方法与口径</h2>
     <dl>
       <dt>样本</dt>
-      <dd>名录收录的美国与加拿大院校经济学博士求职者。"全部年度"指已有去向信息的年度；仍在求职中的年度只体现在图 7、图 8。</dd>
+      <dd>名录收录的美国与加拿大院校经济学博士求职者。"全部年度"指已有去向信息的年度；仍在求职中的年度只体现在图 6、图 7。</dd>
       <dt>去向分类</dt>
       <dd>依据 Placement 文字归类。<b>教职</b>：Assistant Professor、Lecturer、Visiting AP、Tenure-track Researcher 等，含先博后再任教职者；<b>博后</b>：Postdoc、Research Fellow、Visiting Scholar 等；<b>业界及其他</b>：其余去向；<b>延期</b>：次年重新进入求职市场；<b>未知</b>：名录中尚无信息。</dd>
       <dt>教职率</dt>
       <dd>教职人数除以已有最终去向（教职、博后、业界及其他）的人数，不含延期与未知。</dd>
       <dt>地区与机构</dt>
       <dd>按最终任职机构归类；港科大（广州）、港中文（深圳）、上海纽约大学、昆山杜克大学计入中国大陆。归类表见仓库 <code>data/regions.json</code>、<code>data/institutions.json</code>、<code>data/industry.json</code>。</dd>
-      <dt>院校档次</dt>
-      <dd>依名录中各院校标题所标的美国经济学项目排名划分；加拿大院校单列。</dd>
       <dt>局限</dt>
       <dd>名录依赖公开信息与社区整理，各年度"未知"比例不同；分组样本较小时比例波动较大；所有比较均为描述性统计，不代表因果关系。</dd>
     </dl>

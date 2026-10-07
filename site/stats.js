@@ -176,32 +176,6 @@
     $("regions").innerHTML = legend + rows + axis;
   }
 
-  // ------------------------------------------- 3. who gets faculty jobs ----
-  const TIERS = [
-    { label: "美国 #1–10", test: (c) => c.region === "美国区域" && c.rank && c.rank <= 10 },
-    { label: "美国 #11–20", test: (c) => c.region === "美国区域" && c.rank > 10 && c.rank <= 20 },
-    { label: "美国 #21–40", test: (c) => c.region === "美国区域" && c.rank > 20 && c.rank <= 40 },
-    { label: "美国 #41+", test: (c) => c.region === "美国区域" && (c.rank > 40 || !c.rank) },
-    { label: "加拿大院校", test: (c) => c.region !== "美国区域" },
-  ];
-  function renderWho(list) {
-    const all = facRate(list);
-    if (!all.n) { $("who-title").textContent = "谁更容易拿到教职"; $("who").innerHTML = empty("暂无去向数据。"); return; }
-    const row = (label, sub) => {
-      const r = facRate(sub);
-      const us = count(sub, (c) => isFac(c) && c.placement_region === "美国");
-      return r.n ? { label, v: r.p, text: `${r.p}%<em>n=${r.n}</em>`, cls: r.n < 15 ? "thin" : "",
-        tip: `<b>${esc(label)}</b><br>教职 ${r.fac} / ${r.n} 人（${r.p}%）<br>其中美国教职 ${us} 人` } : null;
-    };
-    const rows = TIERS.map((t) => row(t.label, list.filter(t.test))).filter(Boolean);
-    // title: compare the best- and worst-ranked tiers that have data
-    const us = rows.filter((r) => r.label.startsWith("美国"));
-    $("who-title").textContent = us.length >= 2
-      ? `${us[0].label} 博士教职率 ${us[0].v}%，${us[us.length - 1].label} 为 ${us[us.length - 1].v}%`
-      : `全体教职率 ${all.p}%`;
-    $("who").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `全体平均 ${all.p}%`, axis: true });
-  }
-
   // ------------------------------------------- 4. faculty rate by field ----
   function renderFields(list) {
     const all = facRate(list);
@@ -276,7 +250,6 @@
     const list = selected();
     $("lede").innerHTML = `<b>${esc(selLabel())}</b> · ${list.length} 位候选人`;
     renderHero(list);
-    renderWho(list);
     renderFields(list);
     renderInsts(list);
     renderIndustry(list);
