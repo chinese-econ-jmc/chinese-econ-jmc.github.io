@@ -61,20 +61,28 @@
   const empty = (msg) => `<p class="empty-note">${msg}</p>`;
 
   // horizontal bar list; rows = [{label, sub?, v, text, tip, cls?} | {group}]; optional dashed reference line at `ref`
-  function barList(rows, { max, ref, refLabel, wide, color = "fac" } = {}) {
+  // horizontal bar list; rows = [{label, sub?, v, text, tip, cls?} | {group}].
+  // `axis`: percent scale with gridlines and tick labels; `ref`: dashed reference line (e.g. overall average)
+  function barList(rows, { max, ref, refLabel, wide, color = "fac", axis = false } = {}) {
     const m = max || Math.max(...rows.filter((r) => !r.group).map((r) => r.v), 1);
+    const ticks = axis ? [0, 25, 50, 75, 100].filter((t) => t <= m) : [];
+    const grid = ticks.map((t) => `<i class="g" style="left:${(100 * t / m).toFixed(1)}%"></i>`).join("");
     const refX = ref != null ? (100 * ref / m).toFixed(1) : null;
+    const refLine = refX != null ? `<i class="ref" style="left:${refX}%"></i>` : "";
+    const head = refX != null
+      ? `<div class="b-row b-key"><span></span><span class="b-track"><span class="ref-label" style="left:${refX}%">${refLabel}</span></span><span></span></div>`
+      : "";
     const body = rows.map((r) => r.group
       ? `<div class="b-group">${esc(r.group)}</div>`
       : `<div class="b-row ${r.cls || ""}" data-tip="${r.tip}">
           <span class="b-label">${esc(r.label)}${r.sub ? `<em>${esc(r.sub)}</em>` : ""}</span>
-          <span class="b-track">${refX != null ? `<i class="ref" style="left:${refX}%"></i>` : ""}<span class="fill k-${color}" style="width:${(100 * r.v / m).toFixed(1)}%"></span></span>
+          <span class="b-track">${grid}${refLine}<span class="fill k-${color}" style="width:${(100 * r.v / m).toFixed(1)}%"></span></span>
           <span class="b-val">${r.text}</span>
         </div>`).join("");
-    const key = refX != null
-      ? `<div class="b-row ref-key"><span></span><span class="b-track"><span class="ref-label" style="left:${refX}%">${refLabel}</span></span><span></span></div>`
+    const foot = axis
+      ? `<div class="b-row b-axis"><span></span><span class="b-track">${ticks.map((t) => `<span class="tick" style="left:${(100 * t / m).toFixed(1)}%">${t}%</span>`).join("")}</span><span></span></div>`
       : "";
-    return `<div class="bars ${wide ? "wide" : ""}">${body}${key}</div>`;
+    return `<div class="bars ${wide ? "wide" : ""}">${head}${body}${foot}</div>`;
   }
 
   // ---------------------------------------------------- cycle selection ----
@@ -191,8 +199,7 @@
     $("who-title").textContent = us.length >= 2
       ? `${us[0].label} 博士教职率 ${us[0].v}%，${us[us.length - 1].label} 为 ${us[us.length - 1].v}%`
       : `全体教职率 ${all.p}%`;
-    $("who").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `平均 ${all.p}%` }) +
-      `<p class="note small">浅色条表示该组少于 15 人，波动较大。</p>`;
+    $("who").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `全体平均 ${all.p}%`, axis: true });
   }
 
   // ------------------------------------------- 4. faculty rate by field ----
@@ -204,7 +211,7 @@
     }).filter((r) => r.n >= 10).sort((a, b) => b.v - a.v || b.n - a.n);
     if (!rows.length) { $("fields-title").textContent = "各研究领域的教职率"; $("fields").innerHTML = empty("样本不足。"); return; }
     $("fields-title").textContent = `${rows.slice(0, 3).map((r) => r.label).join("、")} 方向教职率最高`;
-    $("fields").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `平均 ${all.p}%`, wide: true });
+    $("fields").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `全体平均 ${all.p}%`, wide: true, axis: true });
   }
 
   // ------------------------------------------- 5. top hiring institutions ----
