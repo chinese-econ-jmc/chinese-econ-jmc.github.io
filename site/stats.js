@@ -175,7 +175,7 @@
     { label: "美国 #11–20", test: (c) => c.region === "美国区域" && c.rank > 10 && c.rank <= 20 },
     { label: "美国 #21–40", test: (c) => c.region === "美国区域" && c.rank > 20 && c.rank <= 40 },
     { label: "美国 #41+", test: (c) => c.region === "美国区域" && (c.rank > 40 || !c.rank) },
-    { label: "非美国院校", test: (c) => c.region !== "美国区域" },
+    { label: "加拿大院校", test: (c) => c.region !== "美国区域" },
   ];
   function renderWho(list) {
     const all = facRate(list);

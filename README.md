@@ -1,6 +1,6 @@
 # Chinese Econ JMC · 中国经济学博士 Job Market Candidates 名录
 
-一个按年度更新、可多人共同维护的静态网站，收录来自中国大陆的经济学博士 Job Market Candidates 信息（院校、研究领域、JMP、个人主页、去向）。灵感来自 [econ.now/jmc](https://econ.now/jmc/2025)。
+一个按年度更新、可多人共同维护的静态网站，收录**美国和加拿大院校**中来自中国大陆的经济学博士 Job Market Candidates 信息（院校、研究领域、JMP、个人主页、去向）。灵感来自 [econ.now/jmc](https://econ.now/jmc/2025)。
 
 - **数据源**：`data/<周期>.md`，每个求职周期一个文件，格式就是我们一直在用的 markdown 写法（见下）。
 - **构建**：`scripts/build.py` 把 markdown 解析成 `site/data.js`。
@@ -44,7 +44,7 @@ python -m http.server 8000 -d site
 
 ## 四、数据格式（`data/<周期>.md`）
 
-新周期直接复制 `data/_template.md` 为 `data/2027-2028.md` 即可，网站会自动多出一个年度标签。格式要点：
+新周期直接复制 `data/_template.md` 为 `data/2027-2028.md` 即可，网站会自动多出一个年度标签。网站只收录美国和加拿大院校，其他地区院校不录入（另在 Notion 中统计）。格式要点：
 
 ```markdown
 ### 美国区域                                  <- 地区标题（### 开头）
@@ -63,9 +63,9 @@ python -m http.server 8000 -d site
 
 No Chinese in 2025-2026 Cycle.                <- 院校下没有人时可写一句说明，会显示在院校标题旁
 
-### 非美国区域
+### 加拿大区域
 
-**LSE（伦敦政治经济学院）**                     <- 非美国院校一般不写排名
+**UBC（英属哥伦比亚大学）**                     <- 加拿大院校一般不写排名
 ```
 
 解析器会从简介段落里自动提取（不需要单独填写）：

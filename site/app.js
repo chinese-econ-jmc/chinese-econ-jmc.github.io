@@ -19,7 +19,7 @@
   el.generated.textContent = D.generated;
   el.repo.href = CONFIG.repoUrl;
 
-  const REGION_LABEL = { "美国区域": "美国", "非美国区域": "非美国" };
+  const REGION_LABEL = { "美国区域": "美国", "加拿大区域": "加拿大", "非美国区域": "非美国" };
   const PLACE_LABEL = { "Faculty": "教职", "Postdoc": "博后", "Industry & Other": "业界/其他", "Deferred": "延期" };
 
   // ------------------------------------------------------------ state ----
