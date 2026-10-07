@@ -36,7 +36,6 @@
     const e = (c.education || []).find((x) => /博士/.test(x.degree));
     return e ? e.school : c.school;
   };
-  const isPkuThu = (c) => /^(北京大学|清华大学)/.test(undergrad(c) || "");
 
   // cycles with at least one placement, newest first
   const placedCycles = D.cycles.filter((cy) => D.candidates.some((c) => c.cycle === cy && c.placement));
@@ -186,13 +185,11 @@
       return r.n ? { label, v: r.p, text: `${r.p}%<em>n=${r.n}</em>`, cls: r.n < 15 ? "thin" : "",
         tip: `<b>${esc(label)}</b><br>教职 ${r.fac} / ${r.n} 人（${r.p}%）<br>其中美国教职 ${us} 人` } : null;
     };
-    const pku = facRate(list.filter(isPkuThu)), other = facRate(list.filter((c) => !isPkuThu(c)));
-    const rows = [
-      { group: "本科院校" }, row("北大 / 清华", list.filter(isPkuThu)), row("其他", list.filter((c) => !isPkuThu(c))),
-      { group: "博士院校" }, ...TIERS.map((t) => row(t.label, list.filter(t.test))),
-    ].filter(Boolean);
-    $("who-title").textContent = pku.n >= 10 && pku.p > other.p
-      ? `本科北大/清华的人教职率 ${pku.p}%，其他人 ${other.p}%`
+    const rows = TIERS.map((t) => row(t.label, list.filter(t.test))).filter(Boolean);
+    // title: compare the best- and worst-ranked tiers that have data
+    const us = rows.filter((r) => r.label.startsWith("美国"));
+    $("who-title").textContent = us.length >= 2
+      ? `${us[0].label} 博士教职率 ${us[0].v}%，${us[us.length - 1].label} 为 ${us[us.length - 1].v}%`
       : `全体教职率 ${all.p}%`;
     $("who").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `平均 ${all.p}%` }) +
       `<p class="note small">浅色条表示该组少于 15 人，波动较大。</p>`;
