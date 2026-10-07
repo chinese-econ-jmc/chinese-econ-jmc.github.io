@@ -78,15 +78,21 @@
     return true;
   }
 
+  // English names are "Given Surname": sort by the last word, ignoring "(Nickname)"
+  const surnameKey = (name) => {
+    const parts = String(name).replace(/\([^)]*\)/g, " ").trim().split(/\s+/);
+    return (parts[parts.length - 1] + " " + parts.slice(0, -1).join(" ")).toLowerCase();
+  };
+  const byName = (a, b) => surnameKey(a.name).localeCompare(surnameKey(b.name), "en");
   function sortCands(list) {
     const cmpRank = (a, b) => {
       const ra = a.rank ?? 9999, rb = b.rank ?? 9999;
       if (a.region !== b.region) return a.region === "美国区域" ? -1 : 1;
       if (ra !== rb) return ra - rb;
       if (a.school_order !== b.school_order) return a.school_order - b.school_order;
-      return a.name.localeCompare(b.name, "zh");
+      return byName(a, b);
     };
-    if (state.sort === "name") return list.sort((a, b) => a.name.localeCompare(b.name, "zh") || cmpRank(a, b));
+    if (state.sort === "name") return list.sort((a, b) => byName(a, b) || cmpRank(a, b));
     if (state.sort === "school") return list.sort((a, b) => a.school.localeCompare(b.school) || cmpRank(a, b));
     return list.sort(cmpRank);
   }
