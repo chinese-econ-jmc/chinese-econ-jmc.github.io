@@ -107,11 +107,11 @@
     const pct = placed.length ? Math.round(100 * n("Faculty") / placed.length) : 0;
     const filtered = list.length !== all.length;
     el.stats.innerHTML = `
-      <div class="stat"><div class="n">${list.length}</div><div class="l">候选人${filtered ? `（共 ${all.length}）` : ""}</div></div>
-      <div class="stat"><div class="n">${schools.size}</div><div class="l">院校</div></div>
-      <div class="stat"><div class="n">${placed.length}</div><div class="l">已知去向</div>
-        <div class="sub">教职 ${n("Faculty")}${n("Non-tenure-track") ? ` · 非终身轨 ${n("Non-tenure-track")}` : ""} · 博后 ${n("Postdoc")} · 业界/其他 ${n("Industry & Other")}${deferred ? ` · 延期 ${deferred}` : ""}</div></div>
-      <div class="stat"><div class="n">${placed.length ? pct + "%" : "–"}</div><div class="l">已知去向中为教职</div></div>`;
+      <div class="kpi"><div class="n">${list.length}</div><div class="l">候选人${filtered ? `<span>共 ${all.length}</span>` : ""}</div></div>
+      <div class="kpi"><div class="n">${schools.size}</div><div class="l">院校</div></div>
+      <div class="kpi"><div class="n">${placed.length}</div><div class="l">已知去向
+        <span>教职 ${n("Faculty")}${n("Non-tenure-track") ? ` · 非终身轨 ${n("Non-tenure-track")}` : ""} · 博后 ${n("Postdoc")} · 业界 ${n("Industry & Other")}${deferred ? ` · 延期 ${deferred}` : ""}</span></div></div>
+      <div class="kpi"><div class="n">${placed.length ? pct + "%" : "–"}</div><div class="l">已知去向中为教职</div></div>`;
   }
 
 
@@ -148,24 +148,24 @@
 
   function candRow(c) {
     const open = state.open.has(c.id);
-    const tags = (c.fields || []).map((f) => `<span class="tag">${esc(f)}</span>`).join("") ||
-      (c.fields_raw ? `<span class="tag raw">${esc(c.fields_raw)}</span>` : `<span class="none">–</span>`);
-    const site = c.website ? `<a href="${esc(c.website)}" target="_blank" rel="noopener" title="${esc(c.website)}">主页 ↗</a>` : `<span class="none">–</span>`;
+    const tags = (c.fields || []).length ? (c.fields || []).map((f) => `<span>${esc(f)}</span>`).join("")
+      : (c.fields_raw ? `<span class="raw">${esc(c.fields_raw)}</span>` : `<span class="none">–</span>`);
+    const site = c.website ? `<a class="site" href="${esc(c.website)}" target="_blank" rel="noopener" title="${esc(c.website)}">主页 ↗</a>` : "";
     const place = c.placement
-      ? `<span class="badge ${esc((c.placement_type || "").split(" ")[0])}">${esc(PLACE_LABEL[c.placement_type] || c.placement_type)}</span><span class="txt">${esc(c.placement)}</span>`
+      ? `<span class="pl ${esc((c.placement_type || "").split(" ")[0])}"><i></i>${esc(PLACE_LABEL[c.placement_type] || c.placement_type)}</span><span class="txt">${esc(c.placement)}</span>`
       : `<span class="none">–</span>`;
-    const yr = c.phd_year ? `<span class="yr">PhD ${c.phd_year}${c.info_missing ? " · 信息不详" : ""}</span>` : (c.info_missing ? `<span class="yr">信息不详</span>` : "");
-    const schoolCell = `<span class="rank">${c.rank ? "#" + c.rank : ""}</span>${esc(c.school)}${state.cycle === "all" ? `<span class="yr" style="display:block;color:var(--muted);font-size:12px">${c.cycle}</span>` : ""}`;
+    const meta = [c.phd_year ? `PhD ${c.phd_year}` : "", c.info_missing ? "信息不详" : "", state.cycle === "all" ? c.cycle : ""].filter(Boolean).join(" · ");
+    const schoolCell = `<span class="rank">${c.rank ? "#" + c.rank : ""}</span>${esc(c.school)}`;
     let html = `<tr class="cand ${open ? "open" : ""}" data-id="${esc(c.id)}">
-      <td class="name">${esc(c.name)}${c.name_zh ? `<span class="zh">${esc(c.name_zh)}</span>` : ""}${yr}</td>
+      <td class="name"><span class="nm">${esc(c.name)}</span>${c.name_zh ? `<span class="zh">${esc(c.name_zh)}</span>` : ""}
+        <span class="meta">${meta}${meta && site ? " · " : ""}${site}</span></td>
       <td class="school" data-label="院校">${schoolCell}</td>
+      <td class="jmp" data-label="JMP">${c.jmp ? `<span class="jt">${esc(c.jmp)}</span>` : `<span class="none">–</span>`}</td>
       <td class="fields" data-label="领域">${tags}</td>
-      <td class="jmp" data-label="JMP">${c.jmp ? esc(c.jmp) : `<span class="none">–</span>`}</td>
-      <td class="links" data-label="主页">${site}</td>
       <td class="place" data-label="去向">${place}</td></tr>`;
     if (open) {
       const edu = (c.education || []).map((e) => `<li>${e.year} · ${esc(e.school)} · ${esc(e.degree)}</li>`).join("");
-      html += `<tr class="detail"><td colspan="6"><div class="detail-inner">
+      html += `<tr class="detail"><td colspan="5"><div class="detail-inner">
         <div><h4>简介</h4><p>${esc(c.bio) || "<i>暂无</i>"}</p>
           ${c.fields_raw ? `<p class="src">研究兴趣（原文）：${esc(c.fields_raw)}</p>` : ""}
           ${c.website ? `<p class="src">个人主页：<a href="${esc(c.website)}" target="_blank" rel="noopener">${esc(c.website)}</a></p>` : ""}</div>
@@ -195,7 +195,7 @@
         const cands = byKey.get(k) || [];
         if (!cands.length && !showEmptySchools) continue;
         const note = s.notes && s.notes.length ? `<span class="note">${esc(s.notes.join(" "))}</span>` : (cands.length ? "" : `<span class="note">暂无记录</span>`);
-        html += `<tr class="group"><th colspan="6"><span class="rank">${s.rank ? "#" + s.rank : ""}</span>${esc(s.name)}${s.name_zh ? `<span class="zh">${esc(s.name_zh)}</span>` : ""}${state.cycle === "all" ? `<span class="zh">${s.cycle}</span>` : ""}${note}<span class="n">${cands.length} 人</span></th></tr>`;
+        html += `<tr class="group ${cands.length ? "" : "empty"}"><th colspan="5"><span class="rank">${s.rank ? "#" + s.rank : ""}</span><span class="sn">${esc(s.name)}</span>${s.name_zh ? `<span class="zh">${esc(s.name_zh)}</span>` : ""}${state.cycle === "all" ? `<span class="zh">${s.cycle}</span>` : ""}${note}<span class="n">${cands.length} 人</span></th></tr>`;
         html += cands.map(candRow).join("");
       }
       // safety: any candidates whose school header wasn't in the list (shouldn't happen)
@@ -204,6 +204,8 @@
       html = list.map(candRow).join("");
     }
     el.tbody.innerHTML = html;
+    // the school column repeats the group header when grouped by school
+    document.getElementById("table").classList.toggle("grouped", state.group && state.sort === "rank");
     el.empty.hidden = list.length > 0;
   }
 
