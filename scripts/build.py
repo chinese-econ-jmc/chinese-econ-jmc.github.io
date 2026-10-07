@@ -78,6 +78,11 @@ def load_keyword_map(path: Path, key: str) -> KeywordMap:
     return load_keyword_map_from(json.loads(path.read_text(encoding="utf-8"))[key])
 
 
+def load_role_map() -> KeywordMap:
+    """Return ordered list of (role, keyword patterns) for industry job titles."""
+    return load_keyword_map(INDUSTRY_MAP_FILE, "roles")
+
+
 def load_industry_map() -> KeywordMap:
     """Return ordered list of ("sector|employer", keyword patterns) from industry.json."""
     raw = json.loads(INDUSTRY_MAP_FILE.read_text(encoding="utf-8"))
@@ -173,7 +178,7 @@ def classify_placement(text: str | None) -> str | None:
 
 
 def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: KeywordMap, inst_map: KeywordMap,
-               industry_map: KeywordMap, warnings: list[str]) -> dict:
+               industry_map: KeywordMap, role_map: KeywordMap, warnings: list[str]) -> dict:
     cycle = path.stem
     lines = path.read_text(encoding="utf-8").splitlines()
 
@@ -333,6 +338,7 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
         # industry placements: "sector|employer" -> sector, employer; unmatched ones count as 其他
         hit = match_destination(c["placement"], industry_map) if c["placement_type"] == "Industry & Other" else None
         c["placement_sector"], c["placement_employer"] = hit.split("|", 1) if hit else (None, None)
+        c["placement_role"] = match_destination(c["placement"], role_map) if c["placement_type"] == "Industry & Other" else None
 
         slug = re.sub(r"[^a-z0-9]+", "-", c["name"].lower()).strip("-") or "x"
         c["id"] = f"{cycle}/{slug}"
@@ -347,6 +353,7 @@ def main() -> int:
     region_map = load_keyword_map(REGION_MAP_FILE, "regions")
     inst_map = load_keyword_map(INSTITUTION_MAP_FILE, "institutions")
     industry_map = load_industry_map()
+    role_map = load_role_map()
     warnings: list[str] = []
 
     files = sorted(DATA_DIR.glob("*.md"))
@@ -359,7 +366,7 @@ def main() -> int:
     all_candidates = []
     all_schools = []
     for f in files:
-        parsed = parse_file(f, field_map, region_map, inst_map, industry_map, warnings)
+        parsed = parse_file(f, field_map, region_map, inst_map, industry_map, role_map, warnings)
         cycles.append(parsed["cycle"])
         all_candidates.extend(parsed["candidates"])
         all_schools.extend(parsed["schools"])

@@ -265,15 +265,17 @@
   }
   const typeKey = (c) => (TYPES.find((t) => t.test(c)) || {}).key;
 
-  // ------------------------- 5. funnel plot: faculty rate vs. sample size ----
-  function renderFunnel(list) {
-    const all = facRate(list);
-    const pts = FIELDS().map((f) => ({ f, ...facRate(list.filter((c) => fieldsOf(c).includes(f))) })).filter((r) => r.n >= 5);
-    if (!pts.length || !all.n) { $("funnel-title").textContent = "各研究领域的教职率"; $("funnel").innerHTML = empty("样本不足。"); return; }
+  // ------------- funnel plot: share of an outcome vs. sample size, by field ----
+  // opts: id (container + "-title"), test (outcome), noun ("教职" / "业界"), yTitle, tone ("fac" / "ind")
+  function funnelChart(list, { id, test, noun, yTitle, tone }) {
+    const rate = (g) => { const k = g.filter(isFinal); const hit = count(k, test); return { fac: hit, n: k.length, p: pct(hit, k.length) }; };
+    const all = rate(list);
+    const pts = FIELDS().map((f) => ({ f, ...rate(list.filter((c) => fieldsOf(c).includes(f))) })).filter((r) => r.n >= 5);
+    if (!pts.length || !all.n) { $(`${id}-title`).textContent = `各研究领域的${noun}比例`; $(id).innerHTML = empty("样本不足。"); return; }
     const p0 = all.fac / all.n, Z = 1.96;
     const se = (n) => Math.sqrt(p0 * (1 - p0) / n);
     for (const r of pts) { r.rate = r.fac / r.n; r.hi = r.rate > p0 + Z * se(r.n); r.lo = r.rate < p0 - Z * se(r.n); }
-    const W = 1000, H = 420, ml = 76, mr = 24, mt = 14, mb = 40;
+    const W = 1000, H = 420, ml = 76, mr = 78, mt = 14, mb = 40;
     const xMax = niceMax(Math.max(...pts.map((r) => r.n)) * 1.05, 10);
     const X = (n) => ml + (W - ml - mr) * n / xMax, Y = (p) => mt + (H - mt - mb) * (1 - p);
     // 95% band, drawn from n = 3 to xMax
@@ -287,29 +289,77 @@
     const xs = []; for (let n = 0; n <= xMax; n += xMax > 60 ? 20 : 10) xs.push(n);
     const xt = xs.map((n) => `<text class="ax" x="${X(n)}" y="${H - mb + 18}" text-anchor="middle">${n}</text>`).join("") +
       `<text class="ax ax-title" x="${(ml + W - mr) / 2}" y="${H - 4}" text-anchor="middle">已有最终去向的人数</text>` +
-      `<text class="ax ax-title" transform="translate(18 ${(mt + H - mb) / 2}) rotate(-90)" text-anchor="middle">教职率（终身轨教职 / 已有最终去向）</text>`;
-    const mean = `<line class="fn-mean" x1="${ml}" x2="${W - mr}" y1="${Y(p0)}" y2="${Y(p0)}"></line><text class="fn-mean-l" x="${W - mr}" y="${Y(p0) - 6}" text-anchor="end">全体 ${all.p}%</text>`;
-    // labels: try right / left / above / below, avoid overlaps
-    const boxes = pts.map((r) => ({ x: X(r.n) - 6, y: Y(r.rate) - 6, w: 12, h: 12 }));
-    const hit = (b) => boxes.some((o) => b.x < o.x + o.w && o.x < b.x + b.w && b.y < o.y + o.h && o.y < b.y + b.h);
+      `<text class="ax ax-title" transform="translate(18 ${(mt + H - mb) / 2}) rotate(-90)" text-anchor="middle">${yTitle}</text>`;
+    const mean = `<line class="fn-mean" x1="${ml}" x2="${W - mr}" y1="${Y(p0)}" y2="${Y(p0)}"></line><text class="fn-mean-l" x="${W - mr + 8}" y="${Y(p0) + 4}">全体 ${all.p}%</text>`;
+    // labels: score candidate positions by overlap with dots, placed labels and the mean label; take the best
+    const boxes = pts.map((r) => ({ x: X(r.n) - 7, y: Y(r.rate) - 7, w: 14, h: 14 }));
+    const overlap = (b) => boxes.reduce((s, o) => s + Math.max(0, Math.min(b.x + b.w, o.x + o.w) - Math.max(b.x, o.x)) * Math.max(0, Math.min(b.y + b.h, o.y + o.h) - Math.max(b.y, o.y)), 0);
     const labels = pts.slice().sort((a, b) => b.n - a.n).map((r) => {
       const px = X(r.n), py = Y(r.rate), w = textW(r.f, 12.5) + 6, h = 16;
-      const tries = [[px + 9, py - 7, "start"], [px - 9 - w, py - 7, "end"], [px - w / 2, py - 22, "middle"], [px - w / 2, py + 8, "middle"],
-        [px + 9, py - 20, "start"], [px + 9, py + 6, "start"], [px - 9 - w, py - 20, "end"], [px - 9 - w, py + 6, "end"]];
-      let pick = tries[0];
-      for (const t of tries) { const b = { x: t[0], y: t[1], w, h }; if (!hit(b) && b.x > ml && b.x + w < W - mr) { pick = t; break; } }
-      boxes.push({ x: pick[0], y: pick[1], w, h });
-      const tx = pick[2] === "start" ? pick[0] : pick[2] === "end" ? pick[0] + w : pick[0] + w / 2;
-      return `<text class="fn-label ${r.hi || r.lo ? "sig" : ""}" x="${tx.toFixed(1)}" y="${(pick[1] + 11).toFixed(1)}" text-anchor="${pick[2]}">${esc(r.f)}</text>`;
+      const tries = [];
+      for (const d of [0, 1, 2]) {
+        const dy = 15 * d;
+        tries.push([px + 9, py - 8 - dy, "start", d], [px + 9, py - 8 + dy, "start", d], [px - 9 - w, py - 8 - dy, "end", d], [px - 9 - w, py - 8 + dy, "end", d],
+          [px - w / 2, py - 24 - dy, "middle", d], [px - w / 2, py + 9 + dy, "middle", d]);
+      }
+      let best = null;
+      for (const t of tries) {
+        const b = { x: t[0], y: t[1], w, h };
+        const out = (b.x < ml ? ml - b.x : 0) + (b.x + w > W - mr ? b.x + w - W + mr : 0) + (b.y < mt ? mt - b.y : 0) + (b.y + h > H - mb ? b.y + h - H + mb : 0);
+        const score = overlap(b) + out * 40 + t[3] * 30; // prefer close placements
+        if (!best || score < best.score) best = { t, score };
+        if (score === 0) break;
+      }
+      const [x, y, anchor] = best.t;
+      boxes.push({ x, y, w, h });
+      const tx = anchor === "start" ? x : anchor === "end" ? x + w : x + w / 2;
+      const lead = best.t[3] ? `<line class="fn-lead" x1="${px}" y1="${py}" x2="${anchor === "end" ? x + w : anchor === "start" ? x : x + w / 2}" y2="${y + 8}"></line>` : "";
+      return `${lead}<text class="fn-label ${r.hi || r.lo ? "sig" : ""}" x="${tx.toFixed(1)}" y="${(y + 12).toFixed(1)}" text-anchor="${anchor}">${esc(r.f)}</text>`;
     }).join("");
     const dots = pts.map((r) => `<circle class="fn-pt ${r.hi || r.lo ? "sig" : ""}" cx="${X(r.n)}" cy="${Y(r.rate)}" r="5.5"
-      data-tip="<b>${esc(r.f)}</b><br>教职 ${r.fac} / ${r.n} 人（${r.p}%）<br>${r.hi ? "显著高于全体平均" : r.lo ? "显著低于全体平均" : "在随机波动范围内"}"></circle>`).join("");
+      data-tip="<b>${esc(r.f)}</b><br>${noun} ${r.fac} / ${r.n} 人（${r.p}%）<br>${r.hi ? "显著高于全体平均" : r.lo ? "显著低于全体平均" : "在随机波动范围内"}"></circle>`).join("");
     const hi = pts.filter((r) => r.hi).map((r) => r.f), lo = pts.filter((r) => r.lo).map((r) => r.f);
-    $("funnel-title").textContent = hi.length || lo.length
-      ? [hi.length ? `${hi.join("、")} 教职率显著高于平均` : "", lo.length ? `${lo.join("、")} 显著低于平均` : ""].filter(Boolean).join("；")
-      : `各领域教职率都在随机波动范围内（全体 ${all.p}%）`;
-    $("funnel").innerHTML = `<div class="legend"><span><i class="dot fn-key sig"></i>显著偏离平均（5% 水平）</span><span><i class="dot fn-key"></i>在波动范围内</span><span><i class="sw fn-key-band"></i>95% 波动范围</span></div>` +
-      `<div class="scroll-x">${svg(W, H, yt + band + mean + xt + dots + labels, "funnel")}</div>`;
+    $(`${id}-title`).textContent = hi.length || lo.length
+      ? [hi.length ? `${hi.join("、")} 的${noun}比例显著高于平均` : "", lo.length ? `${lo.join("、")} 显著低于平均` : ""].filter(Boolean).join("；")
+      : `各领域的${noun}比例都在随机波动范围内（全体 ${all.p}%）`;
+    $(id).innerHTML = `<div class="legend"><span><i class="dot fn-key sig tone-${tone}"></i>显著偏离平均（5% 水平）</span><span><i class="dot fn-key tone-${tone}"></i>在波动范围内</span><span><i class="sw fn-key-band tone-${tone}"></i>95% 波动范围</span></div>` +
+      `<div class="scroll-x">${svg(W, H, yt + band + mean + xt + dots + labels, `funnel tone-${tone}`)}</div>`;
+  }
+
+  const renderFunnel = (list) => funnelChart(list, { id: "funnel", test: isFac, noun: "教职", tone: "fac",
+    yTitle: "教职率（终身轨教职 / 已有最终去向）" });
+  const renderIndFunnel = (list) => funnelChart(list, { id: "indfunnel", test: (c) => c.placement_type === "Industry & Other", noun: "业界", tone: "ind",
+    yTitle: "业界比例（业界及其他 / 已有最终去向）" });
+
+  // ------------------------------- industry: role x sector matrix ----
+  const ROLE_NONE = "未注明职位";
+  function renderRoles(list) {
+    const ind = list.filter((c) => c.placement_type === "Industry & Other");
+    if (!ind.length) { $("roles-title").textContent = "业界职位类型"; $("roles").innerHTML = empty("暂无业界去向数据。"); return; }
+    const sectorOf = (c) => c.placement_sector || "其他";
+    const roleOf = (c) => c.placement_role || ROLE_NONE;
+    const tally = (key) => { const m = new Map(); for (const c of ind) m.set(key(c), (m.get(key(c)) || 0) + 1); return m; };
+    const byNone = (a, b, none) => (a[0] === none) - (b[0] === none) || b[1] - a[1];
+    const sectors = [...tally(sectorOf)].sort((a, b) => byNone(a, b, "其他")).map(([k]) => k);
+    const roles = [...tally(roleOf)].sort((a, b) => byNone(a, b, ROLE_NONE)).map(([k]) => k);
+    const cell = (sct, r) => count(ind, (c) => sectorOf(c) === sct && roleOf(c) === r);
+    const max = Math.max(1, ...sectors.flatMap((sct) => roles.filter((r) => r !== ROLE_NONE).map((r) => cell(sct, r))));
+    const named = ind.filter((c) => c.placement_role);
+    const top = [...tally(roleOf)].filter(([k]) => k !== ROLE_NONE).sort((a, b) => b[1] - a[1])[0];
+    $("roles-title").textContent = top ? `注明职位的 ${named.length} 人中，${top[0]}岗最多（${top[1]} 人，${pct(top[1], named.length)}%）` : "业界职位类型";
+    const head = `<tr><th></th>${roles.map((r) => `<th class="${r === ROLE_NONE ? "none" : ""}">${esc(r)}</th>`).join("")}<th class="tot">合计</th></tr>`;
+    const rowsHtml = sectors.map((sct) => {
+      const tot = count(ind, (c) => sectorOf(c) === sct);
+      return `<tr><th class="rh">${esc(sct)}</th>${roles.map((r) => {
+        const n = cell(sct, r);
+        if (!n) return `<td class="z"></td>`;
+        if (r === ROLE_NONE) return `<td class="none" data-tip="<b>${esc(sct)}</b><br>${n} 人未注明职位">${n}</td>`;
+        const a = n / max;
+        return `<td class="cell ${a > 0.55 ? "hot" : ""}" style="--a:${Math.round(18 + 82 * a)}%" data-tip="<b>${esc(sct)} · ${esc(r)}</b><br>${n} 人，占该行业 ${pct(n, tot)}%">${n}</td>`;
+      }).join("")}<td class="tot">${tot}</td></tr>`;
+    }).join("");
+    const colTot = `<tr class="tot"><th class="rh">合计</th>${roles.map((r) => `<td>${count(ind, (c) => roleOf(c) === r)}</td>`).join("")}<td>${ind.length}</td></tr>`;
+    $("roles").innerHTML = `<div class="scroll-x"><table class="roles">${head}${rowsHtml}${colTot}</table></div>`;
   }
 
   // ------------------------------- 6. field co-occurrence matrix ----
@@ -414,6 +464,8 @@
     renderSankey(list);
     renderInsts(list);
     renderFunnel(list);
+    renderRoles(list);
+    renderIndFunnel(list);
     renderCooc(list);
     renderNA(list);
     renderIndustry(list);

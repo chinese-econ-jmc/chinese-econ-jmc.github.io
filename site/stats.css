@@ -187,7 +187,7 @@ svg .gl { stroke: var(--line); stroke-width: 1; }
 .fn-pt { fill: var(--panel); stroke: var(--s-fac); stroke-width: 1.8; }
 .fn-pt.sig { fill: var(--s-fac); }
 .fn-pt:hover { stroke-width: 3; }
-.fn-label { fill: var(--text); font-size: 12.5px; }
+.fn-label { fill: var(--text); font-size: 12.5px; paint-order: stroke; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }
 .fn-label.sig { font-weight: 600; }
 .legend .dot.fn-key { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1.8px solid var(--s-fac); background: var(--panel); margin-right: 6px; vertical-align: -1px; }
 .legend .dot.fn-key.sig { background: var(--s-fac); }
@@ -226,3 +226,28 @@ html, body.report-page { background: var(--panel); }
 .part-head p { margin: 5px 0 0; color: var(--muted); font-size: 13.5px; }
 .method { scroll-margin-top: 52px; margin-top: 48px; }
 .findings { margin-bottom: 18px; }
+
+/* industry-toned funnel (fig 7) */
+svg.funnel.tone-ind .fn-band { fill: var(--s-ind); }
+svg.funnel.tone-ind .fn-edge { stroke: var(--s-ind); }
+svg.funnel.tone-ind .fn-pt { stroke: var(--s-ind); }
+svg.funnel.tone-ind .fn-pt.sig { fill: var(--s-ind); }
+.legend .dot.fn-key.tone-ind { border-color: var(--s-ind); }
+.legend .dot.fn-key.sig.tone-ind { background: var(--s-ind); }
+.sw.fn-key-band.tone-ind { background: color-mix(in oklab, var(--s-ind) 14%, var(--panel)); border-color: color-mix(in oklab, var(--s-ind) 40%, var(--panel)); }
+
+/* fig 6: industry role x sector matrix */
+table.roles { width: auto; border-collapse: separate; border-spacing: 3px; font-size: 13px; font-variant-numeric: tabular-nums; }
+table.roles th, table.roles td { border: none; padding: 0; vertical-align: middle; background: none; }
+table.roles th { font-weight: 500; color: var(--muted); font-size: 12px; padding: 0 6px 6px; text-align: center; white-space: nowrap; }
+table.roles th.rh { text-align: right; color: var(--text); font-size: 13px; padding: 0 12px 0 0; }
+table.roles td { min-width: 92px; height: 32px; text-align: center; border-radius: 3px; }
+table.roles td.cell { background: color-mix(in oklab, var(--s-ind) var(--a), var(--panel)); }
+table.roles td.cell.hot { color: #fff; font-weight: 600; }
+table.roles td.cell:hover, table.roles td.none:hover { outline: 2px solid var(--text); }
+table.roles td.none { background: var(--tag); color: var(--muted); }
+table.roles td.z { background: color-mix(in oklab, var(--line) 35%, var(--panel)); }
+table.roles .tot { color: var(--muted); font-weight: 600; }
+table.roles tr.tot td { height: 26px; color: var(--muted); font-weight: 600; border-top: 1px solid var(--line); }
+table.roles th.none { font-style: normal; }
+.fn-lead { stroke: var(--muted); stroke-width: .8; opacity: .55; }
