@@ -168,8 +168,8 @@
     const groups = [...new Set(byCy.flat().map(keyOf))];
     $("dist").className = acad ? "tone-fac" : "tone-ind";
     $("dist-note").textContent = acad
-      ? "注：各地区占当年教职的比例，按最终任职地计（先博后再任 AP 者计 AP 所在地）。不随上方年度选择变化。"
-      : "注：各行业占当年业界去向的比例。按雇主归为科技公司、金融机构、经济咨询、政府与国际组织，无法归类的计入“其他”。不随上方年度选择变化。";
+      ? "注：各地区占当年教职的比例，按最终任职地计（先博后再任 AP 者计 AP 所在地）。不随上方年度选择变化。2024-2025 只收录本科为中国大陆高校的候选人。"
+      : "注：各行业占当年业界去向的比例。按雇主归为科技公司、金融机构、经济咨询、政府与国际组织，无法归类的计入“其他”。不随上方年度选择变化。2024-2025 只收录本科为中国大陆高校的候选人。";
     if (!groups.length) { $("dist-title").textContent = acad ? "教职去向地区" : "业界去向行业"; $("dist").innerHTML = empty("暂无数据。"); return; }
     const L = cys.length - 1;
     groups.sort((a, b) => (a === "其他") - (b === "其他") || share(L, b) - share(L, a) || share(0, b) - share(0, a));

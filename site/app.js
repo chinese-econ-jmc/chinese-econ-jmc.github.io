@@ -14,7 +14,7 @@
   const el = {
     tabs: $("cycle-tabs"), stats: $("stats"), q: $("q"), region: $("region"), school: $("school"),
     placement: $("placement"), sort: $("sort"), group: $("group"), reset: $("reset"), chips: $("field-chips"),
-    count: $("count"), tbody: $("tbody"), empty: $("empty"), generated: $("generated"), repo: $("repo-link"),
+    count: $("count"), cycleNote: $("cycle-note"), tbody: $("tbody"), empty: $("empty"), generated: $("generated"), repo: $("repo-link"),
   };
   el.generated.textContent = D.generated;
   el.repo.href = CONFIG.repoUrl;
@@ -213,6 +213,10 @@
     const list = sortCands(cycleCandidates().filter((c) => matches(c)));
     renderTabs();
     renderStats(list);
+    // 2024-2025 used a narrower inclusion rule; say so whenever that cycle is on screen
+    const narrow = state.cycle === "2024-2025" || state.cycle === "all";
+    el.cycleNote.hidden = !narrow;
+    el.cycleNote.textContent = narrow ? "注：2024-2025 年度只收录了本科毕业于中国大陆高校的候选人；之后的年度也收录本科在海外的候选人，跨年度比较时请留意。" : "";
     renderSelects();
     renderChips();
     renderTable(list);

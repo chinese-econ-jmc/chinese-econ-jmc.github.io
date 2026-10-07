@@ -148,7 +148,7 @@ def parse_jmp(bio: str) -> str | None:
 
 
 RE_NON_TENURE_TRACK = re.compile(
-    r"of instruction|teaching (professor|faculty|track)|teaching-track|visiting (assistant |associate )?professor"
+    r"of instruction|teaching (professor|faculty|track)|teaching-track|visiting (assistant |associate )?professor|visiting ap\b"
     r"|\bvap\b|clinical|adjunct|of practice|non-tenure|non tenure"
 )
 
