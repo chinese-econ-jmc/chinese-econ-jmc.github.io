@@ -208,6 +208,39 @@
       (rest ? `<p class="note small">另有 ${rest} 家机构共 ${restN} 人。</p>` : "");
   }
 
+  // ------------------------------- 5. most common field pairs x outcome ----
+  function renderCombos(list) {
+    const keyOf = (fs) => fs.join(" + ");
+    const groups = new Map();
+    for (const c of list) {
+      const fs = [...new Set((c.fields || []).filter((f) => f !== "Other"))]
+        .sort((a, b) => D.field_categories.indexOf(a) - D.field_categories.indexOf(b));
+      for (let i = 0; i < fs.length; i++) for (let j = i + 1; j < fs.length; j++) {
+        const k = keyOf([fs[i], fs[j]]);
+        if (!groups.has(k)) groups.set(k, []);
+        groups.get(k).push(c);
+      }
+    }
+    const top = [...groups].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0])).slice(0, 10)
+      .filter(([, g]) => g.length >= 5);
+    if (!top.length) { $("combos-title").textContent = "常见的领域组合"; $("combos").innerHTML = empty("样本不足。"); return; }
+    const keys = ["fac", "pd", "ind"];
+    const rows = top.map(([k, g]) => {
+      const fin = g.filter(isFinal);
+      return { k, total: g.length, n: fin.length, parts: keys.map((key) => { const t = TYPES.find((x) => x.key === key); return { ...t, k: count(fin, t.test) }; }) };
+    });
+    const [first] = rows;
+    $("combos-title").textContent = `最常见的组合是 ${first.k}（${first.total} 人），教职率 ${pct(first.parts[0].k, first.n)}%`;
+    $("combos").innerHTML = `<div class="legend">${keys.map((key) => { const t = TYPES.find((x) => x.key === key); return `<span><i class="sw k-${key}"></i>${t.label}</span>`; }).join("")}</div>` +
+      rows.map((r) => `
+      <div class="combo-row">
+        <span class="b-label" title="${esc(r.k)}（${r.total} 人）">${esc(r.k)}<em>${r.total} 人</em></span>
+        ${r.n ? `<div class="stack thin-stack">${r.parts.filter((p) => p.k).map((p) =>
+          `<span class="k-${p.key}" style="flex-grow:${p.k}" data-tip="<b>${esc(r.k)}</b><br>${p.label}：${p.k} / ${r.n} 人（${pct(p.k, r.n)}%）"></span>`).join("")}</div>` : `<span class="none">尚无去向</span>`}
+        <span class="b-val">${r.n ? `${pct(r.parts[0].k, r.n)}%<em>n=${r.n}</em>` : "–"}</span>
+      </div>`).join("");
+  }
+
   // ------------------------------------- 6. industry: sectors and employers ----
   const SECTOR_OTHER = "其他";
   function renderIndustry(list) {
@@ -252,6 +285,7 @@
     renderHero(list);
     renderFields(list);
     renderInsts(list);
+    renderCombos(list);
     renderIndustry(list);
     originChart(list, undergrad, "ug-title", "ug", (top, n) => top
       ? `本科最多来自${top.slice(0, 3).map(([k]) => k).join("、")}（合计 ${pct(top.slice(0, 3).reduce((s, [, k]) => s + k, 0), n)}%）`
