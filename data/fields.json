@@ -1,5 +1,5 @@
 {
-  "_comment": "Keyword -> research-field category mapping used by scripts/build.py. A candidate's 研究兴趣 text is split on 、/和/与/及, and each token is matched against these substrings (longest keyword wins). Add new keywords here when build.py reports unmatched strings. \"Applied Micro\" is deliberately not a category: generic terms like 应用微观 / 实证微观 / 微观经济学 are left unmapped. \"Household & Family\" is not a category either: family / demographic terms map to Labor, 家庭金融 to Finance (via 金融), 消费者理论 to Theory. \"Organizations & Management\" is not a category either: organization / management / operations / marketing terms map to Business, 企业动态 to Macro; a bare 企业 stays unmapped. \"Trade & Spatial\" covers trade and spatial economics; only explicitly urban terms (城市) and transportation (交通 / 运输, JEL R4) go to Urban.",
+  "_comment": "Keyword -> research-field category mapping used by scripts/build.py. A candidate's 研究兴趣 text is split on 、/和/与/及, and each token is matched against these substrings (longest keyword wins). Add new keywords here when build.py reports unmatched strings. \"Applied Micro\" is deliberately not a category: generic terms like 应用微观 / 实证微观 / 微观经济学 are left unmapped. \"Household & Family\" is not a category either: family / demographic terms map to Labor, 家庭金融 to Finance (via 金融), 消费者理论 to Theory. \"Organizations & Management\" is not a category either: organization / management / operations / marketing terms map to Business, 企业动态 to Macro; a bare 企业 stays unmapped. \"Trade & Spatial\" covers trade and spatial economics; only explicitly urban terms (城市) and transportation (交通 / 运输, JEL R4) go to Urban. There is no \"Other\" category: research interests that match none of these categories are simply ignored (the raw text still shows in the directory).",
   "categories": {
     "Macro": [
       "宏观",
@@ -131,22 +131,6 @@
       "管理",
       "运营",
       "营销"
-    ],
-    "Other": [
-      "人工智能",
-      "AI",
-      "社交媒体",
-      "法律",
-      "计算经济",
-      "社会经济",
-      "农业",
-      "交叉",
-      "计算机",
-      "信息系统",
-      "电子平台",
-      "媒体",
-      "经济思想史",
-      "政策学习"
     ]
   }
 }
