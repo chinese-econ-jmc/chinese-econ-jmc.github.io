@@ -20,7 +20,7 @@
 }
 
 .viz { padding-top: 20px; max-width: 1160px; }
-.viz h2, .fig-head h2 { font-family: var(--serif); font-variant-numeric: lining-nums; }
+.viz h2, .fig-head h3 { font-family: var(--serif); font-variant-numeric: lining-nums; }
 .empty-note { color: var(--muted); font-size: 14px; margin: 6px 0; }
 .note.small { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
 
@@ -55,12 +55,13 @@
 .fact .what { font-size: 14px; margin-top: 6px; }
 .fact .how { font-size: 12px; color: var(--muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
 
-/* figures */
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 18px 22px 14px; margin-bottom: 18px; min-width: 0; }
-.fig-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
-.fig-no { flex: none; font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .04em; }
-.fig-head h2 { margin: 0; font-size: 17.5px; font-weight: 600; line-height: 1.4; }
-.fig-note { margin: 14px 0 0; padding-top: 9px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.6; }
+/* figures: report layout, no cards */
+.fig { margin: 0; padding: 26px 0 8px; border-top: 1px solid var(--line); min-width: 0; }
+.part-head + .fig, .part-head + .two-col > .fig { border-top: none; padding-top: 18px; }
+.fig-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+.fig-no { flex: none; font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .06em; }
+.fig-head h3 { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.45; }
+.fig-note { margin: 14px 0 0; color: var(--muted); font-size: 12px; line-height: 1.65; max-width: 62em; }
 
 /* fig 1: 100% stacked bars with direct labels */
 .mix-row { display: grid; grid-template-columns: 7em 1fr; gap: 14px; align-items: center; margin-bottom: 10px; }
@@ -124,10 +125,11 @@
 .stack.thin-stack { height: 14px; }
 .combo-row .none { color: var(--muted); font-size: 12px; }
 .sub-col h3 { margin: 0 0 8px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
-.two-col .panel { margin-bottom: 0; display: flex; flex-direction: column; }
-.two-col .panel .fig-note { margin-top: auto; }
-.two-col .panel > div { margin-bottom: 14px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; column-gap: 64px; border-top: 1px solid var(--line); }
+.part-head + .two-col { border-top: none; }
+.two-col > .fig { border-top: none; display: flex; flex-direction: column; position: relative; }
+.two-col > .fig .fig-note { margin-top: auto; padding-top: 14px; }
+.two-col > .fig + .fig::before { content: ""; position: absolute; left: -32px; top: 26px; bottom: 8px; width: 1px; background: var(--line); }
 
 /* methods */
 .method { border-top: 2px solid var(--text); margin-top: 30px; padding-top: 12px; }
@@ -144,7 +146,9 @@
   .combo-row { grid-template-columns: 11em 1fr 4.4em; }
   .mix-row { grid-template-columns: 5.5em 1fr; }
   .b-row, .bars.wide .b-row { grid-template-columns: 9.5em 1fr 4.4em; }
-  .panel { padding: 14px; }
+  .two-col > .fig + .fig::before { display: none; }
+  .two-col > .fig + .fig { border-top: 1px solid var(--line); }
+  .part-head h2 { font-size: 20px; }
   .fact { border-left: none; padding: 8px 0; border-top: 1px solid var(--rule); }
   .fact:first-child { border-top: none; }
   .fact .big { font-size: 28px; }
@@ -205,3 +209,20 @@ table.cooc td.z { background: color-mix(in oklab, var(--line) 35%, var(--panel))
   table.cooc td.cell.hot { color: #0b0b0b; }
 }
 
+
+/* ---- report page shell ---- */
+/* stats.css is only loaded on the report page, so the whole canvas can be white */
+html, body.report-page { background: var(--panel); }
+.viz.report { max-width: 1100px; padding-bottom: 20px; }
+.toc { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 4px 22px; padding: 10px 0; margin: 0 0 8px;
+  background: color-mix(in oklab, var(--panel) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); font-size: 13px; }
+.toc a { color: var(--muted); }
+.toc a:hover { color: var(--text); text-decoration: none; }
+.toc a b { font-family: var(--serif); font-weight: 600; color: var(--text); margin-right: 6px; }
+.part { margin-top: 40px; scroll-margin-top: 52px; }
+.part-head { display: flex; align-items: baseline; gap: 18px; border-top: 2px solid var(--text); padding-top: 14px; }
+.part-no { font-family: var(--serif); font-size: 30px; font-weight: 600; line-height: 1; color: var(--s-fac); min-width: 1.2em; }
+.part-head h2 { margin: 0; font-size: 23px; font-weight: 600; letter-spacing: .01em; }
+.part-head p { margin: 5px 0 0; color: var(--muted); font-size: 13.5px; }
+.method { scroll-margin-top: 52px; margin-top: 48px; }
+.findings { margin-bottom: 18px; }
