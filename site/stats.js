@@ -75,7 +75,7 @@
     const body = rows.map((r) => r.group
       ? `<div class="b-group">${esc(r.group)}</div>`
       : `<div class="b-row ${r.cls || ""}" data-tip="${r.tip}">
-          <span class="b-label">${esc(r.label)}${r.sub ? `<em>${esc(r.sub)}</em>` : ""}</span>
+          <span class="b-label" title="${esc(r.label)}">${esc(r.label)}${r.sub ? `<em>${esc(r.sub)}</em>` : ""}</span>
           <span class="b-track">${grid}${refLine}<span class="fill k-${color}" style="width:${(100 * r.v / m).toFixed(1)}%"></span></span>
           <span class="b-val">${r.text}</span>
         </div>`).join("");
@@ -241,7 +241,36 @@
       </div>`).join("");
   }
 
-  // ------------------------------------- 6. industry: sectors and employers ----
+  // ------------------------- 6. fields of North American faculty placements ----
+  const NA = ["美国", "加拿大"];
+  function renderNA(list) {
+    const na = list.filter((c) => isFac(c) && NA.includes(c.placement_region));
+    if (!na.length) { $("na-title").textContent = "北美教职的研究领域"; $("na").innerHTML = empty("暂无北美教职。"); return; }
+    const order = D.field_categories || [];
+    const single = new Map(), pair = new Map();
+    for (const c of na) {
+      const fs = [...new Set((c.fields || []).filter((f) => f !== "Other"))].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+      for (const f of fs) single.set(f, (single.get(f) || 0) + 1);
+      for (let i = 0; i < fs.length; i++) for (let j = i + 1; j < fs.length; j++) {
+        const k = `${fs[i]} + ${fs[j]}`;
+        pair.set(k, (pair.get(k) || 0) + 1);
+      }
+    }
+    const sorted = (m) => [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const s1 = sorted(single), s2 = sorted(pair), p2 = s2.filter(([, n]) => n >= 2);
+    const N = na.length;
+    const rows = (arr) => arr.map(([k, n]) => ({ label: k, v: n, text: `${n}<em>${pct(n, N)}%</em>`,
+      tip: `<b>${esc(k)}</b><br>${n} / ${N} 位北美教职获得者（${pct(n, N)}%）` }));
+    const top = s1.filter(([, n]) => n === s1[0][1]).map(([k]) => k);
+    $("na-title").textContent = `${N} 个北美教职中，最常见的领域是 ${top.join("、")}（${s1[0][1]} 人）`;
+    const max = s1[0][1];
+    $("na").innerHTML = `
+      <div class="sub-col"><h3>单个领域</h3>${barList(rows(s1), { max, wide: true })}</div>
+      <div class="sub-col"><h3>两个领域的组合</h3>${p2.length ? barList(rows(p2), { max, wide: true }) : empty("各组合均只有 1 人。")}
+        ${p2.length && s2.length > p2.length ? `<p class="note small">另有 ${s2.length - p2.length} 个组合各 1 人。</p>` : ""}</div>`;
+  }
+
+  // ------------------------------------- 7. industry: sectors and employers ----
   const SECTOR_OTHER = "其他";
   function renderIndustry(list) {
     const ind = list.filter((c) => c.placement_type === "Industry & Other");
@@ -286,6 +315,7 @@
     renderFields(list);
     renderInsts(list);
     renderCombos(list);
+    renderNA(list);
     renderIndustry(list);
     originChart(list, undergrad, "ug-title", "ug", (top, n) => top
       ? `本科最多来自${top.slice(0, 3).map(([k]) => k).join("、")}（合计 ${pct(top.slice(0, 3).reduce((s, [, k]) => s + k, 0), n)}%）`
