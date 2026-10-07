@@ -44,6 +44,7 @@
     },
     "政府与国际组织": {
       "IMF": ["imf", "international monetary fund"],
+      "香港金融管理局": ["hong kong monetary authority", "hkma"],
       "亚洲开发银行": ["asian development bank"],
       "世界银行": ["world bank"],
       "美联储": ["federal reserve"],
