@@ -1,12 +1,5 @@
 {
-  "_comment": "roles: job-title keyword -> role (first match wins; titles that name no role are left blank). sectors: employer keyword -> (sector, employer) mapping for 'Industry & Other' placements, used by scripts/build.py for the industry chart on the stats page. Sectors are tried in order and employers in order within a sector; keywords are case-insensitive whole words and the first match wins. build.py lists industry placements with no match; add them here (or leave them as 其他).",
-  "roles": {
-    "数据科学 / 应用科学": ["data scientist", "data science", "applied scientist", "decision science", "ai researcher", "research scientist"],
-    "经济学家": ["economist"],
-    "量化 / 风险建模": ["quant", "quantitative", "modeler", "risk"],
-    "咨询 / Associate": ["associate", "consultant", "analyst", "vice president"],
-    "创业": ["founder"]
-  },
+  "_comment": "sectors: employer keyword -> (sector, employer) mapping for 'Industry & Other' placements, used by scripts/build.py for the industry chart on the stats page. Sectors are tried in order and employers in order within a sector; keywords are case-insensitive whole words and the first match wins. build.py lists industry placements with no match; add them here (or leave them as 其他).",
   "sectors": {
     "科技公司": {
       "Amazon": ["amazon"],

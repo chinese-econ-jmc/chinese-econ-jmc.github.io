@@ -366,37 +366,6 @@
     $("funnel-note").textContent = `注：每个点是一个研究领域：横轴为该领域已有最终去向的人数，纵轴为其中${acad ? "拿到（终身轨）教职" : "进入业界（含其他非学术去向）"}的比例。虚线为全体平均，阴影为在该人数下随机波动的 95% 范围（二项分布的正态近似）；实心点落在范围之外，表示与全体平均的差异在 5% 水平上显著。一人可属于多个领域；少于 5 人的领域不列出。`;
   };
 
-  // ------------------------------- industry: role x sector matrix ----
-  const ROLE_NONE = "未注明职位";
-  function renderRoles(list) {
-    const ind = list.filter((c) => c.placement_type === "Industry & Other");
-    if (!ind.length) { $("roles-title").textContent = "业界职位类型"; $("roles").innerHTML = empty("暂无业界去向数据。"); return; }
-    const sectorOf = (c) => c.placement_sector || "其他";
-    const roleOf = (c) => c.placement_role || ROLE_NONE;
-    const tally = (key) => { const m = new Map(); for (const c of ind) m.set(key(c), (m.get(key(c)) || 0) + 1); return m; };
-    const byNone = (a, b, none) => (a[0] === none) - (b[0] === none) || b[1] - a[1];
-    const sectors = [...tally(sectorOf)].sort((a, b) => byNone(a, b, "其他")).map(([k]) => k);
-    const roles = [...tally(roleOf)].sort((a, b) => byNone(a, b, ROLE_NONE)).map(([k]) => k);
-    const cell = (sct, r) => count(ind, (c) => sectorOf(c) === sct && roleOf(c) === r);
-    const max = Math.max(1, ...sectors.flatMap((sct) => roles.filter((r) => r !== ROLE_NONE).map((r) => cell(sct, r))));
-    const named = ind.filter((c) => c.placement_role);
-    const top = [...tally(roleOf)].filter(([k]) => k !== ROLE_NONE).sort((a, b) => b[1] - a[1])[0];
-    $("roles-title").textContent = top ? `注明职位的 ${named.length} 人中，${top[0]}岗最多（${top[1]} 人，${pct(top[1], named.length)}%）` : "业界职位类型";
-    const head = `<tr><th></th>${roles.map((r) => `<th class="${r === ROLE_NONE ? "none" : ""}">${esc(r)}</th>`).join("")}<th class="tot">合计</th></tr>`;
-    const rowsHtml = sectors.map((sct) => {
-      const tot = count(ind, (c) => sectorOf(c) === sct);
-      return `<tr><th class="rh">${esc(sct)}</th>${roles.map((r) => {
-        const n = cell(sct, r);
-        if (!n) return `<td class="z"></td>`;
-        if (r === ROLE_NONE) return `<td class="none" data-tip="<b>${esc(sct)}</b><br>${n} 人未注明职位">${n}</td>`;
-        const a = n / max;
-        return `<td class="cell ${a > 0.55 ? "hot" : ""}" style="--a:${Math.round(18 + 82 * a)}%" data-tip="<b>${esc(sct)} · ${esc(r)}</b><br>${n} 人，占该行业 ${pct(n, tot)}%">${n}</td>`;
-      }).join("")}<td class="tot">${tot}</td></tr>`;
-    }).join("");
-    const colTot = `<tr class="tot"><th class="rh">合计</th>${roles.map((r) => `<td>${count(ind, (c) => roleOf(c) === r)}</td>`).join("")}<td>${ind.length}</td></tr>`;
-    $("roles").innerHTML = `<div class="scroll-x"><table class="roles">${head}${rowsHtml}${colTot}</table></div>`;
-  }
-
   // ------------------------------- 6. field co-occurrence matrix ----
   const SHORT = { "Macro": "Macro", "Labor": "Labor", "Finance": "Finance", "Development": "Dev", "Trade & Spatial": "Trade", "Urban": "Urban",
     "IO": "IO", "Public": "Public", "Econometrics": "Metrics", "Theory": "Theory", "Behavioral & Experimental": "Behav",
@@ -474,7 +443,6 @@
     lastList = list;
     renderSankey(list);
     renderHire(list);
-    renderRoles(list);
     renderFunnel(list);
     renderCooc(list);
     renderNA(list);
