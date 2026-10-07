@@ -273,7 +273,7 @@
     const p0 = all.fac / all.n, Z = 1.96;
     const se = (n) => Math.sqrt(p0 * (1 - p0) / n);
     for (const r of pts) { r.rate = r.fac / r.n; r.hi = r.rate > p0 + Z * se(r.n); r.lo = r.rate < p0 - Z * se(r.n); }
-    const W = 1000, H = 420, ml = 52, mr = 24, mt = 14, mb = 40;
+    const W = 1000, H = 420, ml = 76, mr = 24, mt = 14, mb = 40;
     const xMax = niceMax(Math.max(...pts.map((r) => r.n)) * 1.05, 10);
     const X = (n) => ml + (W - ml - mr) * n / xMax, Y = (p) => mt + (H - mt - mb) * (1 - p);
     // 95% band, drawn from n = 3 to xMax
@@ -286,7 +286,8 @@
     const yt = [0, 0.25, 0.5, 0.75, 1].map((v) => `<line class="gl" x1="${ml}" x2="${W - mr}" y1="${Y(v)}" y2="${Y(v)}"></line><text class="ax" x="${ml - 8}" y="${Y(v) + 4}" text-anchor="end">${v * 100}%</text>`).join("");
     const xs = []; for (let n = 0; n <= xMax; n += xMax > 60 ? 20 : 10) xs.push(n);
     const xt = xs.map((n) => `<text class="ax" x="${X(n)}" y="${H - mb + 18}" text-anchor="middle">${n}</text>`).join("") +
-      `<text class="ax ax-title" x="${(ml + W - mr) / 2}" y="${H - 4}" text-anchor="middle">已有最终去向的人数</text>`;
+      `<text class="ax ax-title" x="${(ml + W - mr) / 2}" y="${H - 4}" text-anchor="middle">已有最终去向的人数</text>` +
+      `<text class="ax ax-title" transform="translate(18 ${(mt + H - mb) / 2}) rotate(-90)" text-anchor="middle">教职率（终身轨教职 / 已有最终去向）</text>`;
     const mean = `<line class="fn-mean" x1="${ml}" x2="${W - mr}" y1="${Y(p0)}" y2="${Y(p0)}"></line><text class="fn-mean-l" x="${W - mr}" y="${Y(p0) - 6}" text-anchor="end">全体 ${all.p}%</text>`;
     // labels: try right / left / above / below, avoid overlaps
     const boxes = pts.map((r) => ({ x: X(r.n) - 6, y: Y(r.rate) - 6, w: 12, h: 12 }));
@@ -350,14 +351,15 @@
     const delta = (f) => share(L, f) - share(0, f);
     const ups = fs.filter((f) => delta(f) >= 0.03).sort((a, b) => delta(b) - delta(a)).slice(0, 3);
     const downs = fs.filter((f) => delta(f) <= -0.03).sort((a, b) => delta(a) - delta(b)).slice(0, 3);
-    const W = 1000, H = 400, ml = 60, mr = 230, mt = 16, mb = 46;
+    const W = 1000, H = 400, ml = 84, mr = 230, mt = 16, mb = 46;
     const yMax = niceMax(Math.max(...fs.flatMap((f) => cys.map((_, i) => share(i, f)))) * 100, 5) / 100;
     const X = (i) => ml + (W - ml - mr) * i / L, Y = (v) => mt + (H - mt - mb) * (1 - v / yMax);
     const yt = []; for (let v = 0; v <= yMax + 1e-9; v += yMax > 0.3 ? 0.1 : 0.05) yt.push(v);
     const grid = yt.map((v) => `<line class="gl" x1="${ml}" x2="${X(L)}" y1="${Y(v)}" y2="${Y(v)}"></line><text class="ax" x="${ml - 10}" y="${Y(v) + 4}" text-anchor="end">${Math.round(v * 100)}%</text>`).join("") +
       cys.map((cy, i) => `<line class="gl vl" x1="${X(i)}" x2="${X(i)}" y1="${mt}" y2="${H - mb}"></line>
         <text class="ax ax-cy" x="${X(i)}" y="${H - mb + 18}" text-anchor="middle">${cy}</text>
-        <text class="ax" x="${X(i)}" y="${H - mb + 33}" text-anchor="middle">n=${base[i].length}${i === L && !placedCycles.includes(cy) ? "（名单未完）" : ""}</text>`).join("");
+        <text class="ax" x="${X(i)}" y="${H - mb + 33}" text-anchor="middle">n=${base[i].length}${i === L && !placedCycles.includes(cy) ? "（名单未完）" : ""}</text>`).join("") +
+      `<text class="ax ax-title" transform="translate(18 ${(mt + H - mb) / 2}) rotate(-90)" text-anchor="middle">列出该领域的候选人占比</text>`;
     const cls = (f) => (ups.includes(f) ? "up" : downs.includes(f) ? "down" : "");
     const tipOf = (f) => `<b>${esc(f)}</b><br>` + cys.map((cy, i) => `${cy}：${Math.round(100 * share(i, f))}%`).join("<br>");
     const ordered = fs.slice().sort((a, b) => (cls(a) ? 1 : 0) - (cls(b) ? 1 : 0)); // highlighted lines on top
