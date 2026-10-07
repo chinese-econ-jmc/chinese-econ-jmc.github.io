@@ -40,55 +40,63 @@
     <p class="fig-note">注：各年度全部候选人的去向构成，不随上方年度选择变化。"未知"指名录中尚无去向信息，不代表没有工作。</p>
   </section>
 
+  <section class="panel">
+    <header class="fig-head"><span class="fig-no">图 2</span><h2 id="sankey-title"></h2></header>
+    <div id="sankey"></div>
+    <p class="fig-note">注：只计已有最终去向者，跟随上方年度选择。左侧为去向类型，右侧上部为教职、非终身轨教职与博后的所在地区（按最终任职地），下部为业界去向的行业；条带宽度与人数成比例，悬停可查看人数。</p>
+  </section>
+
   <div class="two-col">
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 2</span><h2 id="regions-title"></h2></header>
+      <header class="fig-head"><span class="fig-no">图 3</span><h2 id="regions-title"></h2></header>
       <div id="regions"></div>
       <p class="fig-note">注：各地区占当年教职的比例，按最终任职地计（先博后再任 AP 者计 AP 所在地）。不随上方年度选择变化。</p>
     </section>
-
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 3</span><h2 id="insts-title"></h2></header>
+      <header class="fig-head"><span class="fig-no">图 4</span><h2 id="insts-title"></h2></header>
       <div id="insts"></div>
       <p class="fig-note">注：录用 2 人及以上的机构，同一机构的不同学院合并计算。</p>
     </section>
   </div>
 
-  <div class="two-col">
-    <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 4</span><h2 id="fields-title"></h2></header>
-      <div id="fields"></div>
-      <p class="fig-note">注：教职率 = 教职 /（教职 + 非终身轨教职 + 博后 + 业界及其他），不含延期与未知。一人可属于多个研究领域；少于 10 人的领域及 "Other" 不列出。</p>
-    </section>
-
-    <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 5</span><h2 id="combos-title"></h2></header>
-      <div id="combos"></div>
-      <p class="fig-note">注：同时列出两个领域即计入该组合（列出三个领域者计入三个组合），按组合人数取最常见的 10 个。条形为已有最终去向者的构成，右侧为教职率与其人数；各组合样本较小，仅供参考。</p>
-    </section>
-  </div>
+  <section class="panel">
+    <header class="fig-head"><span class="fig-no">图 5</span><h2 id="funnel-title"></h2></header>
+    <div id="funnel"></div>
+    <p class="fig-note">注：每个点是一个研究领域：横轴为该领域已有最终去向的人数，纵轴为其中拿到（终身轨）教职的比例。虚线为全体教职率，阴影为在该人数下随机波动的 95% 范围（二项分布的正态近似）；实心点落在范围之外，表示与全体平均的差异在 5% 水平上显著。一人可属于多个领域；少于 5 人的领域及 "Other" 不列出。</p>
+  </section>
 
   <section class="panel">
-    <header class="fig-head"><span class="fig-no">图 6</span><h2 id="na-title"></h2></header>
+    <header class="fig-head"><span class="fig-no">图 6</span><h2 id="cooc-title"></h2></header>
+    <div id="cooc"></div>
+    <p class="fig-note">注：格内数字为同时列出两个领域的人数，颜色越深人数越多；对角线（灰色）为列出该领域的总人数。只列出 3 人及以上的领域，按人数排序。悬停可查看该组合的教职率。</p>
+  </section>
+
+  <section class="panel">
+    <header class="fig-head"><span class="fig-no">图 7</span><h2 id="slope-title"></h2></header>
+    <div id="slope"></div>
+    <p class="fig-note">注：各年度列出某领域的候选人占当年有领域信息候选人的比例；一人可属于多个领域，各领域之和大于 100%。彩色线为变化最大的领域（藏青为上升、砖红为下降），其余为灰色，悬停可查看数值。包含仍在求职中的年度，其名单尚不完整；不随上方年度选择变化。</p>
+  </section>
+
+  <section class="panel">
+    <header class="fig-head"><span class="fig-no">图 8</span><h2 id="na-title"></h2></header>
     <div id="na" class="split two"></div>
     <p class="fig-note">注：北美教职指任职地在美国或加拿大的终身轨教职（含先博后再任教职者，不含非终身轨教职）。一人可属于多个领域，按人数排序；数字为人数，百分比为占北美教职总人数的比例。组合只列 2 人及以上者。</p>
   </section>
 
   <section class="panel">
-    <header class="fig-head"><span class="fig-no">图 7</span><h2 id="ind-title"></h2></header>
+    <header class="fig-head"><span class="fig-no">图 9</span><h2 id="ind-title"></h2></header>
     <div id="ind" class="split two"></div>
     <p class="fig-note">注："业界及其他"去向按雇主类型归类，同一雇主的不同团队合并计算；无法归类的计入"其他"。</p>
   </section>
 
   <div class="two-col">
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 8</span><h2 id="ug-title"></h2></header>
+      <header class="fig-head"><span class="fig-no">图 10</span><h2 id="ug-title"></h2></header>
       <div id="ug"></div>
       <p class="fig-note">注：候选人的本科院校，按人数排列。</p>
     </section>
-
     <section class="panel">
-      <header class="fig-head"><span class="fig-no">图 9</span><h2 id="phd-title"></h2></header>
+      <header class="fig-head"><span class="fig-no">图 11</span><h2 id="phd-title"></h2></header>
       <div id="phd"></div>
       <p class="fig-note">注：候选人的博士项目，按人数排列。</p>
     </section>
@@ -98,7 +106,7 @@
     <h2 id="method-h">方法与口径</h2>
     <dl>
       <dt>样本</dt>
-      <dd>名录收录的美国与加拿大院校经济学博士求职者。"全部年度"指已有去向信息的年度；仍在求职中的年度只体现在图 8、图 9。</dd>
+      <dd>名录收录的美国与加拿大院校经济学博士求职者。"全部年度"指已有去向信息的年度；仍在求职中的年度只体现在图 7、图 10、图 11。</dd>
       <dt>去向分类</dt>
       <dd>依据 Placement 文字归类。<b>教职</b>：终身轨职位，如 Assistant Professor、Tenure-track Researcher，以及英国、澳大利亚、新西兰的 Lecturer，含先博后再任教职者；<b>非终身轨教职</b>：教学岗（AP of Instruction 等）、Visiting AP、Clinical / Adjunct，以及美国与加拿大的 Lecturer；<b>博后</b>：Postdoc、Research Fellow、Visiting Scholar 等；<b>业界及其他</b>：其余去向；<b>延期</b>：次年重新进入求职市场；<b>未知</b>：名录中尚无信息。</dd>
       <dt>教职率</dt>

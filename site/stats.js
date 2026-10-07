@@ -177,18 +177,6 @@
     $("regions").innerHTML = legend + rows + axis;
   }
 
-  // ------------------------------------------- 4. faculty rate by field ----
-  function renderFields(list) {
-    const all = facRate(list);
-    const rows = (D.field_categories || []).filter((f) => f !== "Other").map((f) => {
-      const r = facRate(list.filter((c) => (c.fields || []).includes(f)));
-      return { label: f, v: r.p, n: r.n, text: `${r.p}%<em>n=${r.n}</em>`, tip: `<b>${esc(f)}</b><br>教职 ${r.fac} / ${r.n} 人（${r.p}%）` };
-    }).filter((r) => r.n >= 10).sort((a, b) => b.v - a.v || b.n - a.n);
-    if (!rows.length) { $("fields-title").textContent = "各研究领域的教职率"; $("fields").innerHTML = empty("样本不足。"); return; }
-    $("fields-title").textContent = `${rows.slice(0, 3).map((r) => r.label).join("、")} 方向教职率最高`;
-    $("fields").innerHTML = barList(rows, { max: 100, ref: all.p, refLabel: `全体平均 ${all.p}%`, wide: true, axis: true });
-  }
-
   // ------------------------------------------- 5. top hiring institutions ----
   function topInsts(fac) {
     const m = new Map();
@@ -209,37 +197,184 @@
       (rest ? `<p class="note small">另有 ${rest} 家机构共 ${restN} 人。</p>` : "");
   }
 
-  // ------------------------------- 5. most common field pairs x outcome ----
-  function renderCombos(list) {
-    const keyOf = (fs) => fs.join(" + ");
-    const groups = new Map();
-    for (const c of list) {
-      const fs = [...new Set((c.fields || []).filter((f) => f !== "Other"))]
-        .sort((a, b) => D.field_categories.indexOf(a) - D.field_categories.indexOf(b));
-      for (let i = 0; i < fs.length; i++) for (let j = i + 1; j < fs.length; j++) {
-        const k = keyOf([fs[i], fs[j]]);
-        if (!groups.has(k)) groups.set(k, []);
-        groups.get(k).push(c);
-      }
+  // ---------------------------------------------------------- SVG helpers ----
+  const FIELDS = () => (D.field_categories || []).filter((f) => f !== "Other");
+  const fieldsOf = (c) => [...new Set((c.fields || []).filter((f) => f !== "Other"))];
+  const textW = (t, size) => [...String(t)].reduce((w, ch) => w + (/[⺀-￿]/.test(ch) ? size : size * 0.56), 0);
+  const svg = (w, h, body, cls = "") => `<svg class="chart ${cls}" viewBox="0 0 ${w} ${h}" role="img" preserveAspectRatio="xMidYMid meet">${body}</svg>`;
+  const niceMax = (v, step) => Math.max(step, Math.ceil(v / step) * step);
+
+  // ------------------------------- 2. flows: outcome type -> region / sector ----
+  function renderSankey(list) {
+    const fin = list.filter(isFinal);
+    if (!fin.length) { $("sankey-title").textContent = "去向全景"; $("sankey").innerHTML = empty("暂无去向数据。"); return; }
+    const LEFT = TYPES.filter((t) => ["fac", "ntt", "pd", "ind"].includes(t.key));
+    // academic regions with fewer than 3 people fold into 其他地区 so labels stay legible
+    const regionN = new Map();
+    for (const c of fin) if (c.placement_type !== "Industry & Other") regionN.set(c.placement_region || "未归类", (regionN.get(c.placement_region || "未归类") || 0) + 1);
+    const target = (c) => {
+      if (c.placement_type === "Industry & Other") return { group: "ind", name: c.placement_sector || "其他行业" };
+      const r = c.placement_region || "未归类";
+      return { group: "acad", name: regionN.get(r) < 3 || r === "其他" || r === "未归类" ? "其他地区" : r };
+    };
+    // flows[leftKey][targetName] = n
+    const flows = new Map(), totals = new Map(), groupOf = new Map();
+    for (const c of fin) {
+      const l = typeKey(c), t = target(c);
+      groupOf.set(t.name, t.group);
+      const k = `${l}|${t.name}`;
+      flows.set(k, (flows.get(k) || 0) + 1);
+      totals.set(t.name, (totals.get(t.name) || 0) + 1);
     }
-    const top = [...groups].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0])).slice(0, 10)
-      .filter(([, g]) => g.length >= 5);
-    if (!top.length) { $("combos-title").textContent = "常见的领域组合"; $("combos").innerHTML = empty("样本不足。"); return; }
-    const keys = ["fac", "ntt", "pd", "ind"];
-    const rows = top.map(([k, g]) => {
-      const fin = g.filter(isFinal);
-      return { k, total: g.length, n: fin.length, parts: keys.map((key) => { const t = TYPES.find((x) => x.key === key); return { ...t, k: count(fin, t.test) }; }) };
+    const rightOrder = (g) => [...totals].filter(([k]) => groupOf.get(k) === g)
+      .sort((a, b) => (a[0].startsWith("其他") || a[0] === "未归类") - (b[0].startsWith("其他") || b[0] === "未归类") || b[1] - a[1]).map(([k]) => k);
+    const right = [...rightOrder("acad"), ...rightOrder("ind")];
+    const left = LEFT.filter((t) => fin.some((c) => typeKey(c) === t.key));
+    const W = 1000, H = 440, top = 24, x0 = 170, x1 = 760, nw = 12;
+    const gapL = 12, gapR = 5, gapGroup = 22;
+    const unit = (H - top - 8 - Math.max(gapL * (left.length - 1), gapR * (right.length - 1) + gapGroup)) / fin.length;
+    // node positions
+    const L = new Map(); let y = top;
+    for (const t of left) { const n = count(fin, (c) => typeKey(c) === t.key); L.set(t.key, { y, h: n * unit, n, label: t.label, off: 0 }); y += n * unit + gapL; }
+    const R = new Map(); y = top;
+    right.forEach((name, i) => {
+      if (i > 0 && groupOf.get(name) !== groupOf.get(right[i - 1])) y += gapGroup - gapR;
+      const n = totals.get(name); R.set(name, { y, h: n * unit, n, off: 0 }); y += n * unit + gapR;
     });
-    const [first] = rows;
-    $("combos-title").textContent = `最常见的组合是 ${first.k}（${first.total} 人），教职率 ${pct(first.parts[0].k, first.n)}%`;
-    $("combos").innerHTML = `<div class="legend">${keys.map((key) => { const t = TYPES.find((x) => x.key === key); return `<span><i class="sw k-${key}"></i>${t.label}</span>`; }).join("")}</div>` +
-      rows.map((r) => `
-      <div class="combo-row">
-        <span class="b-label" title="${esc(r.k)}（${r.total} 人）">${esc(r.k)}<em>${r.total} 人</em></span>
-        ${r.n ? `<div class="stack thin-stack">${r.parts.filter((p) => p.k).map((p) =>
-          `<span class="k-${p.key}" style="flex-grow:${p.k}" data-tip="<b>${esc(r.k)}</b><br>${p.label}：${p.k} / ${r.n} 人（${pct(p.k, r.n)}%）"></span>`).join("")}</div>` : `<span class="none">尚无去向</span>`}
-        <span class="b-val">${r.n ? `${pct(r.parts[0].k, r.n)}%<em>n=${r.n}</em>` : "–"}</span>
-      </div>`).join("");
+    let biggest = null, links = "";
+    for (const t of left) for (const name of right) {
+      const n = flows.get(`${t.key}|${name}`); if (!n) continue;
+      const a = L.get(t.key), b = R.get(name), h = n * unit;
+      const sy = a.y + a.off, ty = b.y + b.off; a.off += h; b.off += h;
+      const xm = (x0 + nw + x1) / 2;
+      const d = `M${x0 + nw},${sy} C${xm},${sy} ${xm},${ty} ${x1},${ty} L${x1},${ty + h} C${xm},${ty + h} ${xm},${sy + h} ${x0 + nw},${sy + h} Z`;
+      links += `<path class="sk-link sk-${t.key}" d="${d}" data-tip="<b>${t.label} → ${esc(name)}</b><br>${n} 人（占${t.label} ${pct(n, a.n)}%）"></path>`;
+      if (!biggest || n > biggest.n) biggest = { n, from: t.label, to: name };
+    }
+    const nodesL = left.map((t) => { const a = L.get(t.key); return `<rect class="sk-node sk-${t.key}" x="${x0}" y="${a.y}" width="${nw}" height="${Math.max(a.h, 1)}"></rect>
+      <text class="sk-label" x="${x0 - 8}" y="${a.y + a.h / 2 + 4}" text-anchor="end">${t.label}<tspan class="sk-n"> ${a.n}</tspan></text>`; }).join("");
+    const nodesR = right.map((name) => { const b = R.get(name); return `<rect class="sk-node sk-right" x="${x1}" y="${b.y}" width="${nw}" height="${Math.max(b.h, 1)}" data-tip="<b>${esc(name)}</b><br>${b.n} 人"></rect>
+      <text class="sk-label" x="${x1 + nw + 8}" y="${b.y + b.h / 2 + 4}">${esc(name)}<tspan class="sk-n"> ${b.n}</tspan></text>`; }).join("");
+    const firstInd = right.find((n) => groupOf.get(n) === "ind");
+    const heads = `<text class="sk-head" x="${x1}" y="${top - 10}">学术岗位所在地区</text>` +
+      (firstInd ? `<text class="sk-head" x="${x1}" y="${R.get(firstInd).y - 8}">业界：行业</text>` : "") +
+      `<text class="sk-head" x="${x0 + nw}" y="${top - 10}" text-anchor="end">去向类型</text>`;
+    const defs = `<defs><pattern id="hatch-ntt" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="hatch-bg" width="6" height="6"></rect><rect class="hatch-fg" width="2" height="6"></rect></pattern></defs>`;
+    $("sankey-title").textContent = `最大的一股去向是${biggest.from} → ${biggest.to}（${biggest.n} 人，占全部最终去向 ${pct(biggest.n, fin.length)}%）`;
+    $("sankey").innerHTML = `<div class="scroll-x">${svg(W, H, defs + links + nodesL + nodesR + heads, "sankey")}</div>`;
+  }
+  const typeKey = (c) => (TYPES.find((t) => t.test(c)) || {}).key;
+
+  // ------------------------- 5. funnel plot: faculty rate vs. sample size ----
+  function renderFunnel(list) {
+    const all = facRate(list);
+    const pts = FIELDS().map((f) => ({ f, ...facRate(list.filter((c) => fieldsOf(c).includes(f))) })).filter((r) => r.n >= 5);
+    if (!pts.length || !all.n) { $("funnel-title").textContent = "各研究领域的教职率"; $("funnel").innerHTML = empty("样本不足。"); return; }
+    const p0 = all.fac / all.n, Z = 1.96;
+    const se = (n) => Math.sqrt(p0 * (1 - p0) / n);
+    for (const r of pts) { r.rate = r.fac / r.n; r.hi = r.rate > p0 + Z * se(r.n); r.lo = r.rate < p0 - Z * se(r.n); }
+    const W = 1000, H = 420, ml = 52, mr = 24, mt = 14, mb = 40;
+    const xMax = niceMax(Math.max(...pts.map((r) => r.n)) * 1.05, 10);
+    const X = (n) => ml + (W - ml - mr) * n / xMax, Y = (p) => mt + (H - mt - mb) * (1 - p);
+    // 95% band, drawn from n = 3 to xMax
+    const nMin = Math.min(...pts.map((r) => r.n));
+    const ns = []; for (let n = nMin; n <= xMax; n += 0.5) ns.push(n);
+    const up = ns.map((n) => `${X(n).toFixed(1)},${Y(Math.min(1, p0 + Z * se(n))).toFixed(1)}`);
+    const dn = ns.slice().reverse().map((n) => `${X(n).toFixed(1)},${Y(Math.max(0, p0 - Z * se(n))).toFixed(1)}`);
+    const band = `<polygon class="fn-band" points="${up.join(" ")} ${dn.join(" ")}"></polygon>` +
+      `<polyline class="fn-edge" points="${up.join(" ")}"></polyline><polyline class="fn-edge" points="${dn.slice().reverse().join(" ")}"></polyline>`;
+    const yt = [0, 0.25, 0.5, 0.75, 1].map((v) => `<line class="gl" x1="${ml}" x2="${W - mr}" y1="${Y(v)}" y2="${Y(v)}"></line><text class="ax" x="${ml - 8}" y="${Y(v) + 4}" text-anchor="end">${v * 100}%</text>`).join("");
+    const xs = []; for (let n = 0; n <= xMax; n += xMax > 60 ? 20 : 10) xs.push(n);
+    const xt = xs.map((n) => `<text class="ax" x="${X(n)}" y="${H - mb + 18}" text-anchor="middle">${n}</text>`).join("") +
+      `<text class="ax ax-title" x="${(ml + W - mr) / 2}" y="${H - 4}" text-anchor="middle">已有最终去向的人数</text>`;
+    const mean = `<line class="fn-mean" x1="${ml}" x2="${W - mr}" y1="${Y(p0)}" y2="${Y(p0)}"></line><text class="fn-mean-l" x="${W - mr}" y="${Y(p0) - 6}" text-anchor="end">全体 ${all.p}%</text>`;
+    // labels: try right / left / above / below, avoid overlaps
+    const boxes = pts.map((r) => ({ x: X(r.n) - 6, y: Y(r.rate) - 6, w: 12, h: 12 }));
+    const hit = (b) => boxes.some((o) => b.x < o.x + o.w && o.x < b.x + b.w && b.y < o.y + o.h && o.y < b.y + b.h);
+    const labels = pts.slice().sort((a, b) => b.n - a.n).map((r) => {
+      const px = X(r.n), py = Y(r.rate), w = textW(r.f, 12.5) + 6, h = 16;
+      const tries = [[px + 9, py - 7, "start"], [px - 9 - w, py - 7, "end"], [px - w / 2, py - 22, "middle"], [px - w / 2, py + 8, "middle"],
+        [px + 9, py - 20, "start"], [px + 9, py + 6, "start"], [px - 9 - w, py - 20, "end"], [px - 9 - w, py + 6, "end"]];
+      let pick = tries[0];
+      for (const t of tries) { const b = { x: t[0], y: t[1], w, h }; if (!hit(b) && b.x > ml && b.x + w < W - mr) { pick = t; break; } }
+      boxes.push({ x: pick[0], y: pick[1], w, h });
+      const tx = pick[2] === "start" ? pick[0] : pick[2] === "end" ? pick[0] + w : pick[0] + w / 2;
+      return `<text class="fn-label ${r.hi || r.lo ? "sig" : ""}" x="${tx.toFixed(1)}" y="${(pick[1] + 11).toFixed(1)}" text-anchor="${pick[2]}">${esc(r.f)}</text>`;
+    }).join("");
+    const dots = pts.map((r) => `<circle class="fn-pt ${r.hi || r.lo ? "sig" : ""}" cx="${X(r.n)}" cy="${Y(r.rate)}" r="5.5"
+      data-tip="<b>${esc(r.f)}</b><br>教职 ${r.fac} / ${r.n} 人（${r.p}%）<br>${r.hi ? "显著高于全体平均" : r.lo ? "显著低于全体平均" : "在随机波动范围内"}"></circle>`).join("");
+    const hi = pts.filter((r) => r.hi).map((r) => r.f), lo = pts.filter((r) => r.lo).map((r) => r.f);
+    $("funnel-title").textContent = hi.length || lo.length
+      ? [hi.length ? `${hi.join("、")} 教职率显著高于平均` : "", lo.length ? `${lo.join("、")} 显著低于平均` : ""].filter(Boolean).join("；")
+      : `各领域教职率都在随机波动范围内（全体 ${all.p}%）`;
+    $("funnel").innerHTML = `<div class="legend"><span><i class="dot fn-key sig"></i>显著偏离平均（5% 水平）</span><span><i class="dot fn-key"></i>在波动范围内</span><span><i class="sw fn-key-band"></i>95% 波动范围</span></div>` +
+      `<div class="scroll-x">${svg(W, H, yt + band + mean + xt + dots + labels, "funnel")}</div>`;
+  }
+
+  // ------------------------------- 6. field co-occurrence matrix ----
+  const SHORT = { "Macro": "Macro", "Labor": "Labor", "Finance": "Finance", "Development": "Dev", "Trade": "Trade", "Urban": "Urban",
+    "IO": "IO", "Public": "Public", "Econometrics": "Metrics", "Theory": "Theory", "Behavioral & Experimental": "Behav",
+    "Political Economy": "PolEcon", "Environment & Energy": "Env", "Health": "Health", "Education": "Educ",
+    "Economic History": "History", "Business": "Business" };
+  function renderCooc(list) {
+    const tot = new Map(); for (const c of list) for (const f of fieldsOf(c)) tot.set(f, (tot.get(f) || 0) + 1);
+    const fs = FIELDS().filter((f) => (tot.get(f) || 0) >= 3).sort((a, b) => tot.get(b) - tot.get(a));
+    if (fs.length < 2) { $("cooc-title").textContent = "研究领域的组合"; $("cooc").innerHTML = empty("样本不足。"); return; }
+    const pair = (a, b) => list.filter((c) => { const x = fieldsOf(c); return x.includes(a) && x.includes(b); });
+    const M = fs.map((a, i) => fs.map((b, j) => (j < i ? pair(a, b) : null)));
+    const max = Math.max(1, ...M.flat().filter(Boolean).map((g) => g.length));
+    let best = null;
+    fs.forEach((a, i) => fs.forEach((b, j) => { const g = M[i][j]; if (g && (!best || g.length > best.n)) best = { a, b, n: g.length }; }));
+    $("cooc-title").textContent = `最常同时出现的是 ${best.a} + ${best.b}（${best.n} 人）`;
+    const head = `<tr><th></th>${fs.map((f) => `<th class="ch" title="${esc(f)}"><span>${esc(SHORT[f] || f)}</span></th>`).join("")}</tr>`;
+    const body = fs.map((a, i) => `<tr><th class="rh" title="${esc(a)}">${esc(a)}</th>${fs.map((b, j) => {
+      if (j === i) return `<td class="diag" data-tip="<b>${esc(a)}</b><br>共 ${tot.get(a)} 人列出该领域">${tot.get(a)}</td>`;
+      if (j > i) return `<td class="void"></td>`;
+      const g = M[i][j], n = g.length;
+      if (!n) return `<td class="z"></td>`;
+      const r = facRate(g), a2 = n / max;
+      return `<td class="cell ${a2 > 0.55 ? "hot" : ""}" style="--a:${Math.round(18 + 82 * a2)}%"
+        data-tip="<b>${esc(a)} + ${esc(b)}</b><br>${n} 人同时列出${r.n ? `<br>已有最终去向 ${r.n} 人，教职 ${r.fac} 人（${r.p}%）` : ""}">${n}</td>`;
+    }).join("")}</tr>`).join("");
+    $("cooc").innerHTML = `<div class="scroll-x"><table class="cooc">${head}${body}</table></div>`;
+  }
+
+  // --------------------- 7. slope chart: field shares across all cycles ----
+  function renderSlope() {
+    const cys = D.cycles.slice().reverse(); // oldest -> newest
+    const base = cys.map((cy) => D.candidates.filter((c) => c.cycle === cy && fieldsOf(c).length));
+    if (cys.length < 2) { $("slope-title").textContent = "研究领域构成的变化"; $("slope").innerHTML = empty("至少需要两个年度。"); return; }
+    const share = (i, f) => (base[i].length ? count(base[i], (c) => fieldsOf(c).includes(f)) / base[i].length : 0);
+    const fs = FIELDS().filter((f) => cys.some((_, i) => share(i, f) > 0));
+    const L = cys.length - 1;
+    const delta = (f) => share(L, f) - share(0, f);
+    const ups = fs.filter((f) => delta(f) >= 0.03).sort((a, b) => delta(b) - delta(a)).slice(0, 3);
+    const downs = fs.filter((f) => delta(f) <= -0.03).sort((a, b) => delta(a) - delta(b)).slice(0, 3);
+    const W = 1000, H = 400, ml = 60, mr = 230, mt = 16, mb = 46;
+    const yMax = niceMax(Math.max(...fs.flatMap((f) => cys.map((_, i) => share(i, f)))) * 100, 5) / 100;
+    const X = (i) => ml + (W - ml - mr) * i / L, Y = (v) => mt + (H - mt - mb) * (1 - v / yMax);
+    const yt = []; for (let v = 0; v <= yMax + 1e-9; v += yMax > 0.3 ? 0.1 : 0.05) yt.push(v);
+    const grid = yt.map((v) => `<line class="gl" x1="${ml}" x2="${X(L)}" y1="${Y(v)}" y2="${Y(v)}"></line><text class="ax" x="${ml - 10}" y="${Y(v) + 4}" text-anchor="end">${Math.round(v * 100)}%</text>`).join("") +
+      cys.map((cy, i) => `<line class="gl vl" x1="${X(i)}" x2="${X(i)}" y1="${mt}" y2="${H - mb}"></line>
+        <text class="ax ax-cy" x="${X(i)}" y="${H - mb + 18}" text-anchor="middle">${cy}</text>
+        <text class="ax" x="${X(i)}" y="${H - mb + 33}" text-anchor="middle">n=${base[i].length}${i === L && !placedCycles.includes(cy) ? "（名单未完）" : ""}</text>`).join("");
+    const cls = (f) => (ups.includes(f) ? "up" : downs.includes(f) ? "down" : "");
+    const tipOf = (f) => `<b>${esc(f)}</b><br>` + cys.map((cy, i) => `${cy}：${Math.round(100 * share(i, f))}%`).join("<br>");
+    const ordered = fs.slice().sort((a, b) => (cls(a) ? 1 : 0) - (cls(b) ? 1 : 0)); // highlighted lines on top
+    const lines = ordered.map((f) => {
+      const pts = cys.map((_, i) => `${X(i).toFixed(1)},${Y(share(i, f)).toFixed(1)}`).join(" ");
+      return `<g class="sl ${cls(f)}" data-tip="${tipOf(f)}"><polyline class="hit" points="${pts}"></polyline><polyline class="ln" points="${pts}"></polyline>
+        ${cys.map((_, i) => `<circle cx="${X(i)}" cy="${Y(share(i, f))}" r="${cls(f) ? 3.5 : 2.5}"></circle>`).join("")}</g>`;
+    }).join("");
+    // right-hand labels for highlighted fields, spread to avoid overlap
+    const lab = [...ups, ...downs].map((f) => ({ f, y: Y(share(L, f)) })).sort((a, b) => a.y - b.y);
+    for (let k = 1; k < lab.length; k++) if (lab[k].y - lab[k - 1].y < 15) lab[k].y = lab[k - 1].y + 15;
+    const labels = lab.map(({ f, y }) => `<text class="sl-label ${cls(f)}" x="${X(L) + 12}" y="${y + 4}">${esc(f)} ${Math.round(100 * share(0, f))}% → ${Math.round(100 * share(L, f))}%</text>`).join("");
+    const r = ups[0], d = downs[0];
+    $("slope-title").textContent = [r ? `${r} 占比从 ${Math.round(100 * share(0, r))}% 升至 ${Math.round(100 * share(L, r))}%` : "",
+      d ? `${d} 从 ${Math.round(100 * share(0, d))}% 降至 ${Math.round(100 * share(L, d))}%` : ""].filter(Boolean).join("，") || "研究领域构成的变化";
+    $("slope").innerHTML = `<div class="legend"><span><i class="sw sl-key up"></i>上升最多</span><span><i class="sw sl-key down"></i>下降最多</span><span><i class="sw sl-key"></i>其他领域</span></div>` +
+      `<div class="scroll-x">${svg(W, H, grid + lines + labels, "slope")}</div>`;
   }
 
   // ------------------------- 6. fields of North American faculty placements ----
@@ -313,9 +448,10 @@
     const list = selected();
     $("lede").innerHTML = `<b>${esc(selLabel())}</b> · ${list.length} 位候选人`;
     renderHero(list);
-    renderFields(list);
+    renderSankey(list);
     renderInsts(list);
-    renderCombos(list);
+    renderFunnel(list);
+    renderCooc(list);
     renderNA(list);
     renderIndustry(list);
     originChart(list, undergrad, "ug-title", "ug", (top, n) => top
@@ -328,5 +464,6 @@
 
   renderMix();
   renderRegions();
+  renderSlope();
   render();
 })();

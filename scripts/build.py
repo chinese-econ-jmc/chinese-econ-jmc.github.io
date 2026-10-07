@@ -321,7 +321,8 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
             c["fields"] = override
         c["placement_type"] = classify_placement(c["placement"])
         academic = c["placement_type"] in ("Faculty", "Non-tenure-track")
-        c["placement_region"] = match_destination(c["placement"], region_map) if academic else None
+        located = academic or c["placement_type"] == "Postdoc"
+        c["placement_region"] = match_destination(c["placement"], region_map) if located else None
         c["placement_inst"] = match_destination(c["placement"], inst_map) if academic else None
         # a bare "Lecturer" is tenure-track in the UK / Australia / NZ but teaching-track in the US / Canada
         job = final_job(c["placement"] or "")
@@ -377,7 +378,7 @@ def main() -> int:
             print(f"   {v:3d}  {k}")
 
     # faculty placements whose institution is not in regions.json
-    no_region = [c for c in all_candidates if c["placement_type"] in ("Faculty", "Non-tenure-track") and not c["placement_region"]]
+    no_region = [c for c in all_candidates if c["placement_type"] in ("Faculty", "Non-tenure-track", "Postdoc") and not c["placement_region"]]
     if no_region:
         print(f"\n{len(no_region)} faculty placements had no region match (add keywords to data/regions.json):")
         for c in no_region:

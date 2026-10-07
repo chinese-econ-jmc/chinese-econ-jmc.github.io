@@ -1,5 +1,5 @@
 {
-  "_comment": "Institution keyword -> region mapping for faculty placements, used by scripts/build.py. Only the final destination counts: '(after Postdoc @ X)' and anything before 'then' are ignored. Keywords are matched case-insensitively as whole words; regions are tried in this order and the first match wins, so put specific campuses (e.g. CUHK (SZ), NYU Shanghai, Temple University Japan) in an earlier region than their parent institution. Add keywords here when build.py reports an unmatched faculty placement.",
+  "_comment": "Institution keyword -> region mapping for faculty, non-tenure-track and postdoc placements, used by scripts/build.py. Only the final destination counts: '(after Postdoc @ X)' and anything before 'then' are ignored. Keywords are matched case-insensitively as whole words; regions are tried in this order and the first match wins, so put specific campuses (e.g. CUHK (SZ), NYU Shanghai, Temple University Japan) in an earlier region than their parent institution. Add keywords here when build.py reports an unmatched faculty placement.",
   "regions": {
     "中国大陆": [
       "(sz)", "(gz)", "shenzhen", "guangzhou", "nyu shanghai", "duke kunshan", "kunshan",
@@ -49,7 +49,8 @@
       "arizona", "colorado", "utah", "oregon", "florida", "virginia", "north carolina", "unc",
       "pittsburgh", "rochester", "syracuse", "rutgers", "new york", "riverside", "nevada", "osu",
       "ohio", "georgia", "maryland", "boston", "south dakota", "denison", "washington", "iowa",
-      "massachusetts", "umass", "美国"
+      "massachusetts", "umass", "pennsylvania", "upenn", "southern methodist", "georgetown",
+      "johns hopkins", "baker institute", "美国"
     ]
   }
 }
