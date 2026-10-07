@@ -340,43 +340,66 @@
     $("cooc").innerHTML = `<div class="scroll-x"><table class="cooc">${head}${body}</table></div>`;
   }
 
-  // --------------------- 7. slope chart: field shares across all cycles ----
+  // ------------- 7. 100% stacked columns: field shares across all cycles ----
+  // fractional counting: a candidate listing k fields adds 1/k to each, so every column sums to 100%
   function renderSlope() {
     const cys = D.cycles.slice().reverse(); // oldest -> newest
-    const base = cys.map((cy) => D.candidates.filter((c) => c.cycle === cy && fieldsOf(c).length));
     if (cys.length < 2) { $("slope-title").textContent = "研究领域构成的变化"; $("slope").innerHTML = empty("至少需要两个年度。"); return; }
-    const share = (i, f) => (base[i].length ? count(base[i], (c) => fieldsOf(c).includes(f)) / base[i].length : 0);
-    const fs = FIELDS().filter((f) => cys.some((_, i) => share(i, f) > 0));
+    const base = cys.map((cy) => D.candidates.filter((c) => c.cycle === cy && fieldsOf(c).length));
+    const raw = cys.map((_, i) => {
+      const m = new Map();
+      for (const c of base[i]) { const fs = fieldsOf(c); for (const f of fs) m.set(f, (m.get(f) || 0) + 1 / fs.length); }
+      return m;
+    });
+    const share = (i, f) => (base[i].length ? (raw[i].get(f) || 0) / base[i].length : 0);
+    const OTHER = "其他领域";
+    const all = FIELDS().filter((f) => cys.some((_, i) => share(i, f) > 0));
+    const major = all.filter((f) => cys.some((_, i) => share(i, f) >= 0.05))
+      .sort((a, b) => cys.reduce((s, _, i) => s + share(i, b) - share(i, a), 0));
+    const minor = all.filter((f) => !major.includes(f));
+    const val = (i, f) => (f === OTHER ? minor.reduce((s, m) => s + share(i, m), 0) : share(i, f));
+    const segs = minor.length ? [...major, OTHER] : major;
     const L = cys.length - 1;
-    const delta = (f) => share(L, f) - share(0, f);
-    const ups = fs.filter((f) => delta(f) >= 0.03).sort((a, b) => delta(b) - delta(a)).slice(0, 3);
-    const downs = fs.filter((f) => delta(f) <= -0.03).sort((a, b) => delta(a) - delta(b)).slice(0, 3);
-    const W = 1000, H = 400, ml = 84, mr = 230, mt = 16, mb = 46;
-    const yMax = niceMax(Math.max(...fs.flatMap((f) => cys.map((_, i) => share(i, f)))) * 100, 5) / 100;
-    const X = (i) => ml + (W - ml - mr) * i / L, Y = (v) => mt + (H - mt - mb) * (1 - v / yMax);
-    const yt = []; for (let v = 0; v <= yMax + 1e-9; v += yMax > 0.3 ? 0.1 : 0.05) yt.push(v);
-    const grid = yt.map((v) => `<line class="gl" x1="${ml}" x2="${X(L)}" y1="${Y(v)}" y2="${Y(v)}"></line><text class="ax" x="${ml - 10}" y="${Y(v) + 4}" text-anchor="end">${Math.round(v * 100)}%</text>`).join("") +
-      cys.map((cy, i) => `<line class="gl vl" x1="${X(i)}" x2="${X(i)}" y1="${mt}" y2="${H - mb}"></line>
-        <text class="ax ax-cy" x="${X(i)}" y="${H - mb + 18}" text-anchor="middle">${cy}</text>
-        <text class="ax" x="${X(i)}" y="${H - mb + 33}" text-anchor="middle">n=${base[i].length}${i === L && !placedCycles.includes(cy) ? "（名单未完）" : ""}</text>`).join("") +
-      `<text class="ax ax-title" transform="translate(18 ${(mt + H - mb) / 2}) rotate(-90)" text-anchor="middle">列出该领域的候选人占比</text>`;
-    const cls = (f) => (ups.includes(f) ? "up" : downs.includes(f) ? "down" : "");
-    const tipOf = (f) => `<b>${esc(f)}</b><br>` + cys.map((cy, i) => `${cy}：${Math.round(100 * share(i, f))}%`).join("<br>");
-    const ordered = fs.slice().sort((a, b) => (cls(a) ? 1 : 0) - (cls(b) ? 1 : 0)); // highlighted lines on top
-    const lines = ordered.map((f) => {
-      const pts = cys.map((_, i) => `${X(i).toFixed(1)},${Y(share(i, f)).toFixed(1)}`).join(" ");
-      return `<g class="sl ${cls(f)}" data-tip="${tipOf(f)}"><polyline class="hit" points="${pts}"></polyline><polyline class="ln" points="${pts}"></polyline>
-        ${cys.map((_, i) => `<circle cx="${X(i)}" cy="${Y(share(i, f))}" r="${cls(f) ? 3.5 : 2.5}"></circle>`).join("")}</g>`;
-    }).join("");
-    // right-hand labels for highlighted fields, spread to avoid overlap
-    const lab = [...ups, ...downs].map((f) => ({ f, y: Y(share(L, f)) })).sort((a, b) => a.y - b.y);
-    for (let k = 1; k < lab.length; k++) if (lab[k].y - lab[k - 1].y < 15) lab[k].y = lab[k - 1].y + 15;
-    const labels = lab.map(({ f, y }) => `<text class="sl-label ${cls(f)}" x="${X(L) + 12}" y="${y + 4}">${esc(f)} ${Math.round(100 * share(0, f))}% → ${Math.round(100 * share(L, f))}%</text>`).join("");
-    const r = ups[0], d = downs[0];
-    $("slope-title").textContent = [r ? `${r} 占比从 ${Math.round(100 * share(0, r))}% 升至 ${Math.round(100 * share(L, r))}%` : "",
-      d ? `${d} 从 ${Math.round(100 * share(0, d))}% 降至 ${Math.round(100 * share(L, d))}%` : ""].filter(Boolean).join("，") || "研究领域构成的变化";
-    $("slope").innerHTML = `<div class="legend"><span><i class="sw sl-key up"></i>上升最多</span><span><i class="sw sl-key down"></i>下降最多</span><span><i class="sw sl-key"></i>其他领域</span></div>` +
-      `<div class="scroll-x">${svg(W, H, grid + lines + labels, "slope")}</div>`;
+    const delta = (f) => val(L, f) - val(0, f);
+    const up = major.slice().sort((a, b) => delta(b) - delta(a))[0], down = major.slice().sort((a, b) => delta(a) - delta(b))[0];
+    const tone = (f, k) => (f === up && delta(f) > 0.02 ? "up" : f === down && delta(f) < -0.02 ? "down" : f === OTHER ? "other" : `n${k % 2}`);
+
+    const W = 1000, H = 440, mt = 14, mb = 48, ml = 70, mr = 250, cw = 104, gap = 2;
+    const colX = (i) => ml + cw / 2 + (W - ml - mr - cw) * i / L;
+    const inner = H - mt - mb - gap * (segs.length - 1);
+    const pos = cys.map((_, i) => { let y = mt; return segs.map((f) => { const h = val(i, f) * inner; const r = { y, h }; y += h + gap; return r; }); });
+    const pc = (v) => `${(100 * v).toFixed(v < 0.1 ? 1 : 0)}%`;
+    let body = "";
+    // connectors between neighbouring columns
+    for (let i = 0; i < L; i++) segs.forEach((f, k) => {
+      const a = pos[i][k], b = pos[i + 1][k], xa = colX(i) + cw / 2, xb = colX(i + 1) - cw / 2;
+      body += `<polygon class="stk-link ${tone(f, k)}" points="${xa},${a.y} ${xb},${b.y} ${xb},${b.y + b.h} ${xa},${a.y + a.h}"></polygon>`;
+    });
+    // columns
+    cys.forEach((cy, i) => segs.forEach((f, k) => {
+      const r = pos[i][k], v = val(i, f);
+      const n = f === OTHER ? count(base[i], (c) => fieldsOf(c).some((x) => minor.includes(x))) : count(base[i], (c) => fieldsOf(c).includes(f));
+      body += `<rect class="stk ${tone(f, k)}" x="${colX(i) - cw / 2}" y="${r.y}" width="${cw}" height="${Math.max(r.h, 0.5)}"
+        data-tip="<b>${esc(f)}</b> · ${cy}<br>份额 ${pc(v)}（${n} 人列出${f === OTHER ? "其中任一领域" : "该领域"}）"></rect>`;
+      if (r.h >= 15) body += `<text class="stk-v ${tone(f, k)}" x="${colX(i)}" y="${r.y + r.h / 2 + 4}" text-anchor="middle">${pc(v)}</text>`;
+    }));
+    // right-hand field labels, spread to avoid overlaps, with leader lines
+    const lab = segs.map((f, k) => ({ f, k, y: pos[L][k].y + pos[L][k].h / 2 }));
+    const ys = lab.map((l) => l.y);
+    for (let k = 1; k < ys.length; k++) ys[k] = Math.max(ys[k], ys[k - 1] + 14);
+    const over = ys[ys.length - 1] - (H - mb);
+    if (over > 0) for (let k = ys.length - 1; k >= 0; k--) { ys[k] -= over; if (k && ys[k] - ys[k - 1] >= 14) break; }
+    const lx = colX(L) + cw / 2;
+    body += lab.map(({ f, k, y }, j) => `<path class="stk-lead" d="M${lx + 2},${y} L${lx + 14},${ys[j]}"></path>
+      <text class="stk-label ${tone(f, k)}" x="${lx + 18}" y="${ys[j] + 4}">${esc(f)} <tspan class="stk-d">${pc(val(0, f))} → ${pc(val(L, f))}</tspan></text>`).join("");
+    // axes
+    body += cys.map((cy, i) => `<text class="ax ax-cy" x="${colX(i)}" y="${H - mb + 18}" text-anchor="middle">${cy}</text>
+      <text class="ax" x="${colX(i)}" y="${H - mb + 33}" text-anchor="middle">n=${base[i].length}${!placedCycles.includes(cy) ? "（名单未完）" : ""}</text>`).join("") +
+      `<text class="ax ax-title" transform="translate(18 ${(mt + H - mb) / 2}) rotate(-90)" text-anchor="middle">研究方向份额（合计 100%）</text>`;
+    $("slope-title").textContent = [up && delta(up) > 0.02 ? `${up} 的份额从 ${pc(val(0, up))} 升至 ${pc(val(L, up))}` : "",
+      down && delta(down) < -0.02 ? `${down} 从 ${pc(val(0, down))} 降至 ${pc(val(L, down))}` : ""].filter(Boolean).join("，") || "研究领域构成的变化";
+    $("slope").innerHTML = `<div class="legend"><span><i class="sw stk-key up"></i>份额上升最多</span><span><i class="sw stk-key down"></i>份额下降最多</span><span><i class="sw stk-key"></i>其他领域（交替灰色）</span></div>` +
+      `<div class="scroll-x">${svg(W, H, body, "stacked")}</div>`;
   }
 
   // ------------------------- 6. fields of North American faculty placements ----
