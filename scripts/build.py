@@ -40,6 +40,8 @@ RE_SCHOOL = re.compile(
 # candidate line: optional bold name, then a full-width or ascii colon, then the bio
 RE_CANDIDATE = re.compile(r"^\*{0,2}\s*(?P<name>[^：:*]{1,80}?)\s*(?:\*\*)?\s*[：:]\s*(?:\*\*)?\s*(?P<bio>.*)$")
 RE_WEBSITE = re.compile(r"^\*{0,2}\s*个人主页\s*[：:]\s*(?P<url>\S*)\s*\*{0,2}\s*$")
+# manual field override for one candidate, e.g. "研究领域：Macro, Trade & Spatial" (category names from fields.json)
+RE_FIELDS_OVERRIDE = re.compile(r"^\*{0,2}\s*(?:研究领域|Fields?)\s*[：:]\s*(?P<f>.*?)\s*\*{0,2}\s*$", re.I)
 RE_PLACEMENT = re.compile(r"^\*{0,2}\s*(?:Placement|毕业去向)\s*[：:]\s*(?P<text>.*?)\s*\*{0,2}\s*$", re.I)
 RE_NOTE = re.compile(r"^(No (Chinese|Econ)\b.*|TB Published\.?|TBD\.?|待更新.*)$", re.I)
 
@@ -235,6 +237,19 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
             current["placement"] = m.group("text").strip().strip("*").strip() or None
             continue
 
+        m = RE_FIELDS_OVERRIDE.match(line)
+        if m:
+            if current is None:
+                warn(f"line {lineno}: 研究领域 without a preceding candidate")
+                continue
+            known = {cat for _, cat in field_map}
+            names = [f.strip() for f in re.split(r"[,，、;；]", m.group("f")) if f.strip()]
+            for f in names:
+                if f not in known:
+                    warn(f"line {lineno}: unknown field category in 研究领域: {f}")
+            current["fields_override"] = [f for f in names if f in known]
+            continue
+
         if RE_NOTE.match(line):
             if school is not None:
                 school["notes"].append(line)
@@ -301,6 +316,9 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
         c["jmp"] = parse_jmp(bio)
 
         c["fields_raw"], c["fields"] = parse_fields(bio, field_map)
+        override = c.pop("fields_override", None)
+        if override is not None:  # maintainer's correction wins over the parsed categories
+            c["fields"] = override
         c["placement_type"] = classify_placement(c["placement"])
         academic = c["placement_type"] in ("Faculty", "Non-tenure-track")
         c["placement_region"] = match_destination(c["placement"], region_map) if academic else None
