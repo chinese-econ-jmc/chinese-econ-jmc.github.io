@@ -12,12 +12,17 @@
   --serif: "Source Serif 4", "Source Serif Pro", Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --s-fac: #5b8ac4; --s-pd: #bb8a28; --s-ind: #b14735; --s-def: #78716c; --s-unk: #3a332e;
     --on-fac: #0b0b0b; --on-pd: #0b0b0b; --on-ind: #ffffff;
     --rule: #4a423c;
   }
 }
+:root[data-theme="dark"] {
+    --s-fac: #5b8ac4; --s-pd: #bb8a28; --s-ind: #b14735; --s-def: #78716c; --s-unk: #3a332e;
+    --on-fac: #0b0b0b; --on-pd: #0b0b0b; --on-ind: #ffffff;
+    --rule: #4a423c;
+  }
 
 .viz { padding-top: 20px; max-width: 1160px; }
 .viz h2, .fig-head h3 { font-family: var(--serif); font-variant-numeric: lining-nums; }
@@ -206,8 +211,9 @@ table.cooc td.cell:hover { outline: 2px solid var(--text); }
 table.cooc td.diag { background: var(--tag); color: var(--muted); font-weight: 600; }
 table.cooc td.z { background: color-mix(in oklab, var(--line) 35%, var(--panel)); }
 @media (prefers-color-scheme: dark) {
-  table.cooc td.cell.hot { color: #0b0b0b; }
+  :root:not([data-theme="light"]) table.cooc td.cell.hot { color: #0b0b0b; }
 }
+:root[data-theme="dark"] table.cooc td.cell.hot { color: #0b0b0b; }
 
 
 /* ---- report page shell ---- */
@@ -260,5 +266,8 @@ table.roles th.none { font-style: normal; }
 .fig-toggle button.active { color: #fff; font-weight: 600; }
 .fig-toggle button.active.acad { background: var(--s-fac); }
 .fig-toggle button.active.ind { background: var(--s-ind); }
-@media (prefers-color-scheme: dark) { .fig-toggle button.active.acad { color: #0b0b0b; } }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .fig-toggle button.active.acad { color: #0b0b0b; }
+}
+:root[data-theme="dark"] .fig-toggle button.active.acad { color: #0b0b0b; }
 .tone-ind .dot.now { background: var(--s-ind); }
