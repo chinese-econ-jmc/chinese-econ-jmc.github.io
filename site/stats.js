@@ -15,13 +15,14 @@
   // placement categories, in stacking order; colors live in stats.css (.k-<key>)
   const TYPES = [
     { key: "fac", label: "教职", test: (c) => c.placement_type === "Faculty" },
+    { key: "ntt", label: "非终身轨教职", test: (c) => c.placement_type === "Non-tenure-track" },
     { key: "pd", label: "博后", test: (c) => c.placement_type === "Postdoc" },
     { key: "ind", label: "业界及其他", test: (c) => c.placement_type === "Industry & Other" },
     { key: "def", label: "延期", test: (c) => c.placement_type === "Deferred" },
     { key: "unk", label: "未知", test: (c) => !c.placement },
   ];
   const isFac = (c) => c.placement_type === "Faculty";
-  const isFinal = (c) => ["Faculty", "Postdoc", "Industry & Other"].includes(c.placement_type);
+  const isFinal = (c) => ["Faculty", "Non-tenure-track", "Postdoc", "Industry & Other"].includes(c.placement_type);
   const facRate = (list) => { const k = list.filter(isFinal); return { fac: count(k, isFac), n: k.length, p: pct(count(k, isFac), k.length) }; };
   const HOME = ["中国大陆", "港澳"];
   const undergrad = (c) => {
@@ -224,7 +225,7 @@
     const top = [...groups].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0])).slice(0, 10)
       .filter(([, g]) => g.length >= 5);
     if (!top.length) { $("combos-title").textContent = "常见的领域组合"; $("combos").innerHTML = empty("样本不足。"); return; }
-    const keys = ["fac", "pd", "ind"];
+    const keys = ["fac", "ntt", "pd", "ind"];
     const rows = top.map(([k, g]) => {
       const fin = g.filter(isFinal);
       return { k, total: g.length, n: fin.length, parts: keys.map((key) => { const t = TYPES.find((x) => x.key === key); return { ...t, k: count(fin, t.test) }; }) };

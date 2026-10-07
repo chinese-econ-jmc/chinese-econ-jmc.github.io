@@ -94,9 +94,7 @@ def match_destination(text: str | None, kmap: KeywordMap) -> str | None:
     """First label whose keywords match the final destination in a placement text."""
     if not text:
         return None
-    t = text.lower()
-    t = re.split(r"\bthen\b", t)[-1]          # "Postdoc @ X, then AP @ Y" -> Y
-    t = re.sub(r"\(\s*after\b[^)]*\)", "", t)  # "AP @ Y (after Postdoc @ X)" -> Y
+    t = final_job(text)  # "Postdoc @ X, then AP @ Y" / "AP @ Y (after Postdoc @ X)" -> Y
     for label, patterns in kmap:
         if any(p.search(t) for p in patterns):
             return label
@@ -142,6 +140,18 @@ def parse_jmp(bio: str) -> str | None:
     return " | ".join(titles) if titles else None
 
 
+RE_NON_TENURE_TRACK = re.compile(
+    r"of instruction|teaching (professor|faculty|track)|teaching-track|visiting (assistant |associate )?professor"
+    r"|\bvap\b|clinical|adjunct|of practice|non-tenure|non tenure"
+)
+
+
+def final_job(text: str) -> str:
+    """The destination itself: drop "(after Postdoc @ X)" and anything before "then"."""
+    t = re.split(r"\bthen\b", text.lower())[-1]
+    return re.sub(r"\(\s*after\b[^)]*\)", "", t)
+
+
 def classify_placement(text: str | None) -> str | None:
     if not text:
         return None
@@ -149,6 +159,9 @@ def classify_placement(text: str | None) -> str | None:
     # candidate went back on the market in a later cycle
     if re.search(r"延期|deferred", t):
         return "Deferred"
+    # teaching / visiting / clinical positions are not tenure-track faculty
+    if RE_NON_TENURE_TRACK.search(final_job(text)):
+        return "Non-tenure-track"
     # faculty first: "Postdoc @ X, then AP @ Y" is ultimately a faculty placement
     if re.search(r"professor|\bap\b|lecturer|讲师|助理教授|副教授|教授|faculty|tenure", t):
         return "Faculty"
@@ -289,9 +302,15 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
 
         c["fields_raw"], c["fields"] = parse_fields(bio, field_map)
         c["placement_type"] = classify_placement(c["placement"])
-        is_faculty = c["placement_type"] == "Faculty"
-        c["placement_region"] = match_destination(c["placement"], region_map) if is_faculty else None
-        c["placement_inst"] = match_destination(c["placement"], inst_map) if is_faculty else None
+        academic = c["placement_type"] in ("Faculty", "Non-tenure-track")
+        c["placement_region"] = match_destination(c["placement"], region_map) if academic else None
+        c["placement_inst"] = match_destination(c["placement"], inst_map) if academic else None
+        # a bare "Lecturer" is tenure-track in the UK / Australia / NZ but teaching-track in the US / Canada
+        job = final_job(c["placement"] or "")
+        if (c["placement_type"] == "Faculty" and re.search(r"lecturer|讲师", job)
+                and not re.search(r"professor|\bap\b|senior lecturer", job)
+                and c["placement_region"] in ("美国", "加拿大")):
+            c["placement_type"] = "Non-tenure-track"
         # industry placements: "sector|employer" -> sector, employer; unmatched ones count as 其他
         hit = match_destination(c["placement"], industry_map) if c["placement_type"] == "Industry & Other" else None
         c["placement_sector"], c["placement_employer"] = hit.split("|", 1) if hit else (None, None)
@@ -340,7 +359,7 @@ def main() -> int:
             print(f"   {v:3d}  {k}")
 
     # faculty placements whose institution is not in regions.json
-    no_region = [c for c in all_candidates if c["placement_type"] == "Faculty" and not c["placement_region"]]
+    no_region = [c for c in all_candidates if c["placement_type"] in ("Faculty", "Non-tenure-track") and not c["placement_region"]]
     if no_region:
         print(f"\n{len(no_region)} faculty placements had no region match (add keywords to data/regions.json):")
         for c in no_region:

@@ -76,7 +76,7 @@ No Chinese in 2025-2026 Cycle.                <- 院校下没有人时可写一�
 | 博士毕业年份 | `预计将于YYYY年在XX取得…博士学位` |
 | 研究领域标签 | `研究兴趣包括/为/主要是 …` 之后的文字，按 `、和与及` 拆分，再按 `data/fields.json` 里的关键词映射到英文类别（Labor / Macro / IO …） |
 | JMP 题目 | `JMP题为“…”` |
-| 去向类别 | Placement 文字里含 Professor / AP / Lecturer → 教职；Postdoc → 博后；含"延期"→ 延期；其他 → 业界/其他 |
+| 去向类别 | Placement 文字里含 of Instruction / Teaching / Visiting AP / Clinical / Adjunct，或美国与加拿大的 Lecturer → 非终身轨教职；含 Professor / AP / Lecturer → 教职；Postdoc → 博后；含"延期"→ 延期；其他 → 业界/其他 |
 | 教职地区 | 教职的最终任职机构按 `data/regions.json` 里的关键词归到地区（中国大陆 / 港澳 / 美国 / 欧洲 …），用于统计页（stats.html）的地区图表；业界去向按 `data/industry.json` 归到雇主与类别（科技公司 / 金融机构 / 经济咨询 / 政府与国际组织）；机构名称按 `data/institutions.json` 归并（如 RUC / Renmin University → 中国人民大学），用于"主要教职去向机构"。出现新机构时 `build.py` 会提示补关键词 |
 
 **几点约定**（解析器对这些都能容错，但保持一致最省事）：

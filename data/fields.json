@@ -1,5 +1,5 @@
 {
-  "_comment": "Keyword -> research-field category mapping used by scripts/build.py. A candidate's 研究兴趣 text is split on 、/和/与/及, and each token is matched against these substrings (longest keyword wins). Add new keywords here when build.py reports unmatched strings. \"Applied Micro\" is deliberately not a category: generic terms like 应用微观 / 实证微观 / 微观经济学 are left unmapped.",
+  "_comment": "Keyword -> research-field category mapping used by scripts/build.py. A candidate's 研究兴趣 text is split on 、/和/与/及, and each token is matched against these substrings (longest keyword wins). Add new keywords here when build.py reports unmatched strings. \"Applied Micro\" is deliberately not a category: generic terms like 应用微观 / 实证微观 / 微观经济学 are left unmapped. \"Household & Family\" is not a category either: family / demographic terms map to Labor, 家庭金融 to Finance (via 金融), 消费者理论 to Theory.",
   "categories": {
     "Macro": [
       "宏观",
@@ -17,7 +17,12 @@
       "性别",
       "工资",
       "就业",
-      "不平"
+      "不平",
+      "家庭经济",
+      "人口",
+      "婚姻",
+      "生育",
+      "老龄"
     ],
     "Finance": [
       "金融",
@@ -117,15 +122,6 @@
     "Economic History": [
       "经济史",
       "历史"
-    ],
-    "Household & Family": [
-      "家庭",
-      "人口",
-      "婚姻",
-      "生育",
-      "消费者",
-      "家户",
-      "老龄"
     ],
     "Organizations & Management": [
       "组织经济",

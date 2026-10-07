@@ -25,6 +25,8 @@
 .note.small { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
 
 .k-fac { background: var(--s-fac); }
+/* non-tenure-track: same navy as faculty, hatched (texture, not a new hue) */
+.k-ntt { background: repeating-linear-gradient(135deg, var(--s-fac) 0 2px, color-mix(in oklab, var(--s-fac) 28%, var(--panel)) 2px 6px); }
 .k-pd { background: var(--s-pd); }
 .k-ind { background: var(--s-ind); }
 .k-def { background: var(--s-def); }
@@ -71,6 +73,7 @@
 .stack > .k-pd b { color: var(--on-pd); }
 .stack > .k-ind b { color: var(--on-ind); }
 .stack > .k-def b, .stack > .k-unk b { color: var(--text); }
+.stack > .k-ntt b { display: none; }
 .stack > span:hover { filter: brightness(1.08); }
 
 /* bar lists: rate charts get a percent axis, count charts are direct-labeled */
