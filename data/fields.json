@@ -1,5 +1,5 @@
 {
-  "_comment": "Keyword -> research-field category mapping used by scripts/build.py. A candidate's 研究兴趣 text is split on 、/和/与/及, and each token is matched against these substrings (longest keyword wins). Add new keywords here when build.py reports unmatched strings.",
+  "_comment": "Keyword -> research-field category mapping used by scripts/build.py. A candidate's 研究兴趣 text is split on 、/和/与/及, and each token is matched against these substrings (longest keyword wins). Add new keywords here when build.py reports unmatched strings. \"Applied Micro\" is deliberately not a category: generic terms like 应用微观 / 实证微观 / 微观经济学 are left unmapped.",
   "categories": {
     "Macro": [
       "宏观",
@@ -67,7 +67,8 @@
       "社会保障",
       "养老",
       "住房",
-      "房地产"
+      "房地产",
+      "犯罪"
     ],
     "Econometrics": [
       "计量",
@@ -135,12 +136,6 @@
       "企业动态",
       "生产网络",
       "企业"
-    ],
-    "Applied Micro": [
-      "应用微观",
-      "实证微观",
-      "微观经济学",
-      "犯罪"
     ],
     "Other": [
       "人工智能",
