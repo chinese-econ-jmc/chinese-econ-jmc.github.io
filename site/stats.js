@@ -320,7 +320,8 @@
       data-tip="<b>${esc(r.f)}</b><br>${noun} ${r.fac} / ${r.n} 人（${r.p}%）<br>${r.hi ? "显著高于全体平均" : r.lo ? "显著低于全体平均" : "在随机波动范围内"}"></circle>`).join("");
     const hi = pts.filter((r) => r.hi).map((r) => r.f), lo = pts.filter((r) => r.lo).map((r) => r.f);
     $(`${id}-title`).textContent = hi.length || lo.length
-      ? [hi.length ? `${hi.join("、")} 的${noun}比例显著高于平均` : "", lo.length ? `${lo.join("、")} 显著低于平均` : ""].filter(Boolean).join("；")
+      ? (hi.length ? `${hi.join("、")} 的${noun}比例显著高于平均` + (lo.length ? `；${lo.join("、")} 显著低于平均` : "")
+        : `${lo.join("、")} 的${noun}比例显著低于平均`)
       : `各领域的${noun}比例都在随机波动范围内（全体 ${all.p}%）`;
     $(id).innerHTML = `<div class="legend"><span><i class="dot fn-key sig tone-${tone}"></i>显著偏离平均（5% 水平）</span><span><i class="dot fn-key tone-${tone}"></i>在波动范围内</span><span><i class="sw fn-key-band tone-${tone}"></i>95% 波动范围</span></div>` +
       `<div class="scroll-x">${svg(W, H, yt + band + mean + xt + dots + labels, `funnel tone-${tone}`)}</div>`;
