@@ -370,7 +370,7 @@
   const SHORT = { "Macro": "Macro", "Labor": "Labor", "Finance": "Finance", "Development": "Dev", "Trade & Spatial": "Trade", "Urban": "Urban",
     "IO": "IO", "Public": "Public", "Econometrics": "Metrics", "Theory": "Theory", "Behavioral & Experimental": "Behav",
     "Political Economy": "PolEcon", "Environment & Energy": "Env", "Health": "Health", "Education": "Educ",
-    "Economic History": "History", "Business": "Business" };
+    "Economic History": "History" };
   function renderCooc(list) {
     const tot = new Map(); for (const c of list) for (const f of fieldsOf(c)) tot.set(f, (tot.get(f) || 0) + 1);
     const fs = FIELDS().filter((f) => (tot.get(f) || 0) >= 3).sort((a, b) => tot.get(b) - tot.get(a));
