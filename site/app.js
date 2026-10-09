@@ -14,7 +14,7 @@
   const el = {
     tabs: $("cycle-tabs"), stats: $("stats"), q: $("q"), region: $("region"), school: $("school"),
     placement: $("placement"), sort: $("sort"), group: $("group"), reset: $("reset"), chips: $("field-chips"),
-    count: $("count"), cycleNote: $("cycle-note"), tbody: $("tbody"), empty: $("empty"), generated: $("generated"), repo: $("repo-link"),
+    count: $("count"), cycleNote: $("cycle-note"), prompt: $("prompt"), results: $("results"), tbody: $("tbody"), empty: $("empty"), generated: $("generated"), repo: $("repo-link"),
   };
   el.generated.textContent = D.generated;
   el.repo.href = CONFIG.repoUrl;
@@ -225,9 +225,18 @@
     el.cycleNote.textContent = narrow ? "注：2024-2025 年度只收录了本科毕业于中国大陆高校的候选人；之后的年度也收录本科在海外的候选人，跨年度比较时请留意。" : "";
     renderSelects();
     renderChips();
-    renderTable(list);
     const total = cycleCandidates().length;
-    el.count.textContent = list.length === total ? `${total} 位候选人` : `筛选出 ${list.length} / ${total} 位候选人`;
+    // the directory is a lookup: list candidates only once a search or filter is set
+    const active = Boolean(state.q || state.region || state.school || state.placement || state.fields.size);
+    el.prompt.hidden = active;
+    el.results.hidden = !active;
+    if (active) {
+      renderTable(list);
+      el.count.textContent = `筛选出 ${list.length} / ${total} 位候选人`;
+    } else {
+      el.tbody.innerHTML = "";
+      el.count.textContent = `${state.cycle === "all" ? "全部年度" : state.cycle} 共 ${total} 位候选人`;
+    }
     writeHash();
   }
 
