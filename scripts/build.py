@@ -226,7 +226,8 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
                 warn(f"line {lineno}: 个人主页 without a preceding candidate")
                 continue
             url = m.group("url").strip().rstrip("*").strip()
-            current["website"] = url or None
+            # "暂无" and other placeholders are not links
+            current["website"] = url if re.match(r"https?://", url) else None
             continue
 
         m = RE_PLACEMENT.match(line)
