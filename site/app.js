@@ -153,29 +153,40 @@
       `<button type="button" class="chip ${state.fields.has(f) ? "active" : ""}" data-field="${esc(f)}">${esc(f)}<span class="c">${counts[f] || 0}</span></button>`).join("");
   }
 
-  const RES_GROUPS = [["publications", "Publications 已发表"], ["rr", "Revise & Resubmit"], ["wp", "Working Papers 工作论文"]];
+  // papers from data/research.json; dot colours reuse the placement palette
+  const RES_GROUPS = [
+    ["publications", "Publications", "已发表", "pub"],
+    ["rr", "Revise & Resubmit", "修改重投", "rr"],
+    ["wp", "Working Papers", "工作论文", "wp"],
+  ];
 
   function paperItem(p) {
+    const notes = (p.note || "").split(/\s*;\s*/).filter(Boolean);
+    const isJmp = notes.some((n) => /\bJMP\b/.test(n));
+    // "JMP (draft coming soon)" -> JMP tag + "draft coming soon"
+    const rest = notes.map((n) => n.replace(/^\(?JMP\b\)?[\s:,–-]*/, "").replace(/^\((.*)\)$/, "$1").trim()).filter(Boolean);
     const title = p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title);
-    const meta = [p.authors ? `with ${esc(p.authors)}` : "", p.venue ? `<i>${esc(p.venue)}</i>` : "", p.year || ""].filter(Boolean).join(", ");
-    const note = p.note ? ` <span class="pnote ${/\bJMP\b/.test(p.note) ? "jmp" : ""}">${esc(p.note)}</span>` : "";
-    return `<li>${title}${meta ? `<span class="pmeta"> — ${meta}</span>` : ""}${note}</li>`;
+    const meta = [p.authors ? `with ${esc(p.authors)}` : "", p.venue ? `<em>${esc(p.venue)}</em>` : "", p.year || "",
+      ...rest.map((n) => `<span class="pn">${esc(n)}</span>`)].filter(Boolean).join(" · ");
+    return `<li><span class="pt">${title}</span>${isJmp ? `<span class="jmp-tag">JMP</span>` : ""}${meta ? `<span class="pm">${meta}</span>` : ""}</li>`;
   }
 
   function researchBlock(c) {
     const r = c.research;
     if (!r) return "";
-    const groups = RES_GROUPS.filter(([k]) => r[k].length).map(([k, label]) =>
-      `<div class="rgroup"><h5>${label} <span class="c">${r[k].length}</span></h5><ol>${r[k].map(paperItem).join("")}</ol></div>`).join("");
-    return `<div class="research"><h4>研究成果</h4>${groups || "<p><i>主页未列出论文</i></p>"}
-      <p class="src">来源：${r.source ? `<a href="${esc(r.source.split(/\s|,/)[0])}" target="_blank" rel="noopener">个人主页</a>` : "个人主页"}${r.checked ? `（${esc(r.checked)} 检索，以主页为准）` : ""}</p></div>`;
+    const groups = RES_GROUPS.filter(([k]) => r[k].length).map(([k, en, zh, cls]) =>
+      `<div class="r-group ${cls}"><div class="r-label"><i></i>${en}<span>${zh} · ${r[k].length}</span></div>
+        <ul class="papers">${r[k].map(paperItem).join("")}</ul></div>`).join("");
+    const src = r.source ? `<a href="${esc(r.source.split(/\s|,/)[0])}" target="_blank" rel="noopener">个人主页</a>` : "个人主页";
+    return `<div class="research"><h4>研究成果</h4>${groups || `<p class="none">主页未列出论文</p>`}
+      <p class="src">整理自${src}${r.checked ? `，${esc(r.checked)} 检索` : ""}；论文状态以主页为准</p></div>`;
   }
 
   function resCounts(c) {
     const r = c.research;
     if (!r) return "";
-    const parts = [["P", r.publications.length, "已发表"], ["R&R", r.rr.length, "Revise & Resubmit"], ["WP", r.wp.length, "工作论文"]]
-      .filter(([, n]) => n).map(([l, n, t]) => `<span class="rc" title="${t}">${l} ${n}</span>`);
+    const parts = [["发表", r.publications.length, "pub"], ["R&R", r.rr.length, "rr"], ["WP", r.wp.length, "wp"]]
+      .filter(([, n]) => n).map(([l, n, cls]) => `<span class="rc ${cls}"><i></i>${l} ${n}</span>`);
     return parts.length ? `<span class="rcs">${parts.join("")}</span>` : "";
   }
 
