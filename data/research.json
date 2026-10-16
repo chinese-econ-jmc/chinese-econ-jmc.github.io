@@ -8507,6 +8507,80 @@
    }
   ]
  },
+ "2026-2027|Boston University|Jiahao Shen": {
+  "status": "ok",
+  "source": "https://www.bu.edu/econ/job-market-candidates/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Learning about the Self in a Discrete Environment",
+    "authors": null,
+    "venue": null,
+    "year": 2026,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Costly Information and the Elimination of Strategic Delay in Observational Learning",
+    "authors": null,
+    "venue": null,
+    "year": 2026,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Boston University|Shengqi Ni": {
+  "status": "ok",
+  "source": "https://shengqini.weebly.com/research.html",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Career Incentives and Performance Falsification",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP; homepage title: Career Incentives and GDP Falsification",
+    "url": null
+   },
+   {
+    "title": "Advances Only: Selective Reporting in Statistical Communication",
+    "authors": "Junhao Chen",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Input-Share Regulation and Product Quality",
+    "authors": "Travis Ng",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Beyond Policy: How Political Ties Distort Land Allocation in China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Bridging the Opportunity Gap: The Impact of Educational Travel on Disadvantaged Students in Rural China",
+    "authors": "Chun Yat Liu",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
  "2026-2027|Brown|Yuxian Chen": {
   "status": "ok",
   "source": "https://www.yuxianchen.com/research",
@@ -8552,7 +8626,7 @@
  },
  "2026-2027|CMU|Yikang Shen": {
   "status": "ok",
-  "source": "https://sites.google.com/view/yikangshen/research",
+  "source": "https://sites.google.com/view/yikangshen/home",
   "checked": "2026-10",
   "publications": [],
   "rr": [],
@@ -8562,7 +8636,7 @@
     "authors": null,
     "venue": null,
     "year": null,
-    "note": "JMP",
+    "note": "JMP; forthcoming at CIST 2026",
     "url": null
    },
    {
@@ -9179,6 +9253,40 @@
    {
     "title": "The Effects of SNAP Work Requirements on Immigrants",
     "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Purdue University|Wei Guo": {
+  "status": "ok",
+  "source": "https://gw2023gw.github.io/wei-guo/research.html",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Green Innovation and Maturity Mismatch: Evidence from China",
+    "authors": "Liqin Zhang, Xiao Sun, Ruiqi Sun",
+    "venue": "Finance Research Letters",
+    "year": 2025,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "The Incidence of Semiconductor Export Controls: Access Risk, Compliance, and Strategic Capacity",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP; draft coming soon",
+    "url": null
+   },
+   {
+    "title": "Social Credit Level and Corporate Leverage Manipulation: Evidence from China",
+    "authors": "Ruiqi Sun, Tianyu Zhang",
     "venue": null,
     "year": null,
     "note": null,
@@ -9916,23 +10024,23 @@
    }
   ]
  },
- "2026-2027|University of Illinois Urbana Champaign|Xiaohan Wang": {
+ "2026-2027|University of Illinois Urbana Champaign|Xinxuan Liu": {
   "status": "ok",
-  "source": "https://xiaohanwang1997.github.io/research/",
+  "source": "https://xinxuan-liu.github.io/research/",
   "checked": "2026-10",
   "publications": [],
   "rr": [],
   "wp": [
    {
-    "title": "Natural Disasters and Occupational Mobility in US Agriculture: Evidence from the 1927 Mississippi Flood",
-    "authors": "Xinhui Sun",
+    "title": "Beyond the Average and the Observed: Distributional Tests of Treatment Effect Heterogeneity in Regression Discontinuity Designs",
+    "authors": null,
     "venue": null,
     "year": null,
     "note": "JMP",
     "url": null
    },
    {
-    "title": "Did Aid Matter? Measuring the Effect of Federal Financial Aid on College Market Outcomes",
+    "title": "Learning from Déjà Vu: Contextual Bandit-Based Model Selection for Macroeconomic Nowcasting",
     "authors": null,
     "venue": null,
     "year": null,
@@ -9940,7 +10048,40 @@
     "url": null
    },
    {
-    "title": "Child Labor Laws and Intergenerational Occupational Mobility in Agriculture",
+    "title": "Nowcasting Inflation with a Covariate Foundation Model",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Illinois Urbana Champaign|Zhuo Chen": {
+  "status": "ok",
+  "source": "https://sites.google.com/view/zhuochen/research",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Natural Disaster, Federal Assistance, and Local Public Finance",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "High Temperatures and Crime: Evidence from China",
+    "authors": "Chenxi Tang",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "The Impact of Earthquakes on the Marriage Market: Evidence from the Yogyakarta Earthquake",
     "authors": null,
     "venue": null,
     "year": null,
