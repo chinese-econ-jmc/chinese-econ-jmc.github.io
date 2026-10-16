@@ -930,47 +930,6 @@
    }
   ]
  },
- "2024-2025|HKU|Xing Hu": {
-  "status": "ok",
-  "source": "https://huxing.site/Research/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Producer Services in China",
-    "authors": "Ming Li, Hongsong Zhang",
-    "venue": null,
-    "year": 2026,
-    "note": "JMP (per current page)",
-    "url": "https://huxingecon.github.io/file/HLZ_2026.pdf"
-   },
-   {
-    "title": "Returns to Scale, Productivity, and Markup: Revisit the Export Premium",
-    "authors": "Yangting Jiang, Hongsong Zhang",
-    "venue": null,
-    "year": 2026,
-    "note": "Submitted",
-    "url": "https://huxingecon.github.io/file/HJZ_2026.pdf"
-   },
-   {
-    "title": "Market Access through Production Networks: Impact of Highway Development on Firm Performance",
-    "authors": "Guojun He, Shengyu Li, Hongsong Zhang",
-    "venue": null,
-    "year": 2026,
-    "note": null,
-    "url": "https://huxingecon.github.io/file/HHLZ_ESEM_2026.pdf"
-   },
-   {
-    "title": "Separating Markups from Markdowns without Material Prices",
-    "authors": null,
-    "venue": null,
-    "year": 2026,
-    "note": null,
-    "url": null
-   }
-  ]
- },
  "2024-2025|Harvard|Lingxuan \"Sean\" Wu": {
   "status": "ok",
   "source": "https://www.lingxuanwu.me/",
@@ -1214,115 +1173,6 @@
    }
   ]
  },
- "2024-2025|LSE|Runhong Ma": {
-  "status": "ok",
-  "source": "https://www.runhongmaecon.com/research.html",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "房价如何影响劳动力流动?",
-    "authors": "张莉, 何晶",
-    "venue": "经济研究",
-    "year": 2017,
-    "note": null,
-    "url": null
-   }
-  ],
-  "rr": [
-   {
-    "title": "Technological Change and Industrial Policy: How do Robot Subsidies Affect Aggregate Productivity and Firm Dispersion? Theory and Evidence from China",
-    "authors": "Yuxiao Hu",
-    "venue": "International Economic Review",
-    "year": null,
-    "note": "Revise & Resubmit",
-    "url": null
-   },
-   {
-    "title": "Government and Nature: Evidence from the Distribution of Flood Damages in China",
-    "authors": "Yuxiao Hu, Yifan Wang",
-    "venue": "The Review of Economics and Statistics",
-    "year": null,
-    "note": "Reject & Resubmit",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Development and Innovation of a New Sector: EV Subsidy in China",
-    "authors": "Keyu Jin, Nan Li, Qixiang Zhao",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Automation and Labor Market Volatility: Evidence of a Non-Monotonic Relationship",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Floods, Collaborative Matching, and the Geography of Innovation",
-    "authors": "Haoyu Gao, Yuxiao Hu, Peixuan Zhao",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2024-2025|LSE|Yuxiao Hu": {
-  "status": "ok",
-  "source": "https://www.yuxiaohu.com/research.html",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [
-   {
-    "title": "Government and Nature: Evidence from the Distribution of Flood Damages in China",
-    "authors": "Runhong Ma, Yifan Wang",
-    "venue": "Review of Economics and Statistics",
-    "year": null,
-    "note": "Reject and Resubmit; JMP",
-    "url": null
-   },
-   {
-    "title": "How do Robot Subsidies Affect Aggregate Productivity and Firm Dispersion? Theory and Evidence from China",
-    "authors": "Runhong Ma",
-    "venue": "International Economic Review",
-    "year": null,
-    "note": "Revise and Resubmit",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Floods, Collaborative Matching, and the Geography of Innovation",
-    "authors": "Haoyu Gao, Runhong Ma, Peixuan Zhao",
-    "venue": null,
-    "year": 2025,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "In the Shadow of Floods: Expected Risk and Agricultural Adaptation",
-    "authors": "Qingen Gai, Lianyi Hu, Qinghua Shi",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Early Career Flood Experience and Investment in Infrastructure",
-    "authors": "Zhenhuan Lei, Bohao Wang",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
  "2024-2025|MIT|Jie Zhou": {
   "status": "ok",
   "source": "https://economics.mit.edu/people/phd-students/jie-zhou (CV: https://economics.mit.edu/sites/default/files/2024-10/Zhou_CV_1.pdf)",
@@ -1492,65 +1342,6 @@
    {
     "title": "The Effects of Vocational Education Millages on Career and Technical Education in Michigan",
     "authors": "Matthew Guzman",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2024-2025|NUS|Jie Duan": {
-  "status": "ok",
-  "source": "https://jie-duan.com/Research/",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "The Underemployment Trap",
-    "authors": "Paul Jackson",
-    "venue": "Journal of Monetary Economics",
-    "year": 2025,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Internet Linkage and International Trade: From the Perspective of Risk Alleviation",
-    "authors": "Zengxi Hu",
-    "venue": "The World Economy",
-    "year": 2024,
-    "note": null,
-    "url": null
-   }
-  ],
-  "rr": [
-   {
-    "title": "Uncertainty, Learning, and the Unemployment-Education Gap over the Life Cycle",
-    "authors": "Paul Jackson",
-    "venue": "The Economic Journal",
-    "year": null,
-    "note": "Revise and Resubmit; JMP",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Lifelong Gains from a Strong Start: Early Career Fit and the College Wage Premium",
-    "authors": "Ismail Baydur, Paul Jackson",
-    "venue": null,
-    "year": null,
-    "note": "Draft available upon request",
-    "url": null
-   },
-   {
-    "title": "Employment and Welfare Effects of the New Occupational Injury Insurance Pilot Program: A Quantitative General Equilibrium Evaluation (in Chinese)",
-    "authors": "Xue Qiao, Guanglin Ma",
-    "venue": null,
-    "year": null,
-    "note": "Under review",
-    "url": null
-   },
-   {
-    "title": "Procyclical Wage Losses from Skill Mismatch",
-    "authors": null,
     "venue": null,
     "year": null,
     "note": null,
@@ -1732,103 +1523,6 @@
     "url": null
    }
   ]
- },
- "2024-2025|PKU|Chenhao Liu": {
-  "status": "ok",
-  "source": "https://sites.google.com/view/chenhao-liu/publications",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "Centralization and Regulatory Enforcement: Evidence from Personnel Authority Reform in China",
-    "authors": "Dongmin Kong",
-    "venue": "Journal of Public Economics",
-    "year": 2024,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Greening through Trade",
-    "authors": "Dongmin Kong, Wenxu Ye",
-    "venue": "Journal of Corporate Finance",
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Randomized Inspection of Regulator and Firm's Government Subsidies: A Natural Experiment in China",
-    "authors": "Dongmin Kong, Wenxu Ye",
-    "venue": "China Economic Review",
-    "year": 2023,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "COVID-19 Lockdown and Municipal Solid Waste: Evidence from 252 Communities' Discarding Records in China",
-    "authors": "Dongmin Kong, Ling Han",
-    "venue": "Environment and Development Economics",
-    "year": 2022,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Invisible Enemy: the Health Impact of Ozone",
-    "authors": "Dongmin Kong, Junwei Liang",
-    "venue": "China Economic Review",
-    "year": 2022,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Does Political Incentive Shape Governments' Disclosure of Air Pollution Information?",
-    "authors": "Dongmin Kong",
-    "venue": "China Economic Review",
-    "year": 2021,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Trading Access Policy and Firm Innovation: Evidence from Bunching Estimation",
-    "authors": "Dongmin Kong, Wenxu Ye",
-    "venue": "The World Economy",
-    "year": 2024,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Conspicuous Consumption and Migrants: Evidence from Auto Mortgage Loan",
-    "authors": "Dongmin Kong, Ling Zhu",
-    "venue": "China Journal of Economics (经济学报)",
-    "year": null,
-    "note": "Forthcoming",
-    "url": null
-   },
-   {
-    "title": "The Impact of Household Real Estate and Self-Employment: Evidence from China",
-    "authors": "Junyi Xiang, Yiming Li",
-    "venue": "Economic Modelling",
-    "year": 2021,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Is Genetic Programming Strategy Effective on Chinese Stock Market? A Random Multi-objective Genetic Programming Strategy on Stock Index",
-    "authors": "Yajian Gong, Xianhua Wei, Xiangyuan Meng",
-    "venue": "Journal of Systems Science and Mathematical Sciences (系统科学与数学)",
-    "year": 2020,
-    "note": null,
-    "url": null
-   }
-  ],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|PKU|Xingyu Li": {
-  "status": "no_homepage",
-  "source": "web search (no result)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
  },
  "2024-2025|Penn State University|Han Xu": {
   "status": "ok",
@@ -3495,78 +3189,6 @@
    }
   ]
  },
- "2024-2025|中国经济学年会“学术之星”|张亚楠": {
-  "status": "no_homepage",
-  "source": "no website listed; not searched (no identifying info)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|曹增栋": {
-  "status": "no_homepage",
-  "source": "no website listed; not searched (no identifying info)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|李佶冬": {
-  "status": "no_homepage",
-  "source": "WebSearch (none found)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|林溪": {
-  "status": "no_homepage",
-  "source": "no website listed; not searched (no identifying info)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|袁博": {
-  "status": "no_homepage",
-  "source": "no website listed; not searched (no identifying info)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|赵雪晴": {
-  "status": "no_homepage",
-  "source": "no website listed; not searched (no identifying info)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|邱康权": {
-  "status": "no_homepage",
-  "source": "no website listed; not searched (no identifying info)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|邹心璐": {
-  "status": "no_homepage",
-  "source": "no website listed; not searched (no identifying info)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2024-2025|中国经济学年会“学术之星”|马科伟": {
-  "status": "no_homepage",
-  "source": "WebSearch (none found)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
  "2025-2026|Boston College|Fangxu Duan": {
   "status": "ok",
   "source": "https://sites.google.com/view/fangxuduan/research",
@@ -3585,6 +3207,39 @@
    {
     "title": "One Child Policy and Marriage Market Outcomes",
     "authors": "Yufeng Shi",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2025-2026|Boston College|Liang Zhang": {
+  "status": "ok",
+  "source": "https://www.liang-zhang.com/research",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Mortgage Refinancing and the Marginal Propensity to Consume",
+    "authors": "Simone Pesce",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": "https://www.ecb.europa.eu/pub/pdf/scpwps/ecb.wp3051~7073bd4387.en.pdf?fc09ede0f45a61d2f2036411eb73f0b0"
+   },
+   {
+    "title": "The Allocation of Talent and Income Differences Across Countries",
+    "authors": "Nan Li, Robert Zymek",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "How Does Mobile Payment Technology Affect Consumer Payment Behavior?",
+    "authors": null,
     "venue": null,
     "year": null,
     "note": null,
@@ -4164,23 +3819,6 @@
     "venue": null,
     "year": null,
     "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|CUHKUST|Hanyi Wang": {
-  "status": "unreachable",
-  "source": "http://hanxi-wang-econ.com/research.html (JS-rendered, empty)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Optimal Trade Policies and Market Power in General Equilibrium Trade Models",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
     "url": null
    }
   ]
@@ -4871,83 +4509,6 @@
   "rr": [],
   "wp": []
  },
- "2025-2026|HKUST|Lingfei Lu": {
-  "status": "ok",
-  "source": "https://lingfei-daniel-lu.github.io/research/",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "Exchange Rate Pass-Through and Importers' Credit Constraints: Evidence from China",
-    "authors": "Yao Amber Li, Tengyu Zhao",
-    "venue": "Journal of Economic Behavior and Organization",
-    "year": 2025,
-    "note": null,
-    "url": null
-   }
-  ],
-  "rr": [
-   {
-    "title": "The Spill-back and Spillover Effects of US Monetary Policy: Evidence on an International Cost Channel",
-    "authors": "Yao Amber Li, Shang-Jin Wei, Jingbo Yao",
-    "venue": "Journal of Monetary Economics",
-    "year": 2025,
-    "note": "Revise and Resubmit",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Import-Export Linkages as a Channel for Exchange Rate Hedging",
-    "authors": null,
-    "venue": null,
-    "year": 2025,
-    "note": "JMP",
-    "url": null
-   }
-  ]
- },
- "2025-2026|HKUST|Yuzhi Hao": {
-  "status": "ok",
-  "source": "https://garen-h.github.io/research/",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "A Multi-LLM-Agent-Based Framework for Economic and Public Policy Analysis",
-    "authors": "Danyang Xie",
-    "venue": "China Journal of Econometrics",
-    "year": 2025,
-    "note": "5(3): 615-630",
-    "url": null
-   }
-  ],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Macro-Monopoly Dynamics: How Large Firms Shape Aggregate Outcomes",
-    "authors": "Danyang Xie",
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Rewiring Opportunity: How Improved Internet Infrastructure Reduces Intra-City Income Inequality in China",
-    "authors": "Yanlin Wan, Xu Zhang, Aoqing Lyu, Masaru Yarime",
-    "venue": null,
-    "year": null,
-    "note": "Submitted",
-    "url": null
-   },
-   {
-    "title": "Bridging the Treatment Gap in Mental Healthcare: Evidence from China",
-    "authors": "Yanlin Wan, Xu Zhang",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
  "2025-2026|Indiana University--Bloomington|Huahua Zhu": {
   "status": "ok",
   "source": "https://s3.us-east-1.amazonaws.com/huahua.com/huahuazhu.html",
@@ -5003,181 +4564,6 @@
     "venue": null,
     "year": null,
     "note": "JMP",
-    "url": null
-   }
-  ]
- },
- "2025-2026|LSE|Linchuan Xu": {
-  "status": "ok",
-  "source": "https://www.linchuanxu.com/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "The Middlemen of Development? Evidence from Labor Recruitment Agencies in China",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Organizational Form and River Quality: Theory and Evidence from China",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "The Ecological Inequality Trap",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "Draft available upon request",
-    "url": null
-   },
-   {
-    "title": "Empowerment or Financialization? The Gains from Financial Inclusion",
-    "authors": "Timothy Besley, Konrad Burchardi, Maitreesh Ghatak",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Organizational Purpose and the Dynamics of Motivation",
-    "authors": "Timothy Besley, Maitreesh Ghatak",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|LSE|Meng Su": {
-  "status": "ok",
-  "source": "https://sites.google.com/view/mengsu/research",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "Are U.S. Sanctions Off-Target? Evidence from the Magnitsky Act",
-    "authors": "Simeon Djankov",
-    "venue": "Economics Letters",
-    "year": 2024,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "The Targeting of Economic Sanctions",
-    "authors": "Simeon Djankov",
-    "venue": "Economics Letters",
-    "year": 2025,
-    "note": null,
-    "url": null
-   }
-  ],
-  "rr": [],
-  "wp": [
-   {
-    "title": "When Help Doesn't Help: Fathers' Working from Home and Household Labour Division",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Gender Legal Reforms in Zambia",
-    "authors": "Simeon Djankov",
-    "venue": null,
-    "year": 2023,
-    "note": "FMG Discussion Paper",
-    "url": null
-   },
-   {
-    "title": "Does the Soda Tax Help Who Needs It Most?",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|LSE|Yuanhang Yu": {
-  "status": "unreachable",
-  "source": "https://yuanhang-leo-yu.github.io/ (404); web search",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Pollution Without Borders: Transboundary Air Pollution and the Geography of Emission Control",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": "https://cep.lse.ac.uk/_new/EVENTS/event.asp?index=10384"
-   }
-  ]
- },
- "2025-2026|LSE|Yuhao Qian": {
-  "status": "ok",
-  "source": "https://www.yuhaoqian.com/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Capital Misallocation and Earnings-Based Borrowing",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "International Transmission of US Monetary Policy and Liquidity Constraints: Evidence from the Euro Area",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|LSE|Zhiyao Deng": {
-  "status": "ok",
-  "source": "https://sites.google.com/view/zhiyaodeng/research",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "Is Greenness Priced in the Market? Evidence from Green Bonds in China",
-    "authors": "Dragon Tang, Yupu Zhang",
-    "venue": "The Journal of Alternative Investments",
-    "year": 2020,
-    "note": "23(1), 57-70",
-    "url": null
-   }
-  ],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Will Moving Towards a Digital Service Economy Insulate the Economy Against Environmental Shocks?",
-    "authors": "Runpu Li",
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Environmental Tournaments As Political Incentives: Evidence from First Green Finance Pilot Zones in the World",
-    "authors": "Dragon Tang, Yupu Zhang",
-    "venue": null,
-    "year": null,
-    "note": null,
     "url": null
    }
   ]
@@ -5242,132 +4628,6 @@
    {
     "title": "Timing Motherhood: How Paid Family Leave Reshapes Birth Decisions in the U.S.",
     "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|NUS|Jingman Cao": {
-  "status": "ok",
-  "source": "https://www.jingmancao.com/research",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [
-   {
-    "title": "Endogenous Consumer Reviews and Promotion Incentives: Evidence from an Online Game Platform",
-    "authors": "Xinbo Wang",
-    "venue": "International Economic Review",
-    "year": null,
-    "note": "R&R",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "When AI Writes Alike: Implications for Efficiency on Matching Platforms",
-    "authors": "Yuting Zhu",
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "AI for Fairness? The Role of Generative Tools in Shaping Freelancer Success",
-    "authors": "Zhonglin Li",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Real-Time Externality and Two-Sided Subsidy in Ride-Hailing Industry",
-    "authors": "Shih-Fen Cheng, Jussi Keppo",
-    "venue": null,
-    "year": null,
-    "note": "Draft available upon request",
-    "url": null
-   }
-  ]
- },
- "2025-2026|NUS|Peiyi Jin": {
-  "status": "ok",
-  "source": "https://peiyi-jin.github.io/research/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [
-   {
-    "title": "When Privacy Protects but Excludes: The Costs and Benefits of Privacy Regulation in Credit Markets",
-    "authors": "Sumit Agarwal, Pulak Ghosh, Shohini Kundu, Nishant Vats, Xinbo Wang, Yingze Xu",
-    "venue": "Review of Financial Studies",
-    "year": null,
-    "note": "R&R",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Digital Salience and Consumption Elasticity: Evidence from a Real-Time Feedback Intervention",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Crypto Capture of Foreign Aid",
-    "authors": "Sumit Agarwal, Eswar Prasad, Daniel Rabetti",
-    "venue": null,
-    "year": null,
-    "note": "NBER Working Paper No. w35655",
-    "url": null
-   },
-   {
-    "title": "Bedtime Stories, Daytime Effects: Classroom Spillovers in Rural China",
-    "authors": "Yue Li",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Tax-Motivated Borrowing and Default Risk in Decentralized Lending",
-    "authors": "Lisa De Simone, Daniel Rabetti",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|NUS|Xinbo Wang": {
-  "status": "ok",
-  "source": "https://sites.google.com/view/xinbo-wang-econ/research-and-projects; status of two papers from coauthors' pages (jingmancao.com, peiyi-jin.github.io)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [
-   {
-    "title": "Endogenous Consumer Reviews and Promotion Incentives: Evidence from an Online Game Platform",
-    "authors": "Jingman Cao",
-    "venue": "International Economic Review",
-    "year": null,
-    "note": "R&R (per coauthor's page; listed as working paper on own page)",
-    "url": null
-   },
-   {
-    "title": "When Privacy Protects but Excludes: The Costs and Benefits of Privacy Regulation in Credit Markets",
-    "authors": "Sumit Agarwal, Pulak Ghosh, Peiyi Jin, Shohini Kundu, Nishant Vats, Yingze Xu",
-    "venue": "Review of Financial Studies",
-    "year": null,
-    "note": "R&R (per coauthor Peiyi Jin's page; listed as working paper on own page)",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Feedback Culture and Equilibrium Participation",
-    "authors": "Nan Chen",
     "venue": null,
     "year": null,
     "note": null,
@@ -5673,428 +4933,6 @@
     "year": null,
     "note": null,
     "url": null
-   }
-  ]
- },
- "2025-2026|Oxford|Chenchuan Shi": {
-  "status": "ok",
-  "source": "https://sites.google.com/view/chenchuan-shi/research",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "Ambiguity Aversion, Portfolio Choice, and Life Expectancy",
-    "authors": "Alistair Macaulay",
-    "venue": "International Economic Review",
-    "year": 2026,
-    "note": null,
-    "url": null
-   }
-  ],
-  "rr": [
-   {
-    "title": "Macroeconomic Impact of the Remote Work Revolution",
-    "authors": "Petr Sedláček",
-    "venue": "Review of Economic Studies",
-    "year": null,
-    "note": "Revise and Resubmit",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Knowledge Generality, Competition and Growth",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP; Finalist, ECB Young Economist Prize 2026",
-    "url": null
-   },
-   {
-    "title": "Risk, Uncertainty and Entrepreneurship",
-    "authors": "Xiaowen Lei",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|Oxford|Zhao Dong": {
-  "status": "ok",
-  "source": "https://zhaodong77777.github.io/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Crisis and Elite Composition in Late Qing China: The Loyalty-Competence Trade-off, 1825-1911",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Hereditary Succession and State Capacity in Imperial China, 207 BCE-1912 CE",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Chinese Historical GDP Reconstruction, 2-1328 CE: The Great Convergence, The Transition, and The Divergence",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|PKU|Hongyi Jiang": {
-  "status": "ok",
-  "source": "https://faculty.xmu.edu.cn/jianghongyi/en/zdylm/1165633/list/index.htm (XMU page; PKU page 404)",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "The Theory and Practices of Double Machine Learning: From 'Black Box' to 'Tool Box'",
-    "authors": "Shiyun Hu, Haitian Xie",
-    "venue": "Journal of Quantitative & Technological Economics",
-    "year": 2026,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Prediction Intervals of Panel Data Approach for Programme Evaluation",
-    "authors": "Xingyu Li, Yan Shen, Qiankun Zhou",
-    "venue": "Journal of Applied Econometrics",
-    "year": 2025,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "A Nonparametric Test of mth-degree Inverse Stochastic Dominance",
-    "authors": "Zhenting Sun, Shiyun Hu",
-    "venue": "Economics Letters",
-    "year": 2024,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Testing Partial Instrument Monotonicity",
-    "authors": "Zhenting Sun",
-    "venue": "Economics Letters",
-    "year": 2023,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "IV Validity for Heterogeneous Causal Effects and Statistical Inference",
-    "authors": "Shiyun Hu, Zhenting Sun",
-    "venue": "Journal of Quantitative & Technological Economics",
-    "year": 2025,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "New Approaches to Protecting Financial Consumers' Rights and Interests in the Context of Digital Finance",
-    "authors": "Yan Shen",
-    "venue": "PKU Financial Review",
-    "year": 2024,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Digital Finance Supports High-quality Development: Theory, Mechanism and Evidence",
-    "authors": "Yan Shen, Shiyun Hu, Jiaqi Zhao, Zhuo Huang",
-    "venue": "Journal of Financial Research",
-    "year": 2024,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Fintech, Small Enterprise Credit and Credit Risk: Evidence from Bank Digitization in China",
-    "authors": "Jiaqi Zhao, Shiyun Hu, Yan Shen",
-    "venue": "China Economic Quarterly",
-    "year": 2023,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Mega-Data Analysis on the Impact of the 'Double Reduction' Policy on Student Mental Health",
-    "authors": "Xiang Zhang, Yuting Xiong, Ling Li",
-    "venue": "China Economic Quarterly",
-    "year": null,
-    "note": "Accepted",
-    "url": null
-   }
-  ],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Big Data-Driven Machine Learning Methods in Structural Economic and Management Research",
-    "authors": "Xingyu Li, Junjian Yi",
-    "venue": null,
-    "year": null,
-    "note": "Submitted",
-    "url": null
-   },
-   {
-    "title": "Matrix Completion, Factor Analysis and Treatment Effects in the Presence of Spatial Dependence",
-    "authors": "Xingyu Li, Yan Shen, Qiankun Zhou",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Unveiling the Global Ripples: How EU ETS Influences Chinese Exporters",
-    "authors": "Zhuoyu Chen, Yaqi Wang, Miaojie Yu",
-    "venue": null,
-    "year": 2025,
-    "note": null,
-    "url": "https://zhuoyu-cindy-chen.github.io/files/paperEUETS.pdf"
-   },
-   {
-    "title": "Minimum Wage Adjustments and Potential Labor Market Outcomes in China: An Examination through Protests",
-    "authors": "Shiyun Hu, Yuan Qin, Dandan Zhang",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "The Effect of a Deadly Epidemic on Firm Exports: Evidence from the 2003 SARS Outbreak",
-    "authors": "Wei You, Jinyong Zhan, Shilin Zheng, Zhenting Sun",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|PKU|Jiaqi Zhao": {
-  "status": "ok",
-  "source": "https://jiaqi-zhao.weebly.com/research",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "Winning hearts after tying hands: The political impact of land titling reform in China",
-    "authors": "Zhi-An Hu, Zhuo Nie",
-    "venue": "Journal of Development Economics",
-    "year": 2026,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Air Pollution and Entrepreneurship",
-    "authors": "Liwen Guo, Zhiming Cheng, Massimiliano Tani, Sarah Cook, Xi Chen",
-    "venue": "China Economic Review",
-    "year": 2025,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Financial Sector Development and Industrialization: Lessons and Prospects for Ethiopia",
-    "authors": "Hang Yu",
-    "venue": "China Economic Journal",
-    "year": 2024,
-    "note": null,
-    "url": null
-   }
-  ],
-  "rr": [
-   {
-    "title": "The Collectivist Origins of Political Participation in Rural China",
-    "authors": "Zhi-An Hu, Zhuo Nie",
-    "venue": "Journal of Comparative Economics",
-    "year": null,
-    "note": "Revise and Resubmit",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Political Connections as Fiscal Buffers under Trade Shocks: Evidence from China's Primary Land Market",
-    "authors": "Jinghong Li, Kevin Zhengcheng Liu, Zhuo Nie",
-    "venue": null,
-    "year": null,
-    "note": "Under review",
-    "url": null
-   },
-   {
-    "title": "Seeing Corruption Differently: An Information-Based Perspective on the Expert-Citizen Gap in Corruption Indicators",
-    "authors": "Zhenhuan Lei, Tianyang Xi",
-    "venue": null,
-    "year": null,
-    "note": "Under review",
-    "url": null
-   },
-   {
-    "title": "Power Sharing under Weak Institutions: The Role of Inter-group Equality",
-    "authors": "Yang Yao",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Generative AI and Pre-Hire Labor Market: Evidence from a Chinese Job Matching Platform",
-    "authors": "Hanming Fang, Jiayin Hu, Miao Yu",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Can \"Airdropped\" Politicians Curb Local Favoritism? Evidence from Chinese Lawsuits",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "Independent research",
-    "url": null
-   }
-  ]
- },
- "2025-2026|PKU|Miao Yu": {
-  "status": "ok",
-  "source": "https://miaoyu20000702.github.io/miaoyu-pku/index.html",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "数字基础设施与家庭风险金融资产投资——基于“宽带中国”政策的证据",
-    "authors": "李青原, 董燕飞, 黄炜",
-    "venue": "金融研究",
-    "year": 2025,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Economic Policy Uncertainty, Health Status, and Mortality",
-    "authors": "Wei Huang, Xiaoyan Lei",
-    "venue": "Social Science & Medicine",
-    "year": 2024,
-    "note": null,
-    "url": "https://doi.org/10.1016/j.socscimed.2024.117227"
-   },
-   {
-    "title": "The Business Cycles Driven by Loan Defaults via Credit Creation: An Agent-Based Perspective",
-    "authors": "Zijian Feng, Yougui Wang",
-    "venue": "Finance Research Letters",
-    "year": 2022,
-    "note": null,
-    "url": "https://doi.org/10.1016/j.frl.2022.102846"
-   },
-   {
-    "title": "Quantifying Financial Market Dynamics: Scaling Law in Rank Mobility of Chinese Stock Prices",
-    "authors": "Yongbin Shi, Liujun Chen, Plamen Ch. Ivanov, Yougui Wang",
-    "venue": "Finance Research Letters",
-    "year": 2021,
-    "note": null,
-    "url": "https://doi.org/10.1016/j.frl.2020.101516"
-   }
-  ],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Extended Maternity Leaves and Gender Gaps: Evidence from an Online Job Platform",
-    "authors": "Hanming Fang, Jiayin Hu",
-    "venue": null,
-    "year": 2025,
-    "note": "JMP; Under review; NBER Working Paper w34304",
-    "url": "https://www.nber.org/papers/w34304"
-   },
-   {
-    "title": "Born Risk-Averse: Unveiling the Financial Impact of Parenthood on Risky Investments",
-    "authors": "Yanfei Dong, Wei Huang",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "From Cradle to Costs: How Childbirth Alters Income and Consumption Dynamics in Urban China",
-    "authors": "Wei Huang, Yipin Wang, Hantao Wu",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Child and Gender Gap in Time Allocation",
-    "authors": "Xiaoyan Lei, Wei Huang",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "经济不确定性对居民主观福祉的影响研究——来自中国家庭追踪调查（CFPS）的证据",
-    "authors": "雷晓燕, 沈艳, 闫硕",
-    "venue": null,
-    "year": null,
-    "note": "Under review",
-    "url": null
-   }
-  ]
- },
- "2025-2026|PKU|Shiyun Hu": {
-  "status": "no_homepage",
-  "source": "PKU NSD page failed; web search (no personal homepage found)",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": []
- },
- "2025-2026|PKU|Zhuoyu Chen": {
-  "status": "ok",
-  "source": "https://zhuoyu-cindy-chen.github.io/publications/",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "出口非出口企业债务融资成本倒挂之谜",
-    "authors": "Jimmy Xu, Miaojie Yu",
-    "venue": "国际贸易",
-    "year": 2025,
-    "note": null,
-    "url": "https://zhuoyu-cindy-chen.github.io/files/Debt_financing.pdf"
-   },
-   {
-    "title": "在成就与挑战中推进“一带一路”倡议",
-    "authors": "Miaojie Yu",
-    "venue": "辽宁大学学报（哲学社会科学版）",
-    "year": 2022,
-    "note": null,
-    "url": "https://zhuoyu-cindy-chen.github.io/files/Onebeltoneroad.pdf"
-   }
-  ],
-  "rr": [
-   {
-    "title": "Trade Tensions and Sourcing Diversification",
-    "authors": "Wei Tian, Jimmy Xu, Miaojie Yu",
-    "venue": "Journal of International Business Studies",
-    "year": 2025,
-    "note": "Reject & Resubmit",
-    "url": "https://zhuoyu-cindy-chen.github.io/files/paperJIBS.pdf"
-   }
-  ],
-  "wp": [
-   {
-    "title": "Unveiling the Global Ripples: How EU ETS Influences Chinese Exporters",
-    "authors": "Hongyi Jiang, Yaqi Wang, Miaojie Yu",
-    "venue": null,
-    "year": 2025,
-    "note": "Likely JMP (homepage lists carbon leakage through trade as JMP topic)",
-    "url": "https://zhuoyu-cindy-chen.github.io/files/paperEUETS.pdf"
-   },
-   {
-    "title": "关税提升促进国内供应链短链化",
-    "authors": "Wei Tian, Jimmy Xu, Miaojie Yu",
-    "venue": null,
-    "year": 2025,
-    "note": "Under review at 经济学（季刊）",
-    "url": "https://zhuoyu-cindy-chen.github.io/files/Sourcing_domestic.pdf"
    }
   ]
  },
@@ -6624,31 +5462,6 @@
    }
   ]
  },
- "2025-2026|SMU|Fangfang Gong": {
-  "status": "ok",
-  "source": "https://fangfanggong.github.io/research/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Should Central Banks Issue Digital Currency with a Cap?",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Distributional Welfare Costs of Inflation Revisited",
-    "authors": "Nicolas Jacquet",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
  "2025-2026|SMU|Rouzhi Liang": {
   "status": "ok",
   "source": "https://rouzl.github.io/#Home",
@@ -6675,81 +5488,6 @@
    {
     "title": "Individualism and Economic Development: Evidence from Cross-Country and Within-U.S. Analyses",
     "authors": null,
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|SMU|Tong Ni": {
-  "status": "ok",
-  "source": "https://tong-ni.github.io/research/",
-  "checked": "2026-10",
-  "publications": [
-   {
-    "title": "EU Carbon Pricing, Carbon Tariffs, and Global CO2 Emissions",
-    "authors": "Haichao Fan, Huanhuan Wang, Xiaojun Wu",
-    "venue": "The World Economy",
-    "year": null,
-    "note": "Accepted",
-    "url": null
-   },
-   {
-    "title": "Climate Change, Trade Cost, and Economic Growth: A Quantitative Estimation Based on International Shipping Data",
-    "authors": "Huanhuan Wang, Ce Guo",
-    "venue": "Journal of Management World (管理世界)",
-    "year": 2025,
-    "note": "41(09), 94-118",
-    "url": null
-   }
-  ],
-  "rr": [
-   {
-    "title": "Tariffs as Bargaining Chips: A Quantitative Analysis of US-China Trade War",
-    "authors": "Naiyuan Hu, Yuan Mei",
-    "venue": "American Economic Journal: Microeconomics",
-    "year": null,
-    "note": "Revise and Resubmit",
-    "url": "https://tong-ni.github.io/files/Tariffs_as_Bargaining_Chips.pdf"
-   },
-   {
-    "title": "Optimal Tariffs with Endogenous Geopolitical Affinity: Evidence from the U.S.-China Trade War",
-    "authors": "Huanhuan Wang, Shufei Wang, Wenjing Xie",
-    "venue": "Journal of International Money and Finance",
-    "year": null,
-    "note": "Revise and Resubmit",
-    "url": null
-   }
-  ],
-  "wp": [
-   {
-    "title": "Carbon Border Adjustment Mechanism and Trade Policy: A Quantitative Analysis",
-    "authors": "Haichao Fan, Yuan Mei, Huanhuan Wang",
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": "https://tong-ni.github.io/files/CBAM.pdf"
-   },
-   {
-    "title": "Investing in a Mobile Asset: Higher Education, Graduate Mobility, and Underinvestment",
-    "authors": "Naiyuan Hu, Lin Ma, Ben Zou",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Dirty Trade War",
-    "authors": "Haichao Fan, Dongmin Hu, Shu Lin, Huanhuan Wang",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Place-Based Relaxation of Internal Migration Restrictions and Labor Market Sorting",
-    "authors": "Yutao Wang",
     "venue": null,
     "year": null,
     "note": null,
@@ -7545,89 +6283,6 @@
     "venue": null,
     "year": null,
     "note": "JMP",
-    "url": null
-   }
-  ]
- },
- "2025-2026|UCL|Ertian Chen": {
-  "status": "ok",
-  "source": "https://ertianchen.github.io/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Robust Structural Estimation under Misspecified Latent-State Dynamics",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Model-Adaptive Approach to Dynamic Discrete Choice Models with Large State Spaces",
-    "authors": null,
-    "venue": null,
-    "year": 2026,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Carbon Regulation and Competition in the European Airline Industry",
-    "authors": "Lichao Chen, Lars Nesheim",
-    "venue": null,
-    "year": 2026,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Sequential Estimation of Dynamic Discrete Choice Models with Unobserved Heterogeneity",
-    "authors": "Hiro Kasahara, Katsumi Shimotsu",
-    "venue": null,
-    "year": 2026,
-    "note": null,
-    "url": null
-   }
-  ]
- },
- "2025-2026|UCL|Si Xu": {
-  "status": "unreachable",
-  "source": "https://sixu922.github.io/ (404); UCL job market candidates page via search",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Employment Persistence after Raising Pensionable Age: Evidence from Japan",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   }
-  ]
- },
- "2025-2026|UCL|Tian Xie": {
-  "status": "ok",
-  "source": "https://tian-xie.com/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Automatic Inference for Value-Added Regressions",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Compound Selection Decisions: An Almost SURE Approach",
-    "authors": "Jiafeng (Kevin) Chen, Lihua Lei, Timothy Sudijono, Liyang Sun",
-    "venue": null,
-    "year": null,
-    "note": null,
     "url": null
    }
   ]
@@ -9450,65 +8105,6 @@
   "rr": [],
   "wp": []
  },
- "2025-2026|Warwick|Jiaqi Li": {
-  "status": "ok",
-  "source": "https://lijiaqi6.github.io/",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "The Insurance Motive and the Shadow Child Penalty: Why Black Mothers Work More",
-    "authors": null,
-    "venue": null,
-    "year": null,
-    "note": "JMP; earlier WRAP version titled 'Racial difference in child penalty' (WERPS 1382)",
-    "url": null
-   }
-  ]
- },
- "2025-2026|Warwick|Yating Yuan": {
-  "status": "unreachable",
-  "source": "https://yatingyuan.weebly.com/ (404); web search; https://wrap.warwick.ac.uk/id/eprint/191753/1/WRAP-twerp-1561-Yuan-25.pdf",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "Costless Coordination through Public Contracting",
-    "authors": null,
-    "venue": null,
-    "year": 2025,
-    "note": "JMP; Warwick Economics Research Paper No. 1561",
-    "url": "https://wrap.warwick.ac.uk/id/eprint/191753/1/WRAP-twerp-1561-Yuan-25.pdf"
-   }
-  ]
- },
- "2025-2026|Warwick|Yuchen Lin": {
-  "status": "ok",
-  "source": "https://www.yuchenlin.com/research",
-  "checked": "2026-10",
-  "publications": [],
-  "rr": [],
-  "wp": [
-   {
-    "title": "The U.S. Origins of Chinese Science",
-    "authors": "Bin Huang",
-    "venue": null,
-    "year": null,
-    "note": "JMP",
-    "url": null
-   },
-   {
-    "title": "Coeducation, Female Human Capital, and the Evolution of Gender Norms",
-    "authors": "Bin Huang",
-    "venue": null,
-    "year": null,
-    "note": null,
-    "url": null
-   }
-  ]
- },
  "2025-2026|Washington University in St. Louis|Gengbin Piao": {
   "status": "no_homepage",
   "source": "web search only (no personal homepage found)",
@@ -9812,6 +8408,72 @@
    }
   ]
  },
+ "2026-2027|Arizona State University|Shufan Wang": {
+  "status": "no_homepage",
+  "source": "web search found nothing",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Plea-Bargaining with Endogenous Evidence Collection",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Boston College|Manchun Wang": {
+  "status": "ok",
+  "source": "https://sites.google.com/bc.edu/manchunwang/research",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Delivery Risk, Firm Heterogeneity and Market Power",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Ripples of Delay: Capital Project Delay in Production Network",
+    "authors": "Dimin Liu",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Time-to-build Capital, Network and Business Cycle",
+    "authors": "Dimin Liu",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "The Macroeconomic Effects of Import-Price Shocks: Theory and an Application to the Pandemic Inflation",
+    "authors": "Susanto Basu",
+    "venue": null,
+    "year": null,
+    "note": "Draft on request",
+    "url": null
+   },
+   {
+    "title": "Loose Financial Conditions, Rising Leverage, and Risks to Macro-Financial Stability",
+    "authors": "Adolfo Barajas, Woon Gyu Choi, et al.",
+    "venue": null,
+    "year": null,
+    "note": "IMF Working Paper",
+    "url": null
+   }
+  ]
+ },
  "2026-2027|Boston College|Yufeng Shi": {
   "status": "ok",
   "source": "https://sites.google.com/bc.edu/yufengshi/home/research",
@@ -9838,6 +8500,49 @@
    {
     "title": "Complementing Skills, Substituting Human Elements and Efforts: Nudging Generative AI Usage in Class",
     "authors": "Dmitry Mitrofanov",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Brown|Yuxian Chen": {
+  "status": "ok",
+  "source": "https://www.yuxianchen.com/research",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Asymmetric Trading Costs and Ancient Greek Cities",
+    "authors": "Yannis M. Ioannides, Ferdinand Rauch",
+    "venue": "Economic Theory",
+    "year": null,
+    "note": "Forthcoming",
+    "url": null
+   }
+  ],
+  "rr": [
+   {
+    "title": "The Diffusion of Alphabetic Writing and Coinage in the Ancient Hellenic Poleis",
+    "authors": "Yannis M. Ioannides",
+    "venue": "Economica",
+    "year": null,
+    "note": "Under revision for resubmission at editor's invitation",
+    "url": null
+   }
+  ],
+  "wp": [
+   {
+    "title": "More Babies for the Buck? Universal versus Work-Contingent Child Care Subsidies",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Risk, Returns, and Reproduction: Fertility Choice under Parental Aversion to Sibling Inequality",
+    "authors": null,
     "venue": null,
     "year": null,
     "note": null,
@@ -9920,6 +8625,31 @@
    }
   ]
  },
+ "2026-2027|CalTech|Shiyu (Jake) Zhang": {
+  "status": "ok",
+  "source": "https://jake-zhang.com/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "A Costly-Information Foundation for Psychometric Curve Responses",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP; new draft coming soon",
+    "url": null
+   },
+   {
+    "title": "Local global games and network common learning",
+    "authors": "Omer Tamuz, Olga Rospuskova",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
  "2026-2027|Columbia|Tianyu Luo": {
   "status": "ok",
   "source": "https://tianyu-luo.github.io/",
@@ -9937,28 +8667,388 @@
    }
   ]
  },
- "2026-2027|HKUST|Jinyuqi Huang": {
+ "2026-2027|Cornell|Yiwei Sun": {
   "status": "ok",
-  "source": "https://jinyuqi-huang.github.io/research/",
+  "source": "https://yiweisun-home.github.io/research/",
   "checked": "2026-10",
-  "publications": [],
+  "publications": [
+   {
+    "title": "Abelian difference sets with the symmetric difference property",
+    "authors": "James A. Davis, J. J. Hoo, Connor Kissane, Ziming Liu, Calvin Reedy, Kartikey Sharma, Ken Smith",
+    "venue": "Designs, Codes and Cryptography",
+    "year": 2021,
+    "note": null,
+    "url": null
+   }
+  ],
   "rr": [
    {
-    "title": "Role Uncertainty and Punishment Severity in Repeated Cheap Talk: Theory and Experiment",
-    "authors": "Wooyoung Lim",
-    "venue": "Games and Economic Behavior",
-    "year": null,
-    "note": "JMP; Revise and Resubmit",
+    "title": "Externally Valid Selection of Experimental Sites via the k-Median Problem",
+    "authors": "José Luis Montiel Olea, Brenda Prallon, Chen Qiu, Jörg Stoye",
+    "venue": "JPE: Microeconomics",
+    "year": 2026,
+    "note": "Revision requested; extended abstract in EC'25 proceedings",
     "url": null
    }
   ],
   "wp": [
    {
-    "title": "First They Came for the Others: A Theory of Divide-and-Conquer",
-    "authors": "Yeon-Koo Che, Wooyoung Lim",
+    "title": "Sensitivity Analysis for Difference-in-Discontinuities Designs",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP; draft available soon",
+    "url": null
+   },
+   {
+    "title": "Extrapolating Away from the Cutoff in Regression Discontinuity Designs",
+    "authors": null,
+    "venue": null,
+    "year": 2025,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Cornell|Zebang Xu": {
+  "status": "ok",
+  "source": "https://www.zebangxu.com/",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "The Origin of Risk",
+    "authors": "Alexandr Kopytov, Mathieu Taschereau-Dumouchel",
+    "venue": "Quarterly Journal of Economics",
+    "year": null,
+    "note": "Accepted",
+    "url": null
+   },
+   {
+    "title": "Climate Change and Long-Run Factor Shares",
+    "authors": "Tianzi Liu, Ivan Rudik",
+    "venue": "AEA Papers and Proceedings",
+    "year": 2026,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Endogenous Returns to Scale",
+    "authors": "Alexandr Kopytov, Mathieu Taschereau-Dumouchel",
     "venue": null,
     "year": null,
     "note": null,
+    "url": null
+   },
+   {
+    "title": "The (Mis)Allocation Channel of Climate Change: Evidence from Global Firm-level Microdata",
+    "authors": "Tianzi Liu",
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Misallocation with Capital Heterogeneity",
+    "authors": "Yu Wang",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Georgetown University|Jinxin Wu": {
+  "status": "ok",
+  "source": "https://sites.google.com/view/jinxinwu/research",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Optimal Defense Spending and Taxation in a Dynamic Economy",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Propagation of Macroeconomic Shocks Through Input-Output and Geographic Networks in China",
+    "authors": "Ergys Islamaj",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Georgetown University|Mingao Xie": {
+  "status": "ok",
+  "source": "https://www.mingaoxie.com/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "The Dealer's Problem: Two-Sided Pricing and Inventory Management in Second-Hand Markets",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Georgetown University|Siming Ye": {
+  "status": "ok",
+  "source": "https://www.simingye.com/",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Haves and have-nots: A theory of economic sufficientarianism",
+    "authors": "Christopher P. Chambers",
+    "venue": "Journal of Economic Theory",
+    "year": 2024,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Aspiration-Weighted Influence",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Incentivizing Work to Be Reviewed",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Retire Him, Deploy Her: Couples' Asymmetric Labor Responses to Pension Eligibility",
+    "authors": "Lanfeng Li",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Information Acquisition in Contests with Conditional Investments",
+    "authors": "Zhuoqiong Chen, Jie Zheng",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Georgetown University|Zhengrui Cheng": {
+  "status": "ok",
+  "source": "https://chengzhengrui.com/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [
+   {
+    "title": "Exporting Automation, Not Just Goods: Evidence from China's Industrial Robot Exports",
+    "authors": "Shiliang Cui, Lizhi Liu",
+    "venue": "Manufacturing & Service Operations Management",
+    "year": null,
+    "note": "Reject and resubmit",
+    "url": null
+   }
+  ],
+  "wp": [
+   {
+    "title": "Going Overseas: FDI Decisions and Supply-Chain Integration",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Johns Hopkins University|Pinda Wang": {
+  "status": "ok",
+  "source": "https://pindawang.github.io/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Accountability without rule of law: how judicial centralization shapes local governance in China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "The long-term chilling effect of mass political violence: evidence from China’s Cultural Revolution",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "How anti-corruption purges could backfire: evidence from China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "Submitted to Journal of Economic Behavior and Organization",
+    "url": null
+   },
+   {
+    "title": "Can mass purges root out corruption?",
+    "authors": "Stephane Wolton, Johannes Lützenrath",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Johns Hopkins University|Su Wang": {
+  "status": "ok",
+  "source": "https://suwang-sam.github.io/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "College Quality and Student Education Choices",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Effects of Reduced Workplace Presence on COVID-19 Deaths: An Instrumental-Variables Approach",
+    "authors": "John McLaren",
+    "venue": null,
+    "year": 2020,
+    "note": "NBER Working Paper no. 28275",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Johns Hopkins University|Yingfei Mu": {
+  "status": "ok",
+  "source": "https://infinitemu.github.io/",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "What's Missing in Environmental Self-Monitoring: Evidence from Strategic Shutdowns of Pollution Monitors",
+    "authors": "Edward Rubin, Eric Zou",
+    "venue": "Review of Economics and Statistics",
+    "year": 2026,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Competition and Punishment in Expert Markets",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP (listed as 'Competition in Expert Markets'; homepage title may differ)",
+    "url": null
+   },
+   {
+    "title": "Information Differentiation under Correlation Neglect",
+    "authors": "Xinyang Wang",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Johns Hopkins University|Yongzheng Liang": {
+  "status": "ok",
+  "source": "https://www.yongzhengliang.com/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Understanding Practice Integration in the U.S. Medical Eye Care Industry",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Leverage, Liquidity, and Innovation: Short-Run Pharmaceutical Responses to the 2017 Corporate Tax Reform",
+    "authors": "Antonio J. Trujillo, Manuel Hermosilla, Jeromie Ballreich, So-Yeon Kang",
+    "venue": null,
+    "year": null,
+    "note": "Under peer review",
+    "url": null
+   },
+   {
+    "title": "2017 Tax Cuts, Profits, and Innovation: Effect of the TCJA on Pharmaceutical R&D",
+    "authors": "Antonio J. Trujillo, Jeromie Ballreich",
+    "venue": null,
+    "year": null,
+    "note": "Under peer review",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|MIT|Yifan Dai": {
+  "status": "ok",
+  "source": "https://economics.mit.edu/people/phd-students/yifan-dai",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [
+   {
+    "title": "The Bounds of Mediated Communication",
+    "authors": "Roberto Corrao",
+    "venue": "Econometrica",
+    "year": null,
+    "note": "Revise & Resubmit; extended abstract in EC'23 proceedings",
+    "url": null
+   },
+   {
+    "title": "Bayesian Persuasion with Selective Disclosure",
+    "authors": "Drew Fudenberg, Harry Pei",
+    "venue": "Theoretical Economics",
+    "year": null,
+    "note": "Revise & Resubmit; extended abstract in EC'26 proceedings",
+    "url": null
+   }
+  ],
+  "wp": [
+   {
+    "title": "When Is Mediated Communication Possible?",
+    "authors": "Anna Merotto",
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Flexible Demand Manipulation",
+    "authors": "Andrew Koh",
+    "venue": null,
+    "year": null,
+    "note": "Extended abstract in EC'26 proceedings",
     "url": null
    }
   ]
@@ -10046,69 +9136,52 @@
    }
   ]
  },
- "2026-2027|Princeton|Hantao Wu": {
+ "2026-2027|Ohio State University|Haoran Wang": {
   "status": "ok",
-  "source": "https://sites.google.com/view/hantaowu/research",
+  "source": "https://hwang853.github.io/research/",
   "checked": "2026-10",
   "publications": [
    {
-    "title": "E-Commerce as a Driver of Gender Equity: Labor Supply and Household Outcomes in Rural China",
-    "authors": "Zengdong Cao, Wei Huang",
-    "venue": "Journal of Human Resources",
+    "title": "Balancing Efficiency and Equity in Classroom Assignment under Endogenous Peer Effects",
+    "authors": "Lei Bill Wang, Zhenbang Jiao, Om Prakash Bedant",
+    "venue": "Journal of Applied Economics",
     "year": null,
-    "note": "Forthcoming",
-    "url": null
-   },
-   {
-    "title": "Geographic Variation in Fertility: Evidence from Mover Design",
-    "authors": "Man Zhu",
-    "venue": "Labour Economics",
-    "year": 2026,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Poverty Spillovers in Human Capital Formation: Evidence from Randomized Class Assignments in China",
-    "authors": "Wei Huang, Mi Luo, Yueping Song, Yiping Wang",
-    "venue": "Journal of Public Economics",
-    "year": 2025,
-    "note": null,
-    "url": null
-   },
-   {
-    "title": "Motherhood Penalty and Declining Fertility in China: A Pseudo-Event Study",
-    "authors": "Wei Huang, Yiping Wang, Yi Zhou",
-    "venue": "Journal of Population Economics",
-    "year": 2025,
-    "note": null,
+    "note": "Published",
     "url": null
    }
   ],
-  "rr": [
-   {
-    "title": "Political Responses to Hate Crime",
-    "authors": "Xuan Li",
-    "venue": "Journal of the European Economic Association",
-    "year": null,
-    "note": "R&R",
-    "url": null
-   }
-  ],
+  "rr": [],
   "wp": [
    {
-    "title": "Local Disamenities, Youth Human Capital, and Optimal Zoning: Evidence from Cannabis Dispensaries",
+    "title": "The Effects of Colorado's Pay Transparency among Older Workers",
     "authors": null,
     "venue": null,
     "year": null,
-    "note": "JMP (Job Market Paper I)",
+    "note": "JMP",
     "url": null
    },
    {
-    "title": "The Social Costs of ICE Enforcement",
-    "authors": "Xuan Li",
+    "title": "The Effect of Public Long-Term Care Insurance in China on Adult Children's Labor Supply",
+    "authors": null,
     "venue": null,
-    "year": 2026,
-    "note": "JMP (Job Market Paper II)",
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "The Effects of SNAP Work Requirements on Self-Employment",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "The Effects of SNAP Work Requirements on Immigrants",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
     "url": null
    }
   ]
@@ -10146,23 +9219,23 @@
    }
   ]
  },
- "2026-2027|SMU|Weihong Li": {
+ "2026-2027|Syracuse University|Mingzhang Qiao": {
   "status": "ok",
-  "source": "https://sites.google.com/view/weihong-li-econ/research",
+  "source": "https://sites.google.com/view/mingzhangqiao-joe/research ; https://mingzhangqiao.com/research",
   "checked": "2026-10",
   "publications": [],
   "rr": [],
   "wp": [
    {
-    "title": "Pollution, Promotion, and Political Showcase",
+    "title": "Cluster-Robust Inference for Extremely Unbalanced Panel Data",
     "authors": null,
     "venue": null,
     "year": null,
-    "note": "JMP",
+    "note": null,
     "url": null
    },
    {
-    "title": "Cultural Norms, Fertility, and Missing Women: Evidence from the Ghost Festival",
+    "title": "Heterogeneous Causal Effect of Job Loss on Mental Health",
     "authors": null,
     "venue": null,
     "year": null,
@@ -10200,6 +9273,114 @@
     "venue": null,
     "year": null,
     "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Texas A&M University|Sijia (Teresa) Zhang": {
+  "status": "ok",
+  "source": "https://teresasijia.github.io/research.html",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [
+   {
+    "title": "Control and Equity Tradeoff in a Partnership",
+    "authors": null,
+    "venue": "Journal of Industrial Economics",
+    "year": null,
+    "note": "R&R",
+    "url": null
+   }
+  ],
+  "wp": [
+   {
+    "title": "Are Ambiguity Attitudes Transferable? A Test Using DOSE",
+    "authors": "Alexander L. Brown",
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Bayesian Persuasion with Unknown Types of Receivers: An Experimental Investigation",
+    "authors": "Jinliang Liu",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Probabilistic and Financial Literacy Impact on Ambiguity Attitudes towards Financial Instruments",
+    "authors": "Giovanni Burro, Alessandro Castagnetti",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Asymmetric Information Undermines Coasian Bargaining in Common (Oil) Pool Resources",
+    "authors": "Alexander L. Brown, Catherine Eckel, Steven Wiggins",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|Texas A&M University|Yitong Wang": {
+  "status": "ok",
+  "source": "https://yitongwang-econ.github.io/research/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Refund Frictions and the Transmission of Export VAT Rebates",
+    "authors": "Li Gan, Siyuan Zeng",
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Optimal Research Contracting with Observable Firm Characteristics",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Should the Government Subsidize Firms or Households?",
+    "authors": "Li Gan, Yuzhe Zhang",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "The Optimal Inflation Rate",
+    "authors": "Shenghao Zhu",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|UBC|Hanqi Wang": {
+  "status": "ok",
+  "source": "https://hanqiwang-econ.github.io/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Estimating a Rational Inattention Discrete Choice Model: A Semiparametric Approach",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
     "url": null
    }
   ]
@@ -10362,6 +9543,213 @@
    }
   ]
  },
+ "2026-2027|UT Austin|Jiqing Zhao": {
+  "status": "ok",
+  "source": "https://sites.google.com/view/jiqingzhao/research",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "TOPSIS-based Investment Risk Assessment of Countries along the Belt and Road",
+    "authors": "Da Lu, Yucheng Zhou",
+    "venue": "Journal of Hubei University of Technology",
+    "year": 2018,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Efficient Instrumental Variable Estimation under Sequential Missingness",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Heterogeneous Treatment Effect in Panel Data with Machine Learning",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "Draft on request",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|UT Austin|Kai Wu": {
+  "status": "ok",
+  "source": "https://kaiwu-econ.com/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Crowding",
+    "authors": "Yizhen Gu, Qu Tang, Ben Zou",
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Beyond Targeted Firms: Supply Chain Spillovers of Environmental Regulation in China",
+    "authors": "Xinghua Deng",
+    "venue": null,
+    "year": null,
+    "note": "Draft coming soon",
+    "url": null
+   },
+   {
+    "title": "Political Consolidation and Corporate Tax Burden",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|UT Austin|Xinrong Liu": {
+  "status": "ok",
+  "source": "https://xinrong45.github.io/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "What to Measure: Optimal Monitoring under Adverse Selection and Moral Hazard",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|UT Austin|Ziheng Yu": {
+  "status": "ok",
+  "source": "https://yu-ziheng.github.io/research/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "The Case of Apple’s Restrictions on Super Apps: Is the U.S. Department of Justice Right?",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Cheap Talk with Costly Information Acquisition by the Receiver",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|UW Madison|Jiaoyang Li": {
+  "status": "no_homepage",
+  "source": "WebSearch; https://econ.wisc.edu/staff/li-jiaoyang/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": []
+ },
+ "2026-2027|UW Madison|Kai Gao": {
+  "status": "ok",
+  "source": "https://kgao33.github.io/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Beyond the Label: Do Ecodesign Regulations Reduce Real-World Energy Use?",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Does Carbon Pricing Misallocate Clean Technology? Evidence from Global Shipping",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Instrument Choice in Merger Simulations",
+    "authors": "Adam Dearing, Lorenzo Magnolfi, Christopher Sullivan",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "What Drives the Repowering of Wind Turbines? Evidence from the Danish Wind Energy Industry",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "Listed under Other Writing",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|UW Madison|Kai Gu": {
+  "status": "ok",
+  "source": "https://kgu22.github.io/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Fenced Off: Export Processing Zones and the Local Economy in China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Who Bears the Cost of a Special Economic Zone? Incumbent Firms across Prefecture Borders in China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "Draft on request",
+    "url": null
+   },
+   {
+    "title": "Activity or Capability? Export Processing Zones and Portable Export Experience in China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "Draft on request",
+    "url": null
+   },
+   {
+    "title": "Enclaves or Engines? Export Processing Zones and Local Production Linkages in China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "Draft on request",
+    "url": null
+   },
+   {
+    "title": "Discovery Lags on Social Media Platforms",
+    "authors": "Arseniy Stolyarov",
+    "venue": null,
+    "year": null,
+    "note": "Draft on request",
+    "url": null
+   }
+  ]
+ },
  "2026-2027|University of Arizona|Chengcheng Wang": {
   "status": "ok",
   "source": "https://www.chengchengwang.org/research/ ; https://eller.arizona.edu/people/chengcheng-wang",
@@ -10445,6 +9833,89 @@
    }
   ]
  },
+ "2026-2027|University of California--Santa Barbara|Yihong Liu": {
+  "status": "ok",
+  "source": "https://yihongliu-econ.github.io/research.html",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Matched Triple Differences: A Framework for Covariate Adjustment",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Post-Matching Two-Way Fixed Effects Estimation",
+    "authors": "Gonzalo Vazquez-Bare",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Estimating Resource Games with Nonlinear Dynamics",
+    "authors": "Shuchen Tsao",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of California--Santa Cruz|Dizhi Wang": {
+  "status": "ok",
+  "source": "https://dizhiwang.github.io/research/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Globalization with Capital Integration and Spatial Entry",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Interpreting \"Liberation Day\" Stock Returns through the Lens of International Trade Theory",
+    "authors": "Holger Breinlich, Alan Spearot",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "A Specific View of Global Trade Shocks",
+    "authors": "Alan Spearot",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of California--Santa Cruz|Yuchao Li": {
+  "status": "no_homepage",
+  "source": "https://economics.ucsc.edu/topics/department-updates,publications/ (JMP title only)",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Decoding the Factor Zoo: Insights from Arbitrage Trading",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
  "2026-2027|University of Illinois Urbana Champaign|Xiaohan Wang": {
   "status": "ok",
   "source": "https://xiaohanwang1997.github.io/research/",
@@ -10478,6 +9949,281 @@
    }
   ]
  },
+ "2026-2027|University of Minnesota|Yutong Zhong": {
+  "status": "ok",
+  "source": "https://yutongzhong223.github.io/research.html",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Endogenous Exit and China’s State-Sector Transformation",
+    "authors": "Adam A. Oppenheimer",
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "A Friction-Robust Estimator of Labor-Capital Substitution",
+    "authors": "Lieyuan Yang",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of North Carolina--Chapel Hill|Dingwei Guo": {
+  "status": "ok",
+  "source": "https://dw-guo.github.io/publications/",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Leave or Stay: Inequality of the Poverty Alleviation Resettlement Program",
+    "authors": "Yuan Zhao, Xiyan Li",
+    "venue": "Journal of Development Effectiveness",
+    "year": 2026,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Household Customers' Cost of Interruption: Survey Study on Summer Electricity Peak of Xi'an City",
+    "authors": "Yuan Zhao, Weihua Yu, Xiaoping He",
+    "venue": "Frontiers in Energy Research",
+    "year": 2022,
+    "note": "Vol. 9",
+    "url": null
+   }
+  ],
+  "rr": [
+   {
+    "title": "Who Earns, Who Bears: Relative Income, Bargaining Power, and Fertility Decisions",
+    "authors": "Zining Li, Yuan Zhao",
+    "venue": null,
+    "year": null,
+    "note": "R&R",
+    "url": null
+   }
+  ],
+  "wp": [
+   {
+    "title": "Unburdened Fields, Mobilized Workers: Labor Market Responses to Agricultural Tax Reform and Intergenerational Consequences",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Beyond the Farm: How Agricultural Cooperatives Reshape Rural Labor Allocation and Income",
+    "authors": "Yuan Zhao, Kaixi He",
+    "venue": null,
+    "year": null,
+    "note": "Under review",
+    "url": null
+   },
+   {
+    "title": "When Money Crowds Out Morals: A Study of Demand-Side Management Participation",
+    "authors": "Yuan Zhao",
+    "venue": null,
+    "year": null,
+    "note": "Under review",
+    "url": null
+   },
+   {
+    "title": "Consistency across WTP Elicitation Formats under Valuation Uncertainty: Evidence from a Large-Scale Water Diversion Project in China",
+    "authors": "Yuan Zhao, Zhi Li",
+    "venue": null,
+    "year": null,
+    "note": "Under review",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of North Carolina--Chapel Hill|Jieyao Wang": {
+  "status": "no_papers_listed",
+  "source": "https://jwadams0.github.io/pages/ ; https://jwadams0.github.io/pages/cv.html (404)",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": []
+ },
+ "2026-2027|University of North Carolina--Chapel Hill|Zhengrun Chen": {
+  "status": "ok",
+  "source": "https://zrchen-econ.github.io/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Changes-in-Changes with a Continuous Treatment",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Robust Identification in Difference-in-Differences Models",
+    "authors": "Kyunghoon Ban, Augustine Denteh, Désiré Kédagni",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Oregon|Sophie Yan Wang": {
+  "status": "ok",
+  "source": "https://sites.google.com/view/sophieyanwang/research",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Global, Regional, and Idiosyncratic Drivers of U.S. 20 States' Business Cycles",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Heterogeneous Asymmetric Regional Effects of Monetary Policy over the Business Cycle",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Pittsburgh|Yu Qiu": {
+  "status": "ok",
+  "source": "https://jessyuqiu.github.io/",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Are More Children Better than One? Evidence from a Lab Experiment of Decision Making",
+    "authors": "Xun Li",
+    "venue": "China Economic Review",
+    "year": 2021,
+    "note": "Vol. 69",
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Fathers in Office, Sons in Jobs: Intergenerational Returns to Local Political Office",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Building Jobs: Employment Stabilization and Construction in China",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Migrant Integration and Social Stability: Evidence from China",
+    "authors": "Weizheng Lai",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Geopolitical Tensions and Economic Opportunity: Evidence from Japan",
+    "authors": "Weizheng Lai",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Rochester|Qiyang Yu": {
+  "status": "ok",
+  "source": "https://maxqiyangyu.github.io/research/",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Estimation and Inference for CP Tensor Factor Models",
+    "authors": "Bin Chen, Yuefeng Han",
+    "venue": "Journal of Econometrics",
+    "year": 2026,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Diffusion Index Forecasting with Tensor Data",
+    "authors": "Bin Chen, Yuefeng Han",
+    "venue": "Journal of Econometrics",
+    "year": 2026,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Spillovers Under Common Shocks in Panel Data: Estimation and Inference",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Useful Factors Are Fewer Than You Think",
+    "authors": "Bin Chen, Guofu Zhou",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Rochester|Siyi (Simon) Li": {
+  "status": "ok",
+  "source": "https://simonli-econ.netlify.app/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Foreign Language and Universalism: A Field Study in Kyrgyzstan",
+    "authors": null,
+    "venue": null,
+    "year": 2026,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Individuating Information and Belief Updating: Evidence from a Lab-in-the-Field Experiment",
+    "authors": null,
+    "venue": null,
+    "year": 2026,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Ethnic Wage Disparities: Evidence from China",
+    "authors": null,
+    "venue": null,
+    "year": 2025,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
  "2026-2027|University of Rochester|Yidi Yang": {
   "status": "ok",
   "source": "https://sites.google.com/view/yidiyang/research",
@@ -10491,6 +10237,240 @@
     "venue": null,
     "year": null,
     "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Rochester|Zeming Ma": {
+  "status": "ok",
+  "source": "https://www.zemingma.com/research",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Three Rules for Airport Problems: Characterizations Via Order Preservation, Dispersion Minimization, and Consistency",
+    "authors": null,
+    "venue": "Mathematical Social Sciences",
+    "year": 2026,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Inflationary and Distributional Effects of Fossil Energy Price Fluctuation on the Chinese Economy",
+    "authors": "Z. M. Chen, P. L. Chen, S. Xu, T. Hayat, A. Alsaedi",
+    "venue": "Energy",
+    "year": 2019,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Fair Allocations in Crowdfunding: Order-Augmented Revenue-Sharing Problems",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "How to Share Streams: Characterizations of Popularity Indices for Music Streaming Problems",
+    "authors": "Di Feng",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Southern California|Jerry Shen": {
+  "status": "ok",
+  "source": "https://sites.google.com/usc.edu/jerry/research",
+  "checked": "2026-10",
+  "publications": [
+   {
+    "title": "Deep Generative Inpainting with Comparative Sample Augmentation",
+    "authors": null,
+    "venue": "Journal of Computational and Cognitive Engineering",
+    "year": 2022,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Achieving Outcome Fairness in Machine Learning Models for Social Decision Problems",
+    "authors": null,
+    "venue": "Proceedings of IJCAI",
+    "year": 2020,
+    "note": null,
+    "url": null
+   }
+  ],
+  "rr": [],
+  "wp": []
+ },
+ "2026-2027|University of Southern California|Sai Zhang": {
+  "status": "ok",
+  "source": "https://saichriszhang.github.io/research/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Time Is of the Essence: Experimental Evidence on the Effects of Job Application Timing",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "When Hierarchies Teach: Selective Review and Decision Alignment in U.S. Asylum Courts",
+    "authors": "Daniel L. Chen",
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "From AI Exposure to Training Access: Evidence from U.S. Workforce Boards",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Southern California|Sijia Chen": {
+  "status": "ok",
+  "source": "https://sites.google.com/view/sijia-chen/research",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Neighborhood Employment and the Construction of Affordable Housing: Evidence from the Low-Income Housing Tax Credit Program",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Evaluating Graduate Education as a Strategy During Economic Downturns",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Southern California|Wei Xuan": {
+  "status": "no_homepage",
+  "source": "https://dornsife.usc.edu/econ/doctoral/job-market-candidates/ (JMP title only)",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Retail Demand Shock and Cryptocurrency Market Response: Evidence from Brokerage Outages",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Southern California|Yugen Chen": {
+  "status": "no_homepage",
+  "source": "https://dornsife.usc.edu/econ/doctoral/job-market-candidates/ (JMP title only)",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "The Cure Can Be Worse Than the Disease: Interdependence Between Network Design and Cost Sharing in Medicare Part D",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Virginia|Qiulin Chen": {
+  "status": "ok",
+  "source": "https://sites.google.com/view/qiulin-chen/home",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "From Rails to Trails to Rents: Can Affordable Housing Keep Pace with Urban Redevelopment?",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Urban Renewal or Urban Removal: Evidence from Revitalization in Washington, D.C.",
+    "authors": null,
+    "venue": null,
+    "year": 2025,
+    "note": null,
+    "url": null
+   },
+   {
+    "title": "Spatial Interaction of the Urban Agglomeration in Anhui Province",
+    "authors": null,
+    "venue": null,
+    "year": 2021,
+    "note": null,
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Virginia|Yiren Ding": {
+  "status": "ok",
+  "source": "https://dingyiren.github.io/research/",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Fulfillment by Amazon and Prime: Who Benefits and How?",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   }
+  ]
+ },
+ "2026-2027|University of Washington|Yizhan Huang": {
+  "status": "ok",
+  "source": "https://macro.huang-yizhan.info/research",
+  "checked": "2026-10",
+  "publications": [],
+  "rr": [],
+  "wp": [
+   {
+    "title": "Central Bank Digital Currency and Financial Frictions in Business Cycle and Monetary Policy Analysis",
+    "authors": null,
+    "venue": null,
+    "year": null,
+    "note": "JMP",
+    "url": null
+   },
+   {
+    "title": "Quantitative Easing Equivalence with Central Bank Digital Currency Price in Utility and Optimal Monetary Policy",
+    "authors": "Fabio Ghironi",
+    "venue": null,
+    "year": null,
+    "note": null,
     "url": null
    }
   ]
