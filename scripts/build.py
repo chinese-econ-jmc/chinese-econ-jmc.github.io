@@ -31,6 +31,9 @@ FIELD_MAP_FILE = DATA_DIR / "fields.json"
 REGION_MAP_FILE = DATA_DIR / "regions.json"
 INSTITUTION_MAP_FILE = DATA_DIR / "institutions.json"
 INDUSTRY_MAP_FILE = DATA_DIR / "industry.json"
+# papers scraped from candidates' homepages, keyed by "cycle|school|name"
+# (built by scripts/fetch_homepages.py + manual review; editable by hand)
+RESEARCH_FILE = DATA_DIR / "research.json"
 
 # ---------------------------------------------------------------- regexes ---
 RE_REGION = re.compile(r"^#{1,6}\s*(.+?)\s*$")
@@ -298,6 +301,7 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
             warn(f"line {lineno}: unrecognised line ignored: {line[:60]}")
 
     # ---- derive structured fields from each bio
+    used_ids: set[str] = set()
     for c in candidates:
         bio = c["bio"]
         c["info_missing"] = (not bio) or ("信息不详" in bio)
@@ -335,8 +339,11 @@ def parse_file(path: Path, field_map: list[tuple[str, str]], region_map: Keyword
         hit = match_destination(c["placement"], industry_map) if c["placement_type"] == "Industry & Other" else None
         c["placement_sector"], c["placement_employer"] = hit.split("|", 1) if hit else (None, None)
 
-        slug = re.sub(r"[^a-z0-9]+", "-", c["name"].lower()).strip("-") or "x"
+        slug = re.sub(r"[^a-z0-9]+", "-", c["name"].lower()).strip("-") or (c["name_zh"] or c["name"])
         c["id"] = f"{cycle}/{slug}"
+        if c["id"] in used_ids:  # same name twice in a cycle (e.g. two "Siyu Chen")
+            c["id"] += "-" + (re.sub(r"[^a-z0-9]+", "-", c["school"].lower()).strip("-") or str(len(used_ids)))
+        used_ids.add(c["id"])
         del c["line"]
 
     return {"cycle": cycle, "schools": schools, "candidates": candidates}
@@ -356,6 +363,8 @@ def main() -> int:
         print("No data/*.md files found", file=sys.stderr)
         return 1
 
+    research = json.loads(RESEARCH_FILE.read_text(encoding="utf-8")) if RESEARCH_FILE.exists() else {}
+
     cycles = []
     all_candidates = []
     all_schools = []
@@ -364,6 +373,12 @@ def main() -> int:
         cycles.append(parsed["cycle"])
         all_candidates.extend(parsed["candidates"])
         all_schools.extend(parsed["schools"])
+        for c in parsed["candidates"]:
+            r = research.get(f"{c['cycle']}|{c['school']}|{c['name']}")
+            c["research"] = {k: r.get(k) or [] for k in ("publications", "rr", "wp")} if r else None
+            if r:
+                c["research"]["source"] = r.get("source")
+                c["research"]["checked"] = r.get("checked")
         n = len(parsed["candidates"])
         n_placed = sum(1 for c in parsed["candidates"] if c["placement"])
         print(f"{f.name}: {len(parsed['schools'])} schools, {n} candidates, {n_placed} with placement")

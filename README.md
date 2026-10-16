@@ -90,11 +90,18 @@ No Chinese in 2025-2026 Cycle.                <- 院校下没有人时可写一�
 
 运行 `python scripts/build.py --check` 可以只做解析检查不生成文件（GitHub Actions 里的 PR 检查也用它）。
 
+### 研究成果（`data/research.json`）
+
+每位候选人的 Publications / Revise & Resubmit / Working Papers 存在 `data/research.json`，键为 `周期|院校|姓名`（与 md 中写法一致），网页在展开详情中显示。每篇论文字段：`title`、`authors`（合作者）、`venue`（期刊）、`year`、`note`（如 JMP、Forthcoming）、`url`。可以直接手动修改。
+
+批量更新：`python scripts/fetch_homepages.py`（需 `requests`、`beautifulsoup4`、`lxml`）把各人主页及 Research/Papers 子页面文本抓到 `cache/`（不入库），再人工或借助 AI 整理成上述格式。
+
 ## 五、目录结构
 
 ```
-data/            每个周期一个 .md（数据源，协作者只需要改这里）+ fields.json（领域关键词）+ regions.json（教职机构 → 地区）+ institutions.json（教职机构名称归并）
+data/            每个周期一个 .md（数据源，协作者只需要改这里）+ fields.json（领域关键词）+ regions.json（教职机构 → 地区）+ institutions.json（教职机构名称归并）+ research.json（论文）
 scripts/build.py 解析脚本（Python 3.10+，无第三方依赖）
+scripts/fetch_homepages.py  抓取候选人主页文本到 cache/，用于更新 research.json
 site/            网站静态文件（index.html 名录、stats.html 统计页）；data.js / data.json 由 build.py 生成，不入库
 .github/workflows/deploy.yml   push 到 main 时自动构建并发布到 GitHub Pages
 ```

@@ -72,7 +72,8 @@
     }
     if (ignore !== "q" && state.q) {
       const q = state.q.toLowerCase();
-      const hay = [c.name, c.name_zh, c.school, c.school_zh, c.jmp, c.bio, c.placement, c.fields_raw, ...(c.fields || [])].join(" ").toLowerCase();
+      const papers = c.research ? [...c.research.publications, ...c.research.rr, ...c.research.wp].map((p) => p.title + " " + (p.venue || "") + " " + (p.authors || "")) : [];
+      const hay = [c.name, c.name_zh, c.school, c.school_zh, c.jmp, c.bio, c.placement, c.fields_raw, ...(c.fields || []), ...papers].join(" ").toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -152,6 +153,32 @@
       `<button type="button" class="chip ${state.fields.has(f) ? "active" : ""}" data-field="${esc(f)}">${esc(f)}<span class="c">${counts[f] || 0}</span></button>`).join("");
   }
 
+  const RES_GROUPS = [["publications", "Publications 已发表"], ["rr", "Revise & Resubmit"], ["wp", "Working Papers 工作论文"]];
+
+  function paperItem(p) {
+    const title = p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title);
+    const meta = [p.authors ? `with ${esc(p.authors)}` : "", p.venue ? `<i>${esc(p.venue)}</i>` : "", p.year || ""].filter(Boolean).join(", ");
+    const note = p.note ? ` <span class="pnote ${/\bJMP\b/.test(p.note) ? "jmp" : ""}">${esc(p.note)}</span>` : "";
+    return `<li>${title}${meta ? `<span class="pmeta"> — ${meta}</span>` : ""}${note}</li>`;
+  }
+
+  function researchBlock(c) {
+    const r = c.research;
+    if (!r) return "";
+    const groups = RES_GROUPS.filter(([k]) => r[k].length).map(([k, label]) =>
+      `<div class="rgroup"><h5>${label} <span class="c">${r[k].length}</span></h5><ol>${r[k].map(paperItem).join("")}</ol></div>`).join("");
+    return `<div class="research"><h4>研究成果</h4>${groups || "<p><i>主页未列出论文</i></p>"}
+      <p class="src">来源：${r.source ? `<a href="${esc(r.source.split(/\s|,/)[0])}" target="_blank" rel="noopener">个人主页</a>` : "个人主页"}${r.checked ? `（${esc(r.checked)} 检索，以主页为准）` : ""}</p></div>`;
+  }
+
+  function resCounts(c) {
+    const r = c.research;
+    if (!r) return "";
+    const parts = [["P", r.publications.length, "已发表"], ["R&R", r.rr.length, "Revise & Resubmit"], ["WP", r.wp.length, "工作论文"]]
+      .filter(([, n]) => n).map(([l, n, t]) => `<span class="rc" title="${t}">${l} ${n}</span>`);
+    return parts.length ? `<span class="rcs">${parts.join("")}</span>` : "";
+  }
+
   function candRow(c) {
     const open = state.open.has(c.id);
     const tags = (c.fields || []).length ? (c.fields || []).map((f) => `<span>${esc(f)}</span>`).join("")
@@ -164,7 +191,7 @@
     const schoolCell = `<span class="rank">${c.rank ? "#" + c.rank : ""}</span>${esc(c.school)}`;
     let html = `<tr class="cand ${open ? "open" : ""}" data-id="${esc(c.id)}">
       <td class="name"><span class="nm">${esc(c.name)}</span>${c.name_zh ? `<span class="zh">${esc(c.name_zh)}</span>` : ""}
-        <span class="meta">${meta}${meta && site ? " · " : ""}${site}</span></td>
+        <span class="meta">${meta}${meta && site ? " · " : ""}${site}</span>${resCounts(c)}</td>
       <td class="school" data-label="院校">${schoolCell}</td>
       <td class="jmp" data-label="JMP">${c.jmp ? `<span class="jt">${esc(c.jmp)}</span>` : `<span class="none">–</span>`}</td>
       <td class="fields" data-label="领域">${tags}</td>
@@ -177,6 +204,7 @@
           ${c.website ? `<p class="src">个人主页：<a href="${esc(c.website)}" target="_blank" rel="noopener">${esc(c.website)}</a></p>` : ""}</div>
         <div><h4>教育经历</h4>${edu ? `<ul>${edu}</ul>` : "<p><i>未解析</i></p>"}
           <p class="src" style="margin-top:10px">来源：data/${esc(c.cycle)}.md · <a href="${CONFIG.repoUrl}/edit/main/data/${esc(c.cycle)}.md" target="_blank" rel="noopener">编辑此条目</a></p></div>
+        ${researchBlock(c)}
       </div></td></tr>`;
     }
     return html;
